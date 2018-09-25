@@ -1,0 +1,217 @@
+/* Full Page Sizing */
+html {
+    height: 100%;
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    
+}
+
+/* Left Side Panel Styling */
+.panel{
+	background: #CCD6DD;
+	padding: 10px;
+	overflow: hidden;
+	border-radius: 10px;
+}
+
+.btn {
+	border: 2px solid black;
+	background-color: #4285F4;
+	color: black;
+	padding: 5px 10px;
+	cursor: pointer;
+	padding: 10px;
+	font-family: 'Play';
+}
+
+.default-cursor{
+	cursor: default;
+}
+
+.blue{
+	border-color: #4285F4;
+	color: white;
+	border-radius: 5px;
+}
+
+.blue:hover{
+	background-color: #55ACEE;
+	color: white;
+	border-color: #55ACEE; 
+}
+
+.color-btn{
+	background-color: currentColor;
+	color: currentColor;
+	background: none;
+	padding: 0px;
+	cursor: pointer;
+	border-radius: 5px;
+	width: 60px;
+	height: 60px;
+	position: absolute;
+  	right: -8px;
+  	top: -8px;
+}
+
+.ui-container{
+	display: grid;
+	grid-auto-columns: auto auto auto;
+	grid-column-gap: 10px;
+	grid-row-gap: 0px;
+	padding: 10px;
+}
+
+.text-box{
+	width: 75%;
+	padding: 5px;
+	text-align: center;
+	background-color: #E1E8ED;
+	border-radius: 5px;
+	border: none;
+	color: #66757F;
+	font-family: 'Play';
+	font-size: 20px;
+}
+
+.text-box:hover{
+	background-color: #eaeff2;
+}
+
+.text-box:focus{
+	background-color: #eaeff2;
+}
+
+.input-color-container {
+  position: relative;
+  overflow: hidden;
+  width: 35px;
+  height: 35px;
+  border-radius: 5px;
+}
+
+/* Header Styles */
+.small-head{
+	font-family: 'Play';
+	color: #2b5797;
+	font-size: 15px;
+}
+
+.big-head{
+	font-family: 'Play';
+	color: #2b5797;
+	font-size: 20px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+button:focus {outline: 0;}
+input:focus{outline: 0;}
+
+
+/* Maze Grid Layout and Design Specifications */
+.grid-container{
+  display: table;
+  background-color: black;
+  width: 1000px;
+  height: 1000px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+.row{
+  display: table-row;
+}
+.cell{
+  width: 50px;
+  height: 50px;
+  background: black;
+  padding: 2px;
+  display: table-cell;
+}
+.tile {
+  background-color: white;
+  width: 100px;
+  height: 100px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+.tile:hover{
+	cursor: crosshair;
+}
+
+.paint {
+  text-align: center;
+  width: 50px;
+  height: 30px;
+  margin-bottom: 10px;
+  margin-right: 15px;
+  vertical-align: top;
+}
+.paint-color{
+  background-color: black;
+  width: 50px;
+  height: 30px;
+  border: 2px solid black;
+}
+
+/* Custom Checkboxes */
+.check-container{
+	display: block;
+	position: relative;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+}
+
+.check-container input{
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.check-box{
+	height: 20px;
+	width: 20px;
+	background-color: #E1E8ED;
+}
+
+.check-box:hover{
+	background-color: #eaeff2;
+}
+
+.check-container input:checked ~ .check-box{
+	background-color: #2196F3;
+}
+
+.check-box:after{
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+.check-container input:checked ~ .check-box:after{
+	display:block;
+}
+
+.check-container .check-box:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #2b5797;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}

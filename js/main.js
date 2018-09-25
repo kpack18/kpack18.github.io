@@ -16,3 +16,8 @@ function set_Color(elem){
 function updateC(c1) {
   current_color = c1.value;
 }
+
+
+function myAlert() {
+	alert("Oops! Looks like we don't have any algorithms yet!");
+}

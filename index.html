@@ -34,7 +34,7 @@
 				        <input type="number" name="maze-width" class="text-box" style="grid-column-start: 1;">
 				        <input type="number" name="maze-height" class="text-box" style="grid-column-start: 2; width: 100%;">
 
-				        <button class="btn blue" style="font-size: 12px; width: 100%; grid-column-start: 3; grid-row-start: 2; height: 100%; align-self: center;">Apply</button>
+				        <button class="btn blue" style="font-size: 12px; width: 100%; grid-column-start: 3; grid-row-start: 2; height: 100%; align-self: center; margin-left: 5px;">Apply</button>
 				        <br>
 
 			        <!-- Brush Properties -->
@@ -57,11 +57,20 @@
 					        <input type="checkbox" checked="checked">
 					        <span class="check-box"></span>
 				        </label>
+				        <br>
 
 				        <div class="click-drop">
 					
 				        </div>
 
+					<div class="row">			       
+					    <button class="btn blue" style="font-size: 16px;">Save</button>
+					    <p style="width: 10px;"></p>
+					    <label for="load" class="blue btn">Load</label>
+					    <input type="file" name="load" style="max-width: 100px; opacity: 0; float: right;" id="load">				 
+			        </div>
+			        <br>
+			        <button class="btn blue" onclick="myAlert()">Algorithm</button>
 			        </div>
 		        </div>
 

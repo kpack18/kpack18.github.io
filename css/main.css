@@ -50,6 +50,11 @@ body {
     margin-bottom: 20px;
 }
 
+.sidebar-subheader {
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
 .row.full-width {
     margin-left: 0px;
     margin-right: 0px;

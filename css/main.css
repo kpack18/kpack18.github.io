@@ -14,15 +14,68 @@ body {
 /* Left Side Panel Styling */
 .wrapper {
     display: flex;
-    width: 100%;
+    width: 95%;
+}
+
+#content {
+    flex-grow: 1;
+}
+
+#sidebarCollapseDiv {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: -20px;
+    top: 20px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+#sidebarCollapse {
+    width: 35px;
+    height: 35px;
+    background-color: #2b5797;
+    border-radius: 0px 10px 10px 0px;
+}
+#sidebarCollapse img {
+    margin: -5px 0px 0px -3px;
+    width: 15px;
+    height: 20px;
+    transition: all 0.3s;
+}
+#sidebar.active + #content #sidebarCollapseDiv #sidebarCollapse img {
+    transform: rotate(180deg);
+}
+
+#sidebarCollapseTop {
+    width: 15px;
+    height: 15px;
+    background-color: #2b5797;
+}
+#sidebarCollapseTop div {
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border-radius: 0px 0px 0px 15px;
+}
+
+#sidebarCollapseBot {
+    width: 15px;
+    height: 15px;
+    background-color: #2b5797;
+}
+#sidebarCollapseBot div {
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border-radius: 15px 0px 0px 0px;
 }
 
 #sidebar {
     margin: 20px;
-    position: fixed;
     top: 0;
     left: 0;
-    height: 96vh;
+    height: 95vh;
     z-index: 999;
     min-width: 300px;
     max-width: 300px;
@@ -36,7 +89,7 @@ body {
 }
 
 #sidebar.active {
-    margin-left: -300px;
+    /* margin-left: -300px; *//* Disable hiding of sidebar in large mode */
 }
 
 @media (max-width: 576px) {
@@ -59,6 +112,11 @@ body {
 
     .center-xs {
         text-align: center;
+    }
+
+    #sidebarCollapseDiv {
+        left: 0px;
+        opacity: 1;
     }
 }
 

@@ -14,10 +14,16 @@ body {
 /* Left Side Panel Styling */
 .wrapper {
     display: flex;
-    align-items: stretch;
+    width: 100%;
 }
 
 #sidebar {
+    margin: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 96vh;
+    z-index: 999;
     min-width: 300px;
     max-width: 300px;
     transition: all 0.3s;
@@ -35,6 +41,9 @@ body {
 
 @media (max-width: 576px) {
     #sidebar {
+        margin: 0px;
+        border-radius: 0px 5px 5px 0px;
+        height: 100vh;
         min-width: 160px;
         max-width: 160px;
     }

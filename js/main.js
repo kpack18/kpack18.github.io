@@ -1,6 +1,10 @@
 var current_color = 'black';
 
 $(document).ready(function () {
+    $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+    });
+
     $('#sidebarCollapse').click(function () {
         $('#sidebar').toggleClass('active');
     });

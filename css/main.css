@@ -216,6 +216,7 @@ input:focus{outline: 0;}
 
 /* Custom Checkboxes */
 .check-container{
+    margin-top: 2px;
 	display: block;
 	position: relative;
 	cursor: pointer;

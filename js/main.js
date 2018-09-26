@@ -10,17 +10,9 @@ function set_Wall(elem) {
 		if(e.which == 1 && old_crd != curr_crd){
 			
 			old_crd = curr_crd;
-
-			if(elem.style.backgroundColor == 'black'){
-				
-				elem.style.backgroundColor = 'white';
-				
-			}
-			else{
-				
-				elem.style.backgroundColor = 'black';	
-				
-			}
+	
+			elem.style.backgroundColor = current_color;	
+							
 		}
 	});
  }

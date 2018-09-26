@@ -12,11 +12,57 @@ body {
 }
 
 /* Left Side Panel Styling */
-.panel{
-	background: #CCD6DD;
-	padding: 10px;
-	overflow: hidden;
-	border-radius: 10px;
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 300px;
+    max-width: 300px;
+    transition: all 0.3s;
+    font-family: 'Play';
+    background: #CCD6DD;
+    padding: 10px;
+    overflow: hidden;
+    border-radius: 10px;
+    color: #2b5797;
+}
+
+#sidebar.active {
+    margin-left: -300px;
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        min-width: 150px;
+        max-width: 150px;
+        margin-left: -150px;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+
+#sidebar-header {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.row.full-width {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.container-fluid.full-width, .col.full-width {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.col.tight {
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .btn {

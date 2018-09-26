@@ -33,15 +33,23 @@ body {
     margin-left: -300px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 576px) {
     #sidebar {
-        min-width: 150px;
-        max-width: 150px;
-        margin-left: -150px;
+        min-width: 160px;
+        max-width: 160px;
     }
 
     #sidebar.active {
-        margin-left: 0;
+        margin-left: -160px;
+    }
+
+    .tighten-down-xs {
+        margin-top: 5px;
+        margin-bottom: 0px;
+    }
+
+    .center-xs {
+        text-align: center;
     }
 }
 

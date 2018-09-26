@@ -1,14 +1,20 @@
 var current_color = 'black';
 
-$('#color-pick').change(function () {
-    current_color = $(this).val();
-});
+$(document).ready(function () {
+    $('#sidebarCollapse').click(function () {
+        $('#sidebar').toggleClass('active');
+    });
 
-$('.tile').click(function () {
-    setColor($(this));
-});
+    $('#color-pick').change(function () {
+        current_color = $(this).val();
+    });
 
-$('#btnAlgorithm').click(myAlert);
+    $('.tile').click(function () {
+        setColor($(this));
+    });
+
+    $('#btnAlgorithm').click(myAlert);
+});
 
 function setColor(elem) {
     elem.css('backgroundColor', current_color);

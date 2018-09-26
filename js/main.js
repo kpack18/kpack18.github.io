@@ -1,18 +1,18 @@
 var current_color = 'black';
 
-function set_Wall(elem) {
-  if(elem.style.backgroundColor == 'black'){
-    elem.style.backgroundColor = 'white';
-  }
-  else{
-    elem.style.backgroundColor = 'black';
-  }
+$('#color-pick').change(function () {
+    current_color = $(this).val();
+});
+
+$('.tile').click(function () {
+    setColor($(this));
+});
+
+function setColor(elem) {
+    elem.css('backgroundColor', current_color);
 }
 
-function set_Color(elem){
-  elem.style.backgroundColor = current_color;
-}
 
-function updateC(c1) {
-  current_color = c1.value;
+function myAlert() {
+	alert("Oops! Looks like we don't have any algorithms yet!");
 }

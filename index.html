@@ -1,15 +1,16 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Algorithm Visualizer</title>
+<head>
+    <meta charset="utf-8">
+    <title>Algorithm Visualizer</title>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="css/main.css">
-        <link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet'>
 
-        <!-- Bootstrap -->
-    </head>
+    <!-- Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
     <body>
         <div style="padding: 10px; display: flex;">
 
@@ -34,7 +35,7 @@
 				        <input type="number" name="maze-width" class="text-box" style="grid-column-start: 1;">
 				        <input type="number" name="maze-height" class="text-box" style="grid-column-start: 2; width: 100%;">
 
-				        <button class="btn blue" style="font-size: 12px; width: 100%; grid-column-start: 3; grid-row-start: 2; height: 100%; align-self: center;">Apply</button>
+				        <button class="btn blue" style="font-size: 12px; width: 100%; grid-column-start: 3; grid-row-start: 2; height: 100%; align-self: center; margin-left: 5px;">Apply</button>
 				        <br>
 
 			        <!-- Brush Properties -->
@@ -46,7 +47,7 @@
 				        <!-- Paint Color Selector -->
 				        <p class="default-cursor small-head"><b>Paint Color</b></p>
 				        <div class="input-color-container">
-					        <input class="color-btn" type="color" id="color-pick" onchange="updateC(this)" />
+					        <input class="color-btn" type="color" id="color-pick" />
 				        </div>
 				        <br>
 
@@ -57,11 +58,20 @@
 					        <input type="checkbox" checked="checked">
 					        <span class="check-box"></span>
 				        </label>
+				        <br>
 
 				        <div class="click-drop">
 					
 				        </div>
 
+					<div class="row">			       
+					    <button class="btn blue" style="font-size: 16px;">Save</button>
+					    <p style="width: 10px;"></p>
+					    <label for="load" class="blue btn">Load</label>
+					    <input type="file" name="load" style="max-width: 100px; opacity: 0; float: right;" id="load">				 
+			        </div>
+			        <br>
+			        <button class="btn blue" onclick="myAlert()">Algorithm</button>
 			        </div>
 		        </div>
 
@@ -73,19 +83,19 @@
 	        <div class="grid" style="float: right; padding-left: 25%; padding-top: 10%;">
 
 			        <div class="row">
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
 			        </div>
 			        <div class="row">
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
 			        </div>
 			        <div class="row">
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
 			        </div>
 	        </div>
         </div>

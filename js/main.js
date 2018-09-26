@@ -8,10 +8,11 @@ $('.tile').click(function () {
     setColor($(this));
 });
 
+$('#btnAlgorithm').click(myAlert);
+
 function setColor(elem) {
     elem.css('backgroundColor', current_color);
 }
-
 
 function myAlert() {
 	alert("Oops! Looks like we don't have any algorithms yet!");

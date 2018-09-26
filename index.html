@@ -1,15 +1,16 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Algorithm Visualizer</title>
+<head>
+    <meta charset="utf-8">
+    <title>Algorithm Visualizer</title>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" href="css/main.css">
-        <link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet'>
 
-        <!-- Bootstrap -->
-    </head>
+    <!-- Bootstrap -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
     <body>
         <div style="padding: 10px; display: flex;">
 
@@ -46,7 +47,7 @@
 				        <!-- Paint Color Selector -->
 				        <p class="default-cursor small-head"><b>Paint Color</b></p>
 				        <div class="input-color-container">
-					        <input class="color-btn" type="color" id="color-pick" onchange="updateC(this)" />
+					        <input class="color-btn" type="color" id="color-pick" />
 				        </div>
 				        <br>
 
@@ -82,19 +83,19 @@
 	        <div class="grid" style="float: right; padding-left: 25%; padding-top: 10%;">
 
 			        <div class="row">
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
 			        </div>
 			        <div class="row">
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
 			        </div>
 			        <div class="row">
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
-			          <div class="cell"> <button type="button" class="tile" onclick="set_Color(this)"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
+			          <div class="cell"> <button type="button" class="tile"></button> </div>
 			        </div>
 	        </div>
         </div>

@@ -1,14 +1,24 @@
 var current_color = 'black';
 
-$('#color-pick').change(function () {
-    current_color = $(this).val();
-});
+$(document).ready(function () {
+    $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+    });
 
-$('.tile').click(function () {
-    setColor($(this));
-});
+    $('#sidebarCollapse').click(function () {
+        $('#sidebar').toggleClass('active');
+    });
 
-$('#btnAlgorithm').click(myAlert);
+    $('#color-pick').change(function () {
+        current_color = $(this).val();
+    });
+
+    $('.tile').click(function () {
+        setColor($(this));
+    });
+
+    $('#btnAlgorithm').click(myAlert);
+});
 
 function setColor(elem) {
     elem.css('backgroundColor', current_color);

@@ -12,11 +12,137 @@ body {
 }
 
 /* Left Side Panel Styling */
-.panel{
-	background: #CCD6DD;
-	padding: 10px;
-	overflow: hidden;
-	border-radius: 10px;
+.wrapper {
+    display: flex;
+    width: 95%;
+}
+
+#content {
+    flex-grow: 1;
+}
+
+#sidebarCollapseDiv {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    left: -20px;
+    top: 20px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+#sidebarCollapse {
+    width: 35px;
+    height: 35px;
+    background-color: #2b5797;
+    border-radius: 0px 10px 10px 0px;
+}
+#sidebarCollapse img {
+    margin: -5px 0px 0px -3px;
+    width: 15px;
+    height: 20px;
+    transition: all 0.3s;
+}
+#sidebar.active + #content #sidebarCollapseDiv #sidebarCollapse img {
+    transform: rotate(180deg);
+}
+
+#sidebarCollapseTop {
+    width: 15px;
+    height: 15px;
+    background-color: #2b5797;
+}
+#sidebarCollapseTop div {
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border-radius: 0px 0px 0px 15px;
+}
+
+#sidebarCollapseBot {
+    width: 15px;
+    height: 15px;
+    background-color: #2b5797;
+}
+#sidebarCollapseBot div {
+    width: 15px;
+    height: 15px;
+    background-color: white;
+    border-radius: 15px 0px 0px 0px;
+}
+
+#sidebar {
+    margin: 20px;
+    top: 0;
+    left: 0;
+    height: 95vh;
+    z-index: 999;
+    min-width: 300px;
+    max-width: 300px;
+    transition: all 0.3s;
+    font-family: 'Play';
+    background: #CCD6DD;
+    padding: 10px;
+    overflow: hidden;
+    border-radius: 10px;
+    color: #2b5797;
+}
+
+#sidebar.active {
+    /* margin-left: -300px; *//* Disable hiding of sidebar in large mode */
+}
+
+@media (max-width: 576px) {
+    #sidebar {
+        margin: 0px;
+        border-radius: 0px 5px 5px 0px;
+        height: 100vh;
+        min-width: 160px;
+        max-width: 160px;
+    }
+
+    #sidebar.active {
+        margin-left: -160px;
+    }
+
+    .tighten-down-xs {
+        margin-top: 5px;
+        margin-bottom: 0px;
+    }
+
+    .center-xs {
+        text-align: center;
+    }
+
+    #sidebarCollapseDiv {
+        left: 0px;
+        opacity: 1;
+    }
+}
+
+#sidebar-header {
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.sidebar-subheader {
+    margin-top: 25px;
+    margin-bottom: 5px;
+}
+
+.row.full-width {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.container-fluid.full-width, .col.full-width {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.col.tight {
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .btn {
@@ -119,6 +245,14 @@ input:focus{outline: 0;}
 
 
 /* Maze Grid Layout and Design Specifications */
+.container-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin-top: -65px;
+}
 .grid-container{
   display: table;
   background-color: black;
@@ -127,7 +261,7 @@ input:focus{outline: 0;}
   border: 2px solid black;
   border-radius: 5px;
 }
-.row{
+.grid-row{
   display: table-row;
 }
 .cell{
@@ -165,6 +299,7 @@ input:focus{outline: 0;}
 
 /* Custom Checkboxes */
 .check-container{
+    margin-top: 2px;
 	display: block;
 	position: relative;
 	cursor: pointer;

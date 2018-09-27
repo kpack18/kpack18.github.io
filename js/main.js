@@ -1,30 +1,41 @@
 var current_color = 'black';
 var old_crd = 0;
 
+$(document).ready(function () {
+    $("#sidebar").mCustomScrollbar({
+        theme: "minimal"
+    });
 
-function set_Wall(elem) {
-	var curr_crd = elem.getBoundingClientRect().top + window.scrollY + elem.getBoundingClientRect().right;
-	
-	$(elem).mousemove(function(e){
-		
-		if(e.which == 1 && old_crd != curr_crd){
-			
-			old_crd = curr_crd;
-	
-			elem.style.backgroundColor = current_color;	
-							
-		}
-	});
+    $('#sidebarCollapse').click(function () {
+        $('#sidebar').toggleClass('active');
+    });
+
+    $('#color-pick').change(function () {
+        current_color = $(this).val();
+    });
+
+    $('.tile').click(function () {
+        setColor($(this));
+    });
+
+    $('.tile').mousemove(function (e) {
+        setWall($(this), e);
+    });
+
+    $('#btnAlgorithm').click(myAlert);
+});
+
+function setWall(elem, e) {
+    var curr_crd = elem[0].getBoundingClientRect().top + window.scrollY + elem[0].getBoundingClientRect().right;
+	if(e.which == 1 && old_crd != curr_crd){
+		old_crd = curr_crd;
+        setColor(elem);
+	}
  }
 
-function set_Color(elem){
-  elem.style.backgroundColor = current_color;
+function setColor(elem) {
+    elem.css('backgroundColor', current_color);
 }
-
-function updateC(c1) {
-  current_color = c1.value;
-}
-
 
 function myAlert() {
 	alert("Oops! Looks like we don't have any algorithms yet!");

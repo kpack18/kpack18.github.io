@@ -1,5 +1,8 @@
 var current_color = 'black';
 var old_crd = 0;
+var saveModal = document.getElementById("saveModalPopup");
+var saveButton = document.getElementById("saveButton");
+var closeSaveModalBtn = document.getElementsByClassName("save-modal-closeBtn")[0];
 
 $(document).ready(function () {
     $("#sidebar").mCustomScrollbar({
@@ -39,4 +42,16 @@ function setColor(elem) {
 
 function myAlert() {
 	alert("Oops! Looks like we don't have any algorithms yet!");
+}
+
+//Setting save button popup's event listeners
+saveButton.addEventListener("click", save);
+closeSaveModalBtn.addEventListener("click", closeSaveModal);
+
+function save(){
+    saveModal.style.display = "block";
+}
+
+function closeSaveModal(){
+    saveModal.style.display = "none";
 }

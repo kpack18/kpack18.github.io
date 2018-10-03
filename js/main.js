@@ -28,22 +28,53 @@ class Grid {
     }
 
   }
+  getLength(){
+    return this.length;
+  }
+  getWidth(){
+    return this.width;
+  }
 /*  getTile (PARAM) xcoor: x coordinate of tile in Grid
           (PARAM) ycoor: y coordinate of tile in Grid
       : returns the tile class at grid[xcoor][ycoor] */
   getTile(xcoor,ycoor){
     if(xcoor >= this.length || ycoor >= this.width){ return; }
-    return this.grid[xcoor,ycoor];
+    return this.grid[xcoor][ycoor];
+  }
+// printGrid: Return's a String Representation of each tiles weight in the grid.
+  printGrid(){
+    var output = "";
+    for(var i = 0; i < this.length; ++i){
+      output = output + "[";
+      for(var j = 0; j < this.width; ++j){
+        output = output + " " + this.getTile(i,j).getWeight() + ",";
+      }
+      output = output + "]\n";
+    }
+
+    return output;
+  }
+  printRow(row){
+    var output = "[";
+    for(var i = 0; i < this.width; ++i){
+      output = output + " " + this.getTile(row,i).getWeight() + ",";
+    }
+    output = output + "]";
+    return output;
   }
 
 }
 
 //Tile Class: Houses the element of a tile, it's coordinates within the grid, and functions to edit it.
 class Tile {
-  constructor(elem,xcoor,ycoor){
+  constructor(elem,xcoor,ycoor,weight = 1){
 /* Vars: element: The html element of the tile
+         weight: weight associated with the tile. By Default: Black = 0;
+                                                              White = 1;
+                                                              Color's Will be Stored in Palette
          x, y: The x and y coordinates of the tile within the grid class */
     this.element = elem;
+    this.weight = weight;
     this.x = xcoor;
     this.y = ycoor;
   }
@@ -55,8 +86,14 @@ class Tile {
   getY(){
     return this.y;
   }
+  getWeight(){
+    return this.weight;
+  }
+  setWeight(value){
+    this.weight = value;
+  }
 /* Set's the color of the html element to the current paint color */
-  setColor(color){
+  setColor(){
     this.element.css('backgroundColor', palette.getPaint());
   }
 }

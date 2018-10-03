@@ -15,12 +15,11 @@ class Grid {
         this.grid = [];
 
         var tile_index = 0;
-        var tile_list = document.getElementsByClassName("tile");
 
         for (var i = 0; i < l; ++i) {
             var temparray = [];
             for (var j = 0; j < w; ++j) {
-                var temp_tile = new Tile(tile_list[tile_index], i, j);
+                var temp_tile = new Tile(null, i, j);
                 temparray.push(temp_tile);
                 ++tile_index;
             }
@@ -107,3 +106,5 @@ class Tile {
         this.element.css('backgroundColor', palette.getPaint());
     }
 }
+
+module.exports = { Grid, Tile }

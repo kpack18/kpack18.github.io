@@ -4,7 +4,10 @@ const url = require('url');
 const mime = require('mime-types');
 
 const hostname = 'localhost';
-const port = 3000;
+var port = 3000;
+
+if (process.env.PORT != null && process.env.PORT != "")
+    port = process.env.PORT;
 
 // Note: notFound.html will actually not be found!
 const allowed = [

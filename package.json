@@ -1,0 +1,30 @@
+{
+  "name": "CSE442",
+  "version": "1.0.0",
+  "description": "CSE 442 Path Algorithm Visualizer",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kpack18/Path_Visualizer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kpack18/Path_Visualizer/issues"
+  },
+  "homepage": "https://github.com/kpack18/Path_Visualizer#readme",
+  "devDependencies": {
+    "@types/node": "^10.11.3",
+    "typescript": "^3.1.1"
+  },
+  "dependencies": {
+    "mime-types": "^2.1.20"
+  }
+}

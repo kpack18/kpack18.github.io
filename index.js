@@ -3,7 +3,6 @@ const fs = require('fs');
 const url = require('url');
 const mime = require('mime-types');
 
-const hostname = 'localhost';
 var port = 3000;
 
 if (process.env.PORT != null && process.env.PORT != "")
@@ -25,7 +24,7 @@ const server = http.createServer(function (req, res) {
     let allow = false;
 
     if (q.pathname == '/' || q.pathname == '')
-        q.pathname = '/index.html';
+        q.pathname = root;
 
     for (dir in allowed) {
         if (q.pathname.startsWith(allowed[dir])) {
@@ -75,6 +74,6 @@ server.on('error', function (err) {
     console.log("**SERVER ERROR** " + err.message);
 });
 
-server.listen(port, hostname, () => {
+server.listen(port, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });

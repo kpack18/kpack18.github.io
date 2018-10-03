@@ -14,29 +14,19 @@ class Grid {
     this.width = w;
     this.grid = [];
 
-    this.size_L = 0;
-    this.size_W = 0;
+    var tile_index = 0;
+    var tile_list = document.getElementsByClassName("tile");
 
-    for(i = 0; i < l; ++i){
+    for(var i = 0; i < l; ++i){
       var temparray = [];
-      for(j = 0; j < w; ++i){
-        temparray.push(null);
+      for(var j = 0; j < w; ++j){
+        var temp_tile = new Tile(tile_list[tile_index],i,j);
+        temparray.push(temp_tile);
+        ++tile_index;
       }
       this.grid.push(temparray);
     }
-  }
-/*  addTile (PARAM) tile: tile class to be added to the grid
-                  : tile class is added at index grid[size_L][size_W],
-                    then size_L and W are incremented */
-  addTile(tile){
-    if(this.size_L == this.length && this.size_W == this.width){ return; }
-    this.grid[size_L][size_W] = tile;
-    ++this.size_L;
 
-    if(this.size_L == this.length){
-      this.size_L == 0;
-      ++this.size_W;
-    }
   }
 /*  getTile (PARAM) xcoor: x coordinate of tile in Grid
           (PARAM) ycoor: y coordinate of tile in Grid
@@ -117,6 +107,7 @@ $(document).ready(function () {
 
 var old_crd = 0;
 
+var grid = new Grid(3,3);
 var palette = new Palette();
 
 function setWall(elem, e) {

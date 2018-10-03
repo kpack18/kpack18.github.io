@@ -75,5 +75,5 @@ server.on('error', function (err) {
 });
 
 server.listen(port, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
+    console.log(`Server running on port ${port}`);
 });

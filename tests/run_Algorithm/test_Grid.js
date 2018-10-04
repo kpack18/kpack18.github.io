@@ -62,5 +62,7 @@ function test_Grid_Set_Weights(){
   console.log(output);
 }
 
+console.log("Grid Tests: ");
 test_Grid_Default();
 test_Grid_Set_Weights();
+console.log("\n");

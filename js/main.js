@@ -1,3 +1,8 @@
+var old_crd = 0;
+
+var grid = new Grid(3,3);
+var palette = new Palette();
+
 $(document).ready(function () {
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
@@ -14,19 +19,16 @@ $(document).ready(function () {
 
     $('.tile').click(function () {
         setColor($(this));
+        grid.getWeights();
     });
 
     $('.tile').mousemove(function (e) {
         setWall($(this), e);
+        grid.getWeights();
     });
 
     $('#btnAlgorithm').click(myAlert);
 });
-
-var old_crd = 0;
-
-var grid = new Grid(3,3);
-var palette = new Palette();
 
 function setWall(elem, e) {
     var curr_crd = elem[0].getBoundingClientRect().top + window.scrollY + elem[0].getBoundingClientRect().right;

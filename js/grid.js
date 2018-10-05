@@ -62,6 +62,13 @@ class Grid {
     output = output + "]";
     return output;
   }
+  getWeights(){
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+        var tempweight = this.getTile(j,i).getWeight();
+      }
+    }
+  }
 
 }
 
@@ -87,14 +94,25 @@ class Tile {
     return this.y;
   }
   getWeight(){
+    var new_weight = palette.get_Bound_Weight(this.getColor());
+    if(new_weight != null && new_weight != this.weight){
+      this.setWeight(new_weight);
+    }
     return this.weight;
   }
   setWeight(value){
+    var changed = (this.weight == value);
     this.weight = value;
+    if(!changed){
+      console.log("Elem: ( " + this.x + ", " + this.y + ") set to: " + this.weight);
+    }
   }
 /* Set's the color of the html element to the current paint color */
   setColor(color){
     this.element.style.backgroundColor = color;
+  }
+  getColor(){
+    return this.element.style.backgroundColor;
   }
   addFade(){
     if(this.weight == 0){ return; } //Walls Do Not Get Faded

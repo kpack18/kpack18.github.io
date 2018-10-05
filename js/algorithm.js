@@ -7,43 +7,6 @@ function printPath(path){
   output = output + "]\n";
   return output;
 }
-// Queue class: Gives an Interface for using a queue with an array implementation
-class Queue{
-  constructor(){
-    this.queue = [];
-  }
-  push(elem){
-    this.queue.push(elem);
-  }
-  pop(elem){
-    this.queue.splice(0, 1);
-  }
-  peak(){
-    return this.queue[0];
-  }
-  isEmpty(){
-    return this.queue.length == 0;
-  }
-  length(){
-    return this.queue.length
-  }
-  printQueue(){
-    return printPath(this.queue);
-  }
-}
-
-// getMatrix: returns a l x w 2d array with all values initialized to initial_val
-function getMatrix(length,width,initial_val){
-  var matrix = [];
-  for(var i = 0; i < length; ++i){
-    var temparray = []
-    for(var j = 0; j < width; ++j){
-      temparray.push(initial_val);
-    }
-    matrix.push(temparray);
-  }
-  return matrix;
-}
 
 // Algorithm Class: Houses the functions for running and calling algorithm's on the given grid.
 class Algorithm{

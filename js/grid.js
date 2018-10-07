@@ -62,6 +62,20 @@ class Grid {
     output = output + "]";
     return output;
   }
+  setPath(path){
+    for(var i = 0; i < path.length; ++i){
+      path[i].setColor("rgb(0, 255, 128)");
+    }
+  }
+  clearPaths(){
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+          if(this.getTile(i,j).getColor() == "rgb(0, 255, 128)"){
+            this.getTile(i,j).setColor("rgb(255, 255, 255)");
+          }
+        }
+      }
+  }
   getWeights(){
     for(var i = 0; i < this.length; ++i){
       for(var j = 0; j < this.width; ++j){
@@ -109,7 +123,7 @@ class Tile {
     var changed = (this.weight == value);
     this.weight = value;
     if(!changed){
-      console.log("Elem: ( " + this.x + ", " + this.y + ") set to: " + this.weight);
+      //console.log("Elem: ( " + this.x + ", " + this.y + ") set to: " + this.weight);
     }
   }
 /* Set's the color of the html element to the current paint color */

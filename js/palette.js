@@ -9,6 +9,7 @@ class Palette {
     this.weight_list = new Map();
     this.weight_list.add("rgb(0, 0, 0)",0);
     this.weight_list.add("rgb(255, 255, 255)",1);
+    //this.weight_list.add("rgb(0, 255, 128)",2);
   }
 /* setPaint: (PARAM) color: new color of the Brush
     : set's the color of the brush to "color" */

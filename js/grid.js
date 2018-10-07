@@ -63,8 +63,10 @@ class Grid {
     return output;
   }
   setPath(path){
+    var time = 50;
     for(var i = 0; i < path.length; ++i){
-      path[i].setColor("rgb(0, 255, 128)");
+      time += 50;
+      setTimeout(function() { path[0].setColor("rgb(0, 255, 128)"); path.splice(0, 1); },time);
     }
   }
   clearPaths(){
@@ -72,6 +74,16 @@ class Grid {
       for(var j = 0; j < this.width; ++j){
           if(this.getTile(i,j).getColor() == "rgb(0, 255, 128)"){
             this.getTile(i,j).setColor("rgb(255, 255, 255)");
+          }
+          this.getTile(i,j).removeFade();
+        }
+      }
+  }
+  dimTiles(){
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+          if(!(this.getTile(i,j).getColor() == "rgb(0, 0, 0)")){
+            this.getTile(i,j).addFade();
           }
         }
       }

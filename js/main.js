@@ -27,7 +27,6 @@ $(document).ready(function () {
       var algorithm = new Algorithm("bfs");
       var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,7),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
       console.log("path: " + printPath(path));
-      grid.setPath(path);
     });
 
     $('.tile').mousemove(function (e) {

@@ -20,7 +20,7 @@ class Grid {
     for(var i = 0; i < l; ++i){
       var temparray = [];
       for(var j = 0; j < w; ++j){
-        var temp_tile = new Tile(tile_list[tile_index],j,this.width - i - 1);
+        var temp_tile = new Tile(tile_list[tile_index],i,j);
         temparray.push(temp_tile);
         ++tile_index;
       }
@@ -39,7 +39,7 @@ class Grid {
       : returns the tile class at grid[xcoor][ycoor] */
   getTile(xcoor,ycoor){
     if(xcoor >= this.length || ycoor >= this.width || xcoor < 0 || ycoor < 0){ return null; }
-    return this.grid[this.width - ycoor - 1][xcoor];
+    return this.grid[xcoor][ycoor];
   }
 // printGrid: Return's a String Representation of each tiles weight in the grid.
   printGrid(){
@@ -65,7 +65,7 @@ class Grid {
   getWeights(){
     for(var i = 0; i < this.length; ++i){
       for(var j = 0; j < this.width; ++j){
-        var tempweight = this.getTile(j,i).getWeight();
+        var tempweight = this.getTile(i,j).getWeight();
       }
     }
   }
@@ -98,6 +98,11 @@ class Tile {
     if(new_weight != null && new_weight != this.weight){
       this.setWeight(new_weight);
     }
+
+    return this.weight;
+  }
+  //For Testing Only
+  getWeightNoColor(){
     return this.weight;
   }
   setWeight(value){

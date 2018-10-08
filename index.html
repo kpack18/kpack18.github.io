@@ -38,7 +38,7 @@
                             <input type="number" id="grid-height" class="form-control" />
                         </div>
                         <div class="col col-12 col-sm-4 align-self-end center-xs">
-                            <button class="btn blue tighten-down-xs">Apply</button>
+                            <button id="apply_btn"class="btn blue tighten-down-xs">Apply</button>
                         </div>
                     </div>
 
@@ -117,22 +117,10 @@
                 </div>
 
                 <div class="container-center">
-                    <div id="grid">
-                        <div class="grid-row">
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                        </div>
-                        <div class="grid-row">
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                        </div>
-                        <div class="grid-row">
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                        </div>
+                    <div>
+                        <table id="grid">
+
+                        </table>
                     </div>
                 </div>
             </div>
@@ -145,7 +133,6 @@
         <script type="text/javascript" src="js/main.js"></script>
 
         <!-- Test Scripts Below: -->
-        <script type="text/javascript" src="tests/run_Algorithm/test_Grid.js"></script>
-        <script type="text/javascript" src="tests/run_Algorithm/test_Algorithm.js"></script>
+        
     </body>
 </html>

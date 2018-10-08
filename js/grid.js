@@ -14,17 +14,20 @@ class Grid {
     this.width = w;
     this.grid = [];
 
-    var tile_index = 0;
-    var tile_list = document.getElementsByClassName("tile");
+    for(var row = 0; row < this.length; ++row){
+      let temp_row= document.createElement("TR");
+      this.grid[row] = new Array();
 
-    for(var i = 0; i < l; ++i){
-      var temparray = [];
-      for(var j = 0; j < w; ++j){
-        var temp_tile = new Tile(tile_list[tile_index],j,this.width - i - 1);
-        temparray.push(temp_tile);
-        ++tile_index;
+      for(var column = 0; column < this.width; ++column){
+        let temp_cell = document.createElement("TD");
+        let temp_tile = document.createElement("BUTTON");
+        temp_tile.setAttribute("class", "tile");
+        temp_cell.appendChild(temp_tile);
+        temp_row.appendChild(temp_cell);
+        let temporary_tile = new Tile(temp_tile,row,column);
+        this.grid[row].push(temporary_tile);
       }
-      this.grid.push(temparray);
+      document.getElementById("grid").appendChild(temp_row);
     }
 
   }
@@ -39,7 +42,7 @@ class Grid {
       : returns the tile class at grid[xcoor][ycoor] */
   getTile(xcoor,ycoor){
     if(xcoor >= this.length || ycoor >= this.width || xcoor < 0 || ycoor < 0){ return null; }
-    return this.grid[this.width - ycoor - 1][xcoor];
+    return this.grid[xcoor][ycoor];
   }
 // printGrid: Return's a String Representation of each tiles weight in the grid.
   printGrid(){

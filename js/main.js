@@ -25,6 +25,10 @@ $(document).ready(function () {
     $('#algo').click(function () {
       grid.clearPaths();
       var algorithm = new Algorithm("bfs");
+	  var algoBarVal = document.getElementById("algo_select");
+	  var selected_algo = algoBarVal.value;
+      grid.clearPaths();
+      var algorithm = new Algorithm(selected_algo);
       var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,2),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
       console.log("path: " + printPath(path));
     });

@@ -22,20 +22,12 @@ $(document).ready(function () {
         grid.getWeights();
     });
 
-<<<<<<< HEAD
-    $('.btn').click(function () {
+    $('#algo').click(function () {
 	  var algoBarVal = document.getElementById("algo_select");
 	  var selected_algo = algoBarVal.value;
-	  
       grid.clearPaths();
-      var algorithm = new Algorithm(selected_algo); 
-      var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,7),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
-=======
-    $('#algo').click(function () {
-      grid.clearPaths();
-      var algorithm = new Algorithm("bfs");
+      var algorithm = new Algorithm(selected_algo);
       var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,2),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
->>>>>>> a91ea36e715627fe0273e5e5c69e9df1494a7ed9
       console.log("path: " + printPath(path));
     });
 

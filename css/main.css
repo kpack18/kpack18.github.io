@@ -11,6 +11,7 @@ body {
     
 }
 
+
 /* Left Side Panel Styling */
 .wrapper {
     display: flex;
@@ -153,6 +154,7 @@ body {
 	cursor: pointer;
 	padding: 10px;
 	font-family: 'Play';
+	margin-right: 3px;
 }
 
 .default-cursor{
@@ -350,3 +352,5 @@ input:focus{outline: 0;}
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+

@@ -4,6 +4,17 @@ var grid = new Grid(3,3);
 var palette = new Palette();
 
 $(document).ready(function () {
+ //Script add color option
+	$('#add-colors').click(function(){
+		AddNewColorOption();
+	});
+
+	//Set palate on click of color options
+	$('#color-options').on('click','button',function(){
+		palette.setPaint($(this).data('color'));
+		palette.addBinding($(this).data('number'));
+	})
+
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
     });
@@ -41,6 +52,22 @@ $(document).ready(function () {
     $('#btnAlgorithm').click(myAlert);
 });
 
+function AddNewColorOption(){
+	if($('#color-options button').length > 8) // check to allow only 9 option elements
+	return;
+
+	var selectedColor = $('#color-pick').val();
+	var dataNumber = $('#add-colors-number').val() || 1; // Use 1 if no number is selected
+
+	//Append new color option button with info
+	$('<button/>', {
+		style: "background-color: " + selectedColor,
+		class: "btn",
+		'data-color' :selectedColor,
+		'data-number' : dataNumber
+	}).appendTo('#color-options');
+	
+	}							  
 function setWall(elem, e) {
     var curr_crd = elem[0].getBoundingClientRect().top + window.scrollY + elem[0].getBoundingClientRect().right;
 	if(e.which == 1 && old_crd != curr_crd){
@@ -56,3 +83,4 @@ function setColor(elem) {
 function myAlert() {
 	alert("Oops! Looks like we don't have any algorithms yet!");
 }
+

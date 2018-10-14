@@ -43,7 +43,7 @@ function resizeGrid(){
     var grid_width = document.getElementById("grid-width").value;
     var grid_height = document.getElementById("grid-height").value;
     var total = grid_width * grid_height;
-    if(grid_height == 0 || grid_width == 0 || gird_height < 0 || grid_width < 0){
+    if(grid_height == 0 || grid_width == 0 || grid_height < 0 || grid_width < 0){
         return;
     }
     if(grid_width == grid.getWidth() && grid_height == grid.getLength()){

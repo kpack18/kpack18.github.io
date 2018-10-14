@@ -61,6 +61,7 @@ function createGrid(){
             table.deleteRow(0);
             --grid_rows;
         }
+        
         grid = new Grid(grid_width, grid_height);
         $('.tile').click(function () {
             setColor($(this));

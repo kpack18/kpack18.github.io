@@ -11,6 +11,11 @@ body {
     
 }
 
+:root{
+    --width:3;
+    --height:3;
+}
+
 /* Left Side Panel Styling */
 .wrapper {
     display: flex;
@@ -251,30 +256,23 @@ input:focus{outline: 0;}
     align-items: center;
     width: 100%;
     height: 100%;
-    margin-top: -65px;
+    max-width: 1000px;
+    max-height: 1000px;
+    margin-top: -65px; 
 }
 .grid-container{
   display: table;
-  background-color: black;
-  width: 1000px;
-  height: 1000px;
+  max-width: 100%;
+  max-height: 100%;
   border: 2px solid black;
   border-radius: 5px;
+  padding: 0%;
 }
-.grid-row{
-  display: table-row;
-}
-.cell{
-  width: 50px;
-  height: 50px;
-  background: black;
-  padding: 2px;
-  display: table-cell;
-}
+
 .tile {
   background-color: white;
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   border: 2px solid black;
   border-radius: 5px;
 }

@@ -15,21 +15,15 @@ class Grid {
     this.grid = [];
 
     for(var row = 0; row < this.length; ++row){
-      let temp_row= document.createElement("TR");
       this.grid[row] = new Array();
-
       for(var column = 0; column < this.width; ++column){
-        let temp_cell = document.createElement("TD");
         let temp_tile = document.createElement("BUTTON");
         temp_tile.setAttribute("class", "tile");
-        temp_cell.appendChild(temp_tile);
-        temp_row.appendChild(temp_cell);
+        document.getElementById("grid").appendChild(temp_tile);
         let temporary_tile = new Tile(temp_tile,row,column);
         this.grid[row].push(temporary_tile);
       }
-      document.getElementById("grid").appendChild(temp_row);
     }
-
   }
   getLength(){
     return this.length;

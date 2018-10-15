@@ -11,6 +11,12 @@ body {
     
 }
 
+:root{
+    --width: 3;
+    --height: 3;
+    --size: 100px;
+}
+
 /* Left Side Panel Styling */
 .wrapper {
     display: flex;
@@ -246,37 +252,28 @@ input:focus{outline: 0;}
 
 /* Maze Grid Layout and Design Specifications */
 .container-center {
-    display: flex;
+    display: relative;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
-    margin-top: -65px;
+    max-width: 1000px;
+    max-height: 1000px;
+    margin-top: -65;
 }
 .grid-container{
-  display: table;
-  background-color: black;
-  width: 1000px;
-  height: 1000px;
-  border: 2px solid black;
-  border-radius: 5px;
+  display: grid;
+  grid-template-columns: repeat(var(--height), var(--size));
+  grid-template-rows: repeat(var(--width), var(--size));
+  grid-gap: 1px 1px;
+  z-index: 1;
 }
-.grid-row{
-  display: table-row;
-}
-.cell{
-  width: 50px;
-  height: 50px;
-  background: black;
-  padding: 2px;
-  display: table-cell;
-}
+
 .tile {
   background-color: white;
-  width: 100px;
-  height: 100px;
+  width: var(--size);
+  height: var(--size);
   border: 2px solid black;
   border-radius: 5px;
+  z-index: 2;
 }
 .tile:hover{
 	cursor: crosshair;

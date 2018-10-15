@@ -14,19 +14,16 @@ class Grid {
     this.width = w;
     this.grid = [];
 
-    var tile_index = 0;
-    var tile_list = document.getElementsByClassName("tile");
-
-    for(var i = 0; i < l; ++i){
-      var temparray = [];
-      for(var j = 0; j < w; ++j){
-        var temp_tile = new Tile(tile_list[tile_index],i,j);
-        temparray.push(temp_tile);
-        ++tile_index;
+    for(var row = 0; row < this.length; ++row){
+      this.grid[row] = new Array();
+      for(var column = 0; column < this.width; ++column){
+        let temp_tile = document.createElement("BUTTON");
+        temp_tile.setAttribute("class", "tile");
+        document.getElementById("grid").appendChild(temp_tile);
+        let temporary_tile = new Tile(temp_tile,row,column);
+        this.grid[row].push(temporary_tile);
       }
-      this.grid.push(temparray);
     }
-
   }
   getLength(){
     return this.length;

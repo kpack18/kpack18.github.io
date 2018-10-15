@@ -42,7 +42,7 @@ function test_Grid_Set_Weights(){
   for(var i = 0; i < test_grid.getLength(); ++i){
     if(fail){ break; }
     for(var j = 0; j < test_grid.getWidth(); ++j){
-        if(test_grid.getTile(i,j).getWeight() != count_solution){ fail = true; break; }
+        if(test_grid.getTile(i,j).getWeightNoColor() != count_solution){ fail = true; break; }
         ++count_solution;
     }
   }

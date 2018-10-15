@@ -1,7 +1,7 @@
 // Tests an Execution of Breadth first search on a 3x3 grid where the start and end points are the same
 function compare_Paths(path,expected){
   var fail = false;
-  if(path.length != expected.length){ fail = true; }
+  if(path.length != expected.length){ return true; }
   for(var i = 0; i < path.length; ++i){
     if(!path[i].compare(expected[i])){
       fail = true;
@@ -50,9 +50,9 @@ function test_Bfs_Path_Simple(){
   }
   console.log(output);
 }
-/* Tests Bfs Search on a graph of the Following:        [ 1 1 1 ]
+/* Tests Bfs Search on a graph of the Following:        [ 1 0 1 ]
 Where (0,0) is the start point and (2,0) is the end     [ 1 0 1 ]
-  0's are walls and 1's are plain tiles                 [ 1 0 1 ] */
+  0's are walls and 1's are plain tiles                 [ 1 1 1 ] */
 function test_Bfs_Path_Wall(){
   var test_grid = new Grid(3,3);
 
@@ -102,9 +102,65 @@ function test_Bfs_Path_None(){
   console.log(output);
 }
 
+/* Tests Bfs Search on a Complex Graph from (0,0) to [ 1 0 1 1 1 0 1 1]
+                                            (0,6)    [ 1 0 1 0 0 0 0 1]
+                                                     [ 1 1 1 0 1 1 1 1]
+                                                     [ 1 0 0 0 0 0 1 0]
+                                                     [ 1 1 1 1 1 0 1 1]
+                                                     [ 1 0 0 0 1 0 0 1]
+                                                     [ 1 0 0 0 1 0 1 1]
+                                                     [ 1 1 1 0 1 1 1 1] */
+function test_Bfs_Path_Complex(){
+  var test_grid = new Grid(8,8);
+
+  test_grid.getTile(0,1).setWeight(0);
+  test_grid.getTile(1,1).setWeight(0);
+  test_grid.getTile(3,1).setWeight(0);
+  test_grid.getTile(3,2).setWeight(0);
+  test_grid.getTile(3,3).setWeight(0);
+  test_grid.getTile(2,3).setWeight(0);
+  test_grid.getTile(1,3).setWeight(0);
+  test_grid.getTile(1,4).setWeight(0);
+  test_grid.getTile(1,5).setWeight(0);
+  test_grid.getTile(0,5).setWeight(0);
+  test_grid.getTile(5,1).setWeight(0);
+  test_grid.getTile(5,2).setWeight(0);
+  test_grid.getTile(5,3).setWeight(0);
+  test_grid.getTile(6,1).setWeight(0);
+  test_grid.getTile(6,2).setWeight(0);
+  test_grid.getTile(6,3).setWeight(0);
+  test_grid.getTile(3,4).setWeight(0);
+  test_grid.getTile(3,5).setWeight(0);
+  test_grid.getTile(4,5).setWeight(0);
+  test_grid.getTile(5,5).setWeight(0);
+  test_grid.getTile(6,5).setWeight(0);
+  test_grid.getTile(7,3).setWeight(0);
+  test_grid.getTile(5,6).setWeight(0);
+  test_grid.getTile(3,7).setWeight(0);
+  test_grid.getTile(1,6).setWeight(0);
+
+  var algorithm = new Algorithm("bfs");
+  var path = algorithm.run(test_grid.getTile(0,0),test_grid.getTile(0,6),test_grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
+
+  var expected = [test_grid.getTile(0,0),test_grid.getTile(1,0),test_grid.getTile(2,0),test_grid.getTile(3,0),test_grid.getTile(4,0),test_grid.getTile(4,1),test_grid.getTile(4,2),test_grid.getTile(4,3),test_grid.getTile(4,4),
+  test_grid.getTile(5,4),test_grid.getTile(6,4),test_grid.getTile(7,4),test_grid.getTile(7,5),test_grid.getTile(7,6),test_grid.getTile(6,6),test_grid.getTile(6,7),test_grid.getTile(5,7),test_grid.getTile(4,7),test_grid.getTile(4,6),
+  test_grid.getTile(3,6),test_grid.getTile(2,6),test_grid.getTile(2,7),test_grid.getTile(1,7),test_grid.getTile(0,7),test_grid.getTile(0,6)];
+
+  var fail = compare_Paths(path,expected);
+  var output = "test_Bfs_Path_Complex: "
+  if(fail){
+    output = output + "FAIL: Expected: [ (0,0), (1,0), (2,0), (3,0), (4,0), (4,1), (4,2), (4,3), (4,4), (5,4), (6,4), (7,4), (7,5), (7,6), (6,6), (6,7), (5,7), (4,7), (4,6), (3,6), (2,6), (2,7), (1,7), (0,7), (0,6),]\n                          Actual:   " + printPath(path);
+  }
+  else{
+    output = output + "Pass";
+  }
+  console.log(output);
+}
+
 console.log("Algorithm Tests:");
 test_Bfs_Same_Point();
 test_Bfs_Path_Simple();
 test_Bfs_Path_Wall();
 test_Bfs_Path_None();
+test_Bfs_Path_Complex();
 console.log("\n");

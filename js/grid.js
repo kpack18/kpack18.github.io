@@ -59,6 +59,39 @@ class Grid {
     output = output + "]";
     return output;
   }
+  setPath(path){
+    var time = 50;
+    for(var i = 0; i < path.length; ++i){
+      time += 50;
+      setTimeout(function() { path[0].setColor("rgb(0, 255, 128)"); path.splice(0, 1); },time);
+    }
+  }
+  clearPaths(){
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+          if(this.getTile(i,j).getColor() == "rgb(0, 255, 128)"){
+            this.getTile(i,j).setColor("rgb(255, 255, 255)");
+          }
+          this.getTile(i,j).removeFade();
+        }
+      }
+  }
+  dimTiles(){
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+          if(!(this.getTile(i,j).getColor() == "rgb(0, 0, 0)")){
+            this.getTile(i,j).addFade();
+          }
+        }
+      }
+  }
+  getWeights(){
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+        var tempweight = this.getTile(i,j).getWeight();
+      }
+    }
+  }
 
 }
 
@@ -84,14 +117,30 @@ class Tile {
     return this.y;
   }
   getWeight(){
+    var new_weight = palette.get_Bound_Weight(this.getColor());
+    if(new_weight != null && new_weight != this.weight){
+      this.setWeight(new_weight);
+    }
+
+    return this.weight;
+  }
+  //For Testing Only
+  getWeightNoColor(){
     return this.weight;
   }
   setWeight(value){
+    var changed = (this.weight == value);
     this.weight = value;
+    if(!changed){
+      //console.log("Elem: ( " + this.x + ", " + this.y + ") set to: " + this.weight);
+    }
   }
 /* Set's the color of the html element to the current paint color */
   setColor(color){
     this.element.style.backgroundColor = color;
+  }
+  getColor(){
+    return this.element.style.backgroundColor;
   }
   addFade(){
     if(this.weight == 0){ return; } //Walls Do Not Get Faded

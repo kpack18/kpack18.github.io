@@ -98,7 +98,13 @@
 
                     <div class="row justify-content-center">
                         <div class="col col-12 col-sm-6 full-width tight text-center" style="margin-top:5px">
-                            <button class="btn blue">Algorithm</button>
+                            <button class="btn blue" id="algo">Algorithm</button>
+							<select id = "algo_select">
+								<option value="bfs">BFS</option>
+								<option value="todo">Alg 2</option>
+								<option value="todo">Alg 3</option>
+								<option value="todo">Alg 4</option>
+							</select>
                         </div>
                     </div>
                 </div>
@@ -124,14 +130,16 @@
         </div>
 
         <!-- Interactivity Scripts -->
+        <script type="text/javascript" src="js/structures.js"></script>
         <script type="text/javascript" src="js/algorithm.js"></script>
         <script type="text/javascript" src="js/grid.js"></script>
         <script type="text/javascript" src="js/palette.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
 
-        <!-- Test Scripts Below: -->
+
+        <!-- Test Scripts Below: IMPORTANT_NOTE: visual tiles will bug out during algorithm tests since multiple are run at the same time -->
         <!-- <script type="text/javascript" src="tests/run_Algorithm/test_Grid.js"></script> -->
         <!-- <script type="text/javascript" src="tests/run_Algorithm/test_Algorithm.js"></script> -->
-        
+
     </body>
 </html>

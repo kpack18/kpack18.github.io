@@ -7,12 +7,14 @@ $(document).ready(function () {
  //Script add color option
 	$('#add-colors').click(function(){
 		AddNewColorOption();
+		palette.addBinding($('#add-colors-number').val() || 1);	
+		var newButton = document.getElementById("color-options").lastChild;
+		newButton.innerHTML = $(newButton).data('number');
 	});
 
 	//Set palate on click of color options
 	$('#color-options').on('click','button',function(){
 		palette.setPaint($(this).data('color'));
-		palette.addBinding($(this).data('number'));
 	})
 
     $("#sidebar").mCustomScrollbar({
@@ -35,7 +37,6 @@ $(document).ready(function () {
 
     $('#algo').click(function () {
       grid.clearPaths();
-      var algorithm = new Algorithm("bfs");
 	  var algoBarVal = document.getElementById("algo_select");
 	  var selected_algo = algoBarVal.value;
       grid.clearPaths();
@@ -62,7 +63,7 @@ function AddNewColorOption(){
 	//Append new color option button with info
 	$('<button/>', {
 		style: "background-color: " + selectedColor,
-		class: "btn",
+		class: "pBtn",
 		'data-color' :selectedColor,
 		'data-number' : dataNumber
 	}).appendTo('#color-options');

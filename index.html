@@ -38,7 +38,7 @@
                             <input type="number" id="grid-height" class="form-control" />
                         </div>
                         <div class="col col-12 col-sm-4 align-self-end center-xs">
-                            <button class="btn blue tighten-down-xs">Apply</button>
+                            <button id="apply_btn"class="btn blue tighten-down-xs">Apply</button>
                         </div>
                     </div>
 
@@ -98,7 +98,13 @@
 
                     <div class="row justify-content-center">
                         <div class="col col-12 col-sm-6 full-width tight text-center" style="margin-top:5px">
-                            <button class="btn blue">Algorithm</button>
+                            <button class="btn blue" id="algo">Algorithm</button>
+							<select id = "algo_select">
+								<option value="bfs">BFS</option>
+								<option value="todo">Alg 2</option>
+								<option value="todo">Alg 3</option>
+								<option value="todo">Alg 4</option>
+							</select>
                         </div>
                     </div>
                 </div>
@@ -116,88 +122,8 @@
                     <div id="sidebarCollapseBot"><div></div></div>
                 </div>
 
-                <div class="container-center">
-                    <div id="grid">
-                        <div class="grid-row">
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                        </div>
-                        <div class="grid-row">
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                        </div>
-                        <div class="grid-row">
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                        </div>
-                        <div class="grid-row">
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                        </div>
-                        <div class="grid-row">
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                        </div>
-                        <div class="grid-row">
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                        </div>
-                        <div class="grid-row">
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                        </div>
-                        <div class="grid-row">
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                            <div class="cell"> <button type="button" class="tile"></button> </div>
-                        </div>
+                <div id="grid-container" class="container-center">
+                    <div id="grid" class="grid-container">
                     </div>
                 </div>
             </div>
@@ -210,8 +136,9 @@
         <script type="text/javascript" src="js/palette.js"></script>
         <script type="text/javascript" src="js/main.js"></script>
 
-        <!-- Test Scripts Below: -->
-        <!-- <script type="text/javascript" src="tests/run_Algorithm/test_Grid.js"></script> -->
-        <!-- <script type="text/javascript" src="tests/run_Algorithm/test_Algorithm.js"></script> -->
+
+        <!-- Test Scripts Below: IMPORTANT_NOTE: visual tiles will bug out during algorithm tests since multiple are run at the same time -->
+        <!--<script type="text/javascript" src="tests/run_Algorithm/test_Grid.js"></script>-->
+        <script type="text/javascript" src="tests/run_Algorithm/test_Algorithm.js"></script>
     </body>
 </html>

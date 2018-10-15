@@ -1,8 +1,3 @@
-var old_crd = 0;
-
-var grid = new Grid(3,3);
-var palette = new Palette();
-
 $(document).ready(function () {
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
@@ -29,7 +24,7 @@ $(document).ready(function () {
 	  var selected_algo = algoBarVal.value;
       grid.clearPaths();
       var algorithm = new Algorithm(selected_algo);
-      var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,2),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
+      var path = algorithm.run(grid.getTile(0,0),grid.getTile(7,7),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
       console.log("path: " + printPath(path));
     });
 
@@ -43,7 +38,7 @@ $(document).ready(function () {
 
 var old_crd = 0;
 
-let grid = new Grid(3,3);
+let grid = new Grid(8,8);
 var palette = new Palette();
 var apply_button = document.getElementById("apply_btn");
 apply_button.addEventListener("click", resizeGrid);

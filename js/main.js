@@ -51,6 +51,8 @@ function setWall(elem, e) {
 	}
  }
 
+ /* resizes grid by changing css variables which control grid display's columns and rows
+    resizing is done by deleting all element before creating a brand new grid*/
 
 function resizeGrid(){
     var grid_width = document.getElementById("grid-width").value;

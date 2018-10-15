@@ -12,7 +12,6 @@ function compare_Paths(path,expected){
 }
 
 function test_Bfs_Same_Point(){
-  var grid = new Grid(3,3);
 
   var algorithm = new Algorithm("bfs");
   var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,0),grid); //Will Return a List containing the shortest path from  (0,0) to (0,0)
@@ -33,7 +32,6 @@ function test_Bfs_Same_Point(){
 Where (0,0) is the start point and (2,2) is the end     [ 1 1 1 ]
                                                         [ 1 1 1 ] */
 function test_Bfs_Path_Simple(){
-  var grid = new Grid(3,3);
 
   var algorithm = new Algorithm("bfs");
   var path = algorithm.run(grid.getTile(0,0),grid.getTile(2,2),grid); //Will Return a List containing the shortest path from  (0,0) to (0,0)
@@ -54,7 +52,6 @@ function test_Bfs_Path_Simple(){
 Where (0,0) is the start point and (2,0) is the end     [ 1 0 1 ]
   0's are walls and 1's are plain tiles                 [ 1 1 1 ] */
 function test_Bfs_Path_Wall(){
-  var grid = new Grid(3,3);
 
   grid.getTile(1,0).setWeight(0);
   grid.getTile(1,1).setWeight(0);
@@ -80,7 +77,6 @@ function test_Bfs_Path_Wall(){
                                                      [ 1 0 1 ]
                                                      [ 1 0 1 ] */
 function test_Bfs_Path_None(){
-  var grid = new Grid(3,3);
 
   grid.getTile(1,2).setWeight(0);
   grid.getTile(1,0).setWeight(0);

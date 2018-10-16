@@ -173,16 +173,16 @@ class Tile {
   compare(tile){
     return this.getX() == tile.getX() && this.getY() == tile.getY();
   }
-  getLeft(grid){
+  getLeft(grid){ //Left
     return grid.getTile(this.x-1,this.y);
   }
-  getRight(grid){
+  getRight(grid){ //Down
     return grid.getTile(this.x+1,this.y);
   }
-  getUp(grid){
+  getUp(grid){ //Left
     return grid.getTile(this.x,this.y+1);
   }
-  getDown(grid){
+  getDown(grid){ //Right
     return grid.getTile(this.x,this.y-1);
   }
 }

@@ -8,7 +8,7 @@ html {
 }
 
 body {
-    
+
 }
 
 :root{
@@ -161,6 +161,11 @@ body {
 	font-family: 'Play';
 }
 
+#algo {
+  width: 93px;
+  height: 38px;
+}
+
 .default-cursor{
 	cursor: default;
 }
@@ -174,7 +179,7 @@ body {
 .blue:hover{
 	background-color: #55ACEE;
 	color: white;
-	border-color: #55ACEE; 
+	border-color: #55ACEE;
 }
 
 .color-btn{
@@ -240,10 +245,10 @@ body {
 	font-size: 20px;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 button:focus {outline: 0;}

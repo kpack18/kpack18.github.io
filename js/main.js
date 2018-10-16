@@ -1,3 +1,4 @@
+var running = false;
 $(document).ready(function () {
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
@@ -18,14 +19,33 @@ $(document).ready(function () {
     });
 
     $('#algo').click(function () {
-      grid.clearPaths();
-      var algorithm = new Algorithm("bfs");
-	  var algoBarVal = document.getElementById("algo_select");
-	  var selected_algo = algoBarVal.value;
-      grid.clearPaths();
-      var algorithm = new Algorithm(selected_algo);
-      var path = algorithm.run(grid.getTile(0,0),grid.getTile(7,7),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
-      console.log("path: " + printPath(path));
+      ++ITER;
+      if(running){
+
+        var elem = this;
+        $(this).prop('disabled', true);
+        setTimeout(function() { $(elem).prop('disabled', false); },250);
+        $(this).html("Algorithm");
+        $(this).css("background-color","#4285F4");
+
+        running = false;
+        grid.lightTiles();
+        grid.clearPaths();
+        return;
+      }
+      else{
+        running = true;
+        $(this).html("Stop");
+        $(this).css("background-color","rgb(255, 66, 66)");
+
+        var algorithm = new Algorithm("bfs");
+	       var algoBarVal = document.getElementById("algo_select");
+	        var selected_algo = algoBarVal.value;
+          grid.clearPaths();
+          var algorithm = new Algorithm(selected_algo);
+          var path = algorithm.run(grid.getTile(0,0),grid.getTile(7,7),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
+          console.log("path: " + printPath(path));
+      }
     });
 
     $('.tile').mousemove(function (e) {
@@ -108,12 +128,16 @@ function resizeGrid(){
                 break;
             default:
                 document.documentElement.style.setProperty("--size", "100px");
+<<<<<<< HEAD
                 total_width = (grid_width * 100) + (1 * grid_width);
                 total_height = (grid_height * 100) + (1 * grid_height);
                 $('#grid-container').css({
                     'width':total_width + 'px' ,'height':total_height + 'px'
                 });
                 break; 
+=======
+                break;
+>>>>>>> 2b41406f79126d3243b8dff3e5f6234fb1aa5d17
         }
         for(var row = 0; row < grid.getLength(); ++row){
             for(var column = 0; column < grid.getWidth(); ++column){

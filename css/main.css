@@ -260,14 +260,12 @@ input:focus{outline: 0;}
     display: relative;
     justify-content: center;
     align-items: center;
-    width: 807px;
-    height: 807px;
     margin-top: -65;
 }
 .grid-container{
   display: grid;
-  grid-template-columns: repeat(var(--height), var(--size));
-  grid-template-rows: repeat(var(--width), var(--size));
+  grid-template-columns: repeat(var(--width), var(--size));
+  grid-template-rows: repeat(var(--height), var(--size));
   grid-gap: 1px 1px;
   z-index: 2;
   background-color: black;

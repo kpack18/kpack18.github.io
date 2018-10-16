@@ -80,6 +80,9 @@ class Queue{
   length(){
     return this.queue.length
   }
+  clear(){
+    this.queue = [];
+  }
   printQueue(){
     return printPath(this.queue);
   }

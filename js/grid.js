@@ -63,8 +63,20 @@ class Grid {
     var time = 50;
     for(var i = 0; i < path.length; ++i){
       time += 50;
-      setTimeout(function() { path[0].setColor("rgb(0, 255, 128)"); path.splice(0, 1); },time);
+      setTimeout(function() { if(!running){ return; } path[0].setColor("rgb(0, 255, 128)"); path.splice(0, 1); },time);
     }
+  }
+  blink_Fail(tile){
+    var current_iter = ITER;
+    var color = tile.getColor();
+    var time = 400;
+    setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColor("rgb(255, 128, 128)"); },time);
+    time += 100;
+    setTimeout(function() { tile.setColor(color); },time);
+    time += 100;
+    setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColor("rgb(255, 128, 128)"); },time);
+    time += 100;
+    setTimeout(function() { tile.setColor(color); },time);
   }
   clearPaths(){
     for(var i = 0; i < this.length; ++i){
@@ -81,6 +93,15 @@ class Grid {
       for(var j = 0; j < this.width; ++j){
           if(!(this.getTile(i,j).getColor() == "rgb(0, 0, 0)")){
             this.getTile(i,j).addFade();
+          }
+        }
+      }
+  }
+  lightTiles(){
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+          if(!(this.getTile(i,j).getColor() == "rgb(0, 0, 0)")){
+            this.getTile(i,j).removeFade();
           }
         }
       }

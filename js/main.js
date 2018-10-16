@@ -128,16 +128,12 @@ function resizeGrid(){
                 break;
             default:
                 document.documentElement.style.setProperty("--size", "100px");
-<<<<<<< HEAD
                 total_width = (grid_width * 100) + (1 * grid_width);
                 total_height = (grid_height * 100) + (1 * grid_height);
                 $('#grid-container').css({
                     'width':total_width + 'px' ,'height':total_height + 'px'
                 });
                 break; 
-=======
-                break;
->>>>>>> 2b41406f79126d3243b8dff3e5f6234fb1aa5d17
         }
         for(var row = 0; row < grid.getLength(); ++row){
             for(var column = 0; column < grid.getWidth(); ++column){

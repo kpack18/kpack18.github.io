@@ -143,7 +143,7 @@ function resizeGrid(){
         document.documentElement.style.setProperty("--width", grid_width);
         document.documentElement.style.setProperty("--height", grid_height);
         document.getElementById("grid-container").style.maxWidth
-        grid = new Grid(grid_width, grid_height);
+        grid = new Grid(grid_height, grid_width);
 
         $('.tile').click(function () {
             setColor($(this));

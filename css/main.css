@@ -255,8 +255,8 @@ input:focus{outline: 0;}
     display: relative;
     justify-content: center;
     align-items: center;
-    max-width: 1000px;
-    max-height: 1000px;
+    width: 807px;
+    height: 807px;
     margin-top: -65;
 }
 .grid-container{
@@ -264,7 +264,8 @@ input:focus{outline: 0;}
   grid-template-columns: repeat(var(--height), var(--size));
   grid-template-rows: repeat(var(--width), var(--size));
   grid-gap: 1px 1px;
-  z-index: 1;
+  z-index: 2;
+  background-color: black;
 }
 
 .tile {

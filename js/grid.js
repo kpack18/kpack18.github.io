@@ -88,6 +88,13 @@ class Grid {
         }
       }
   }
+  clearAll(){
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+          this.getTile(i,j).setWeight(1);
+        }
+      }
+  }
   dimTiles(){
     for(var i = 0; i < this.length; ++i){
       for(var j = 0; j < this.width; ++j){

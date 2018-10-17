@@ -98,7 +98,7 @@ class Grid {
   dimTiles(){
     for(var i = 0; i < this.length; ++i){
       for(var j = 0; j < this.width; ++j){
-          if(!(this.getTile(i,j).getColor() == "rgb(0, 0, 0)")){
+          if(!(this.getTile(i,j).getWeight() == 0)){
             this.getTile(i,j).addFade();
           }
         }
@@ -107,7 +107,7 @@ class Grid {
   lightTiles(){
     for(var i = 0; i < this.length; ++i){
       for(var j = 0; j < this.width; ++j){
-          if(!(this.getTile(i,j).getColor() == "rgb(0, 0, 0)")){
+          if(!(this.getTile(i,j).getWeight() == 0)){
             this.getTile(i,j).removeFade();
           }
         }

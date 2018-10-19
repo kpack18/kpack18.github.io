@@ -14,19 +14,16 @@ class Grid {
     this.width = w;
     this.grid = [];
 
-    var tile_index = 0;
-    var tile_list = document.getElementsByClassName("tile");
-
-    for(var i = 0; i < l; ++i){
-      var temparray = [];
-      for(var j = 0; j < w; ++j){
-        var temp_tile = new Tile(tile_list[tile_index],i,j);
-        temparray.push(temp_tile);
-        ++tile_index;
+    for(var row = 0; row < this.length; ++row){
+      this.grid[row] = new Array();
+      for(var column = 0; column < this.width; ++column){
+        let temp_tile = document.createElement("BUTTON");
+        temp_tile.setAttribute("class", "tile");
+        document.getElementById("grid").appendChild(temp_tile);
+        let temporary_tile = new Tile(temp_tile,row,column);
+        this.grid[row].push(temporary_tile);
       }
-      this.grid.push(temparray);
     }
-
   }
   getLength(){
     return this.length;
@@ -66,8 +63,20 @@ class Grid {
     var time = 50;
     for(var i = 0; i < path.length; ++i){
       time += 50;
-      setTimeout(function() { path[0].setColor("rgb(0, 255, 128)"); path.splice(0, 1); },time);
+      setTimeout(function() { if(!running){ return; } path[0].setColor("rgb(0, 255, 128)"); path.splice(0, 1); },time);
     }
+  }
+  blink_Fail(tile){
+    var current_iter = ITER;
+    var color = tile.getColor();
+    var time = 400;
+    setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColor("rgb(255, 128, 128)"); },time);
+    time += 100;
+    setTimeout(function() { tile.setColor(color); },time);
+    time += 100;
+    setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColor("rgb(255, 128, 128)"); },time);
+    time += 100;
+    setTimeout(function() { tile.setColor(color); },time);
   }
   clearPaths(){
     for(var i = 0; i < this.length; ++i){
@@ -79,11 +88,27 @@ class Grid {
         }
       }
   }
+  clearAll(){
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+          this.getTile(i,j).setWeight(1);
+        }
+      }
+  }
   dimTiles(){
     for(var i = 0; i < this.length; ++i){
       for(var j = 0; j < this.width; ++j){
-          if(!(this.getTile(i,j).getColor() == "rgb(0, 0, 0)")){
+          if(!(this.getTile(i,j).getWeight() == 0)){
             this.getTile(i,j).addFade();
+          }
+        }
+      }
+  }
+  lightTiles(){
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+          if(!(this.getTile(i,j).getWeight() == 0)){
+            this.getTile(i,j).removeFade();
           }
         }
       }
@@ -156,16 +181,16 @@ class Tile {
   compare(tile){
     return this.getX() == tile.getX() && this.getY() == tile.getY();
   }
-  getLeft(grid){
+  getLeft(grid){ //Left
     return grid.getTile(this.x-1,this.y);
   }
-  getRight(grid){
+  getRight(grid){ //Down
     return grid.getTile(this.x+1,this.y);
   }
-  getUp(grid){
+  getUp(grid){ //Left
     return grid.getTile(this.x,this.y+1);
   }
-  getDown(grid){
+  getDown(grid){ //Right
     return grid.getTile(this.x,this.y-1);
   }
 }

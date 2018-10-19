@@ -80,8 +80,39 @@ class Queue{
   length(){
     return this.queue.length
   }
+  clear(){
+    this.queue = [];
+  }
   printQueue(){
     return printPath(this.queue);
+  }
+}
+
+// Stack class: Gives an Interface for using a stack with an array implementation
+class Stack{
+  constructor(){
+    this.stack = [];
+  }
+  push(elem){
+    this.stack.push(elem);
+  }
+  pop(elem){
+    return this.stack.pop();
+  }
+  peak(elem){
+    return this.stack[this.stack.length-1];
+  }
+  isEmpty(){
+    return this.stack.length == 0;
+  }
+  length(){
+    return this.stack.length;
+  }
+  clear(){
+    this.queue = [];
+  }
+  printStack(){
+    return printPath(this.stack);
   }
 }
 // getMatrix: returns a l x w array with all values initialized to initial_val

@@ -127,7 +127,9 @@ function parseData(arr) {
         for (var y = 0; y < width; y++) {
             var id = arr[i++];
             var color = palette.weight_list.map[id].key;
-            grid.getTile(x, y).setColor(color);
+            var tile = grid.getTile(x, y);
+            tile.setColor(color);
+            tile.getWeight();
         }
     }
 }

@@ -96,11 +96,11 @@ function generateData(grid, palette) {
     return arr;
 }
 
-function parseData(arr, header=false) {
+function parseData(arr, hasHeader=false) {
     var view = new DataView(arr.buffer);
 
     var i = 0;
-    if (header) {
+    if (hasHeader) {
         // Check header
         for (; i < header.length; i++) {
             if (arr[i] !== header[i]) return;

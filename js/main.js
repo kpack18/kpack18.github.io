@@ -54,18 +54,21 @@ $(document).ready(function () {
     });
 
     $('#btnAlgorithm').click(myAlert);
+
+    $('#apply_btn').click(function () {
+        var grid_width = document.getElementById("grid-width").value;
+        var grid_height = document.getElementById("grid-height").value;
+        resizeGrid(grid_width, grid_height);
+    });
 });
 
 var old_crd = 0;
 
 let grid = new Grid(8,8);
 var palette = new Palette();
-var apply_button = document.getElementById("apply_btn");
 $('#grid-container').css({
     'width':807 + 'px' ,'height':807 + 'px'
 });
-
-apply_button.addEventListener("click", resizeGrid);
 
 function setWall(elem, e) {
     var curr_crd = elem[0].getBoundingClientRect().top + window.scrollY + elem[0].getBoundingClientRect().right;
@@ -78,25 +81,23 @@ function setWall(elem, e) {
  /* resizes grid by changing css variables which control grid display's columns and rows
     resizing is done by deleting all element before creating a brand new grid*/
 
-function resizeGrid(){
-    var grid_width = document.getElementById("grid-width").value;
-    var grid_height = document.getElementById("grid-height").value;
-    var total = grid_width * grid_height;
+function resizeGrid(width, height){
+    var total = width * height;
     let total_width = 0;
     let total_height = 0;
 
-    if(grid_height == 0 || grid_width == 0 || grid_height < 0 || grid_width < 0){
+    if(height == 0 || width == 0 || height < 0 || width < 0){
         return;
     }
-    if(grid_width == grid.getWidth() && grid_height == grid.getLength()){
+    if(width == grid.getWidth() && height == grid.getLength()){
         return;
     }
     else{
         switch (true){
             case (total >= 5000):
                 document.documentElement.style.setProperty("--size", "20px");
-                total_width = (grid_width * 20) + (1 * grid_width);
-                total_height = (grid_height * 20) + (1 * grid_height);
+                total_width = (width * 20) + (1 * width);
+                total_height = (height * 20) + (1 * height);
                 //sets the css style width and height
                 $('#grid-container').css({
                     'width':total_width + 'px' ,'height':total_height + 'px'
@@ -104,46 +105,44 @@ function resizeGrid(){
                 break;
             case (total >= 2500):
                 document.documentElement.style.setProperty("--size", "30px");
-                total_width = (grid_width * 30) + (1 * grid_width);
-                total_height = (grid_height * 30) + (1 * grid_height);
+                total_width = (width * 30) + (1 * width);
+                total_height = (height * 30) + (1 * height);
                 $('#grid-container').css({
                     'width':total_width + 'px' ,'height':total_height + 'px'
                 });
                 break;
             case (total >= 1000):
                 document.documentElement.style.setProperty("--size", "50px");
-                total_width = (grid_width * 50) + (1 * grid_width);
-                total_height = (grid_height * 50) + (1 * grid_height);
+                total_width = (width * 50) + (1 * width);
+                total_height = (height * 50) + (1 * height);
                 $('#grid-container').css({
                     'width':total_width + 'px' ,'height':total_height + 'px'
                 });
                 break;
             case (total >= 100):
                 document.documentElement.style.setProperty("--size", "70px");
-                total_width = (grid_width * 70) + (1 * grid_width);
-                total_height = (grid_height * 70) + (1 * grid_height);
+                total_width = (width * 70) + (1 * width);
+                total_height = (height * 70) + (1 * height);
                 $('#grid-container').css({
                     'width':total_width + 'px' ,'height':total_height + 'px'
                 });
                 break;
             default:
                 document.documentElement.style.setProperty("--size", "100px");
-                total_width = (grid_width * 100) + (1 * grid_width);
-                total_height = (grid_height * 100) + (1 * grid_height);
+                total_width = (width * 100) + (1 * width);
+                total_height = (height * 100) + (1 * height);
                 $('#grid-container').css({
                     'width':total_width + 'px' ,'height':total_height + 'px'
                 });
                 break;
         }
-        for(var row = 0; row < grid.getLength(); ++row){
-            for(var column = 0; column < grid.getWidth(); ++column){
-                document.getElementById("grid").removeChild(grid.getTile(row,column).element);
-            }
-        }
-        document.documentElement.style.setProperty("--width", grid_width);
-        document.documentElement.style.setProperty("--height", grid_height);
+
+        $('#grid .tile').remove();
+
+        document.documentElement.style.setProperty("--width", width);
+        document.documentElement.style.setProperty("--height", height);
         document.getElementById("grid-container").style.maxWidth
-        grid = new Grid(grid_height, grid_width);
+        grid = new Grid(height, width);
 
         $('.tile').click(function () {
             setColor($(this));

@@ -17,7 +17,7 @@ reader.onloadend = function (evt) {
 
     if (error === null && contents instanceof ArrayBuffer) {
         var arr = new Uint8Array(contents);
-        parseData(arr);
+        parseData(arr, true);
     }
 };
 
@@ -96,12 +96,15 @@ function generateData(grid, palette) {
     return arr;
 }
 
-function parseData(arr) {
+function parseData(arr, header=false) {
     var view = new DataView(arr.buffer);
 
-    // Check header
-    for (var i = 0; i < header.length; i++) {
-        if (arr[i] !== header[i]) return;
+    var i = 0;
+    if (header) {
+        // Check header
+        for (; i < header.length; i++) {
+            if (arr[i] !== header[i]) return;
+        }
     }
 
     // First byte is number of weights
@@ -122,7 +125,7 @@ function parseData(arr) {
     var width = view.getUint16(i, false); i += 2;
 
     // Next length * width bytes are the grid of weight ID's
-    // DEPENDENT ON DATAFYING BRANCH: resize grid to length x width
+    resizeGrid(length, width);
     for (var x = 0; x < length; x++) {
         for (var y = 0; y < width; y++) {
             var id = arr[i++];

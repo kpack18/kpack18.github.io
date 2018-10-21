@@ -2,33 +2,33 @@
 function test_Save_Load(){
     var fail = false;
     
-    var test_grid = new Grid(5, 5);
+    resizeGrid(5, 5);
     var test_palette = new Palette();
-    test_palette.setPaint("rgb(10, 20, 30)");
+    test_palette.setPaint("rgb(50, 250, 200)");
     test_palette.addBinding(2);
     test_palette.setPaint("rgb(40, 80, 120)");
     test_palette.addBinding(3);
-    test_palette.setPaint("rgb(200, 100, 300)");
+    test_palette.setPaint("rgb(200, 100, 250)");
     test_palette.addBinding(4);
 
     var count = 0;
-    for (var i = 0; i < test_grid.getLength(); ++i) {
-        for (var j = 0; j < test_grid.getWidth(); ++j) {
-            test_grid.getTile(i, j).setColor(test_palette.weight_list.map[count % 5]);
-            test_grid.getTile(i, j).getWeight();
+    for (var i = 0; i < grid.getLength(); ++i) {
+        for (var j = 0; j < grid.getWidth(); ++j) {
+            grid.getTile(i, j).setColor(test_palette.weight_list.map[count % 5].key);
+            grid.getTile(i, j).getWeight();
             ++count;
         }
     }
 
-    var data = generateData(test_grid, test_palette);
-    grid = new Grid(5, 5); // temporary
+    var data = generateData(grid, test_palette);
+    resizeGrid(3, 3); // Reset grid
     parseData(data);
 
     var gridSizeFail = false;
     var paletteSizeFail = false;
 
-    if (grid.getLength() != test_grid.getLength() ||
-        grid.getWidth != test_grid.getWidth()) {
+    if (grid.getLength() != 5 ||
+        grid.getWidth() != 5) {
         fail = true;
         gridSizeFail = true;
     }
@@ -39,13 +39,15 @@ function test_Save_Load(){
     }
 
     if (!fail) {
-        for (var i = 0; i < test_grid.getLength(); ++i) {
-            for (var j = 0; j < test_grid.getWidth(); ++j) {
-                if (grid.getTile(i, j).getWeightNoColor() != test_grid.getTile(i, j).getWeightNoColor())
+        count = 0;
+        for (var i = 0; i < 5; ++i) {
+            for (var j = 0; j < 5; ++j) {
+                if (grid.getTile(i, j).getWeightNoColor() != count % 5)
                     fail = true;
-                if (grid.getTile(i, j).getColor() != test_grid.getTile(i, j).getColor())
+                if (grid.getTile(i, j).getColor() != test_palette.weight_list.map[count % 5].key)
                     fail = true;
                 if (fail) break;
+                ++count;
             }
             if (fail) break;
         }
@@ -53,9 +55,10 @@ function test_Save_Load(){
 
     if (!fail) {
         for (var i = 0; i < test_palette.weight_list.map.length; ++i) {
-            if (palette.weight_list.map[i] != test_palette.weight_list.map[i]) {
+            if (palette.weight_list.map[i].key != test_palette.weight_list.map[i].key)
                 fail = true;
-            }
+            if (palette.weight_list.map[i].val != test_palette.weight_list.map[i].val)
+                fail = true;
             if (fail) break;
         }
     }
@@ -73,11 +76,12 @@ function test_Save_Load(){
           output = output + "                [ 0, 1, 2, 3, 4,]          " + grid.printRow(4) + "\n";
       }
 
-      output = output + "                     --- PALETTE ---\n";
+      output = output + "\n                     --- PALETTE ---\n";
       if (paletteSizeFail)
           output = output + "      Expected: 5 colors           Actual: " + palette.weight_list.map.length + " colors";
       else {
-          output = output + "      Expected: [ 0, 1, 2, 3, 4 ]  Actual: " + palette.weight_list.map + "\n";
+          output = output + "      Expected: [ (rgb(0, 0, 0), 0), (rgb(255, 255, 255), 1), (rgb(50, 250, 200), 2), (rgb(40, 80, 120), 3), (rgb(200, 100, 250), 4),]\n"
+          output = output + "        Actual: " + palette.printPalette() + "\n";
       }
   }
   else {

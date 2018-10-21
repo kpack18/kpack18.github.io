@@ -63,9 +63,9 @@ $(document).ready(function () {
 });
 
 var old_crd = 0;
-
 let grid = new Grid(8,8);
 var palette = new Palette();
+
 $('#grid-container').css({
     'width':807 + 'px' ,'height':807 + 'px'
 });
@@ -152,6 +152,8 @@ function resizeGrid(width, height){
         });
     }
 }
+
+/*--------------------------------------------- end of resizing functions ------------------------------------------------*/
 
 function setColor(elem) {
     elem.css('backgroundColor', palette.getPaint());

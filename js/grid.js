@@ -135,6 +135,7 @@ class Tile {
     this.weight = 1;
     this.x = xcoor;
     this.y = ycoor;
+    this.setColor("rgb(255, 255, 255)");
   }
 /* getX returns the x coordinate of the tile in grid */
   getX(){

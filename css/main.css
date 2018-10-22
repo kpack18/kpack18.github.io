@@ -389,3 +389,30 @@ input:focus{outline: 0;}
   color: Gold;
 }
 
+@media (max-width: 576px) {
+#add-colors-number{
+	position: absolute;
+    left: 52px;
+	top: 0px;
+	border: 1px solid Silver;
+    border-radius: 10px;
+	z-index:1;
+	
+}
+
+#add-colors{
+	position: absolute;
+    left: 103px;
+	top: 0px;
+	border: 1px solid Silver;
+    border-radius: 10px;
+	z-index:1;
+	
+}
+
+#color-options{
+	left: -80px;
+	top: 10px;	
+}
+}
+

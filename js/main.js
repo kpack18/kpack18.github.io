@@ -3,6 +3,8 @@ var old_crd = 0;
 var grid = new Grid(3,3);
 var palette = new Palette();
 
+var pBtnCount = 1;
+var selectedPBtn;
 $(document).ready(function () {
  //Script add color option
 	$('#add-colors').click(function(){
@@ -14,8 +16,9 @@ $(document).ready(function () {
 
 	//Set palate on click of color options
 	$('#color-options').on('click','button',function(){
-		palette.setPaint($(this).data('color'));
-	})
+		selectedPBtn = $(this).data('place');
+		palette.setPaint($(this).data('color'));		
+	});
 
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
@@ -54,18 +57,29 @@ $(document).ready(function () {
 });
 
 function AddNewColorOption(){
-	if($('#color-options button').length > 8) // check to allow only 9 option elements
-	return;
 
 	var selectedColor = $('#color-pick').val();
 	var dataNumber = $('#add-colors-number').val() || 1; // Use 1 if no number is selected
+	++pBtnCount;
+	
+	if($('#color-options button').length > 9) // check to allow only 10 elements, replace colors if at 10 elems
+	{
+	
+		if(selectedPBtn!=null){
+			$("[data-place='"+selectedPBtn+"']").remove(); 
+			pBtnCount = selectedPBtn;
+			selectedPBtn = null;
+			}
+		else return;
+	}
 
 	//Append new color option button with info
 	$('<button/>', {
 		style: "background-color: " + selectedColor,
 		class: "pBtn",
 		'data-color' :selectedColor,
-		'data-number' : dataNumber
+		'data-number' : dataNumber,
+		'data-place' : pBtnCount
 	}).appendTo('#color-options');
 	
 	}							  

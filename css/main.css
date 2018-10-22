@@ -386,7 +386,14 @@ input:focus{outline: 0;}
   border: 1px Silver;
   margin-right: 3px;
   margin-bottom: 3px;
-  color: Gold;
+  color: white;
+ text-shadow:
+-1px -1px 0 #000,
+1px -1px 0 #000,
+-1px 1px 0 #000,
+1px 1px 0 #000;
+font-family: fantasy;
+	
 }
 
 @media (max-width: 576px) {

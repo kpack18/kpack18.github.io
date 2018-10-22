@@ -57,6 +57,7 @@ $(document).ready(function () {
 });
 
 function AddNewColorOption(){
+	if(selectedPBtn == 0 || selectedPBtn == 1) return;
 
 	var selectedColor = $('#color-pick').val();
 	var dataNumber = $('#add-colors-number').val() || 1; // Use 1 if no number is selected

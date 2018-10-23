@@ -33,5 +33,14 @@ class Palette {
   }
   get_Bound_Color(val){
     return this.weight_list.getKey(val);
+    }
+  printPalette() {
+    var output = "[";
+    for (var i = 0; i < this.weight_list.map.length; ++i) {
+      output = output + " (" + this.weight_list.map[i].key + ", " + this.weight_list.map[i].val + "),";
+    }
+    output = output + "]";
+  
+    return output;
   }
 }

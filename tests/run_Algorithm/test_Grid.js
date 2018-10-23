@@ -62,6 +62,18 @@ function test_Grid_Set_Weights(){
   console.log(output);
 }
 
+/*test to see if every member of the grid can be accessed or not
+  passess if no unexpected error occurs*/
+
+function test_grid_tile_access(width, height){
+  for(var i = 0; i < width; ++i){
+    for(var j = 0; j < height; ++j){ 
+      grid.getTile(i,j);
+    }
+  }
+  console.log("pass");
+}
+
 console.log("Grid Tests: ");
 test_Grid_Default();
 test_Grid_Set_Weights();

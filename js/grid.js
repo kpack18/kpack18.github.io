@@ -63,26 +63,26 @@ class Grid {
     var time = 50;
     for(var i = 0; i < path.length; ++i){
       time += 50;
-      setTimeout(function() { if(!running){ return; } path[0].setColor("#00ff80"); path.splice(0, 1); },time);
+      setTimeout(function() { if(!running){ return; } path[0].setColorVisual("#00ff80"); path.splice(0, 1); },time);
     }
   }
   blink_Fail(tile){
     var current_iter = ITER;
     var color = tile.getColor();
     var time = 400;
-    setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColor("#ff8080"); },time);
+    setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColorVisual("#ff8080"); },time);
     time += 100;
-    setTimeout(function() { tile.setColor(color); },time);
+    setTimeout(function() { tile.setColorVisual(color); },time);
     time += 100;
-    setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColor("#ff8080"); },time);
+    setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColorVisual("#ff8080"); },time);
     time += 100;
-    setTimeout(function() { tile.setColor(color); },time);
+    setTimeout(function() { tile.setColorVisual(color); },time);
   }
   clearPaths(){
     for(var i = 0; i < this.length; ++i){
       for(var j = 0; j < this.width; ++j){
-          if(this.getTile(i,j).getColor() == "#00ff80"){
-            this.getTile(i,j).setColor("#ffffff");
+          if(this.getTile(i,j).getColorVisual() == "#00ff80"){
+            this.getTile(i,j).setColorVisual(this.getTile(i,j).getColor());
           }
           this.getTile(i,j).removeFade();
         }
@@ -132,6 +132,7 @@ class Tile {
                                                               Color's Will be Stored in Palette
          x, y: The x and y coordinates of the tile within the grid class */
     this.element = elem;
+    this.color = "#ffffff";
     this.weight = 1;
     this.x = xcoor;
     this.y = ycoor;
@@ -146,9 +147,11 @@ class Tile {
     return this.y;
   }
   getWeight(){
-    var new_weight = palette.get_Bound_Weight(this.getColor());
+    var new_weight = palette.get_Bound_Weight(this.getColorVisual());
+    console.log(this.x + " " + this.y + " " + this.getColorVisual() + " cur: " + this.weight + " new: " + new_weight);
     if(new_weight != null && new_weight != this.weight){
       this.setWeight(new_weight);
+      this.color = this.getColorVisual();
     }
 
     return this.weight;
@@ -167,9 +170,16 @@ class Tile {
 /* Set's the color of the html element to the current paint color */
   setColor(color){
     this.element.style.backgroundColor = color;
+    this.color = color;
+  }
+  setColorVisual(color){
+    this.element.style.backgroundColor = color;
+  }
+  getColorVisual(){
+    return palette.rgb2hex(this.element.style.backgroundColor);
   }
   getColor(){
-    return palette.rgb2hex(this.element.style.backgroundColor);
+    return this.color;
   }
   addFade(){
     if(this.weight == 0){ return; } //Walls Do Not Get Faded

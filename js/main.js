@@ -63,7 +63,7 @@ $(document).ready(function () {
 
     $('.tile').mousemove(function (e) {
         setWall($(this), e);
-        grid.getWeights();
+        //grid.getWeights();
     });
 
     $('#btnAlgorithm').click(myAlert);

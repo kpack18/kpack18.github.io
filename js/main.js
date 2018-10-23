@@ -1,5 +1,18 @@
 var running = false;
 $(document).ready(function () {
+	$('#add-colors').click(function(){
+		AddNewColorOption();
+		palette.addBinding($('#add-colors-number').val() || 1);	
+		var newButton = document.getElementById("color-options").lastChild;
+		newButton.innerHTML = $(newButton).data('number');
+	});
+
+	//Set palate on click of color options
+	$('#color-options').on('click','button',function(){
+		selectedPBtn = $(this).data('place');
+		palette.setPaint($(this).data('color'));		
+	});
+	
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
     });
@@ -65,6 +78,37 @@ $(document).ready(function () {
 var old_crd = 0;
 let grid = new Grid(8,8);
 var palette = new Palette();
+var pBtnCount = 1;
+var selectedPBtn;
+
+function AddNewColorOption(){
+	if(selectedPBtn == 0 || selectedPBtn == 1) return;
+
+	var selectedColor = $('#color-pick').val();
+	var dataNumber = $('#add-colors-number').val() || 1; // Use 1 if no number is selected
+	++pBtnCount;
+	
+	if($('#color-options button').length > 9) // check to allow only 10 elements, replace colors if at 10 elems
+	{
+	
+		if(selectedPBtn!=null){
+			$("[data-place='"+selectedPBtn+"']").remove(); 
+			pBtnCount = selectedPBtn;
+			selectedPBtn = null;
+			}
+		else return;
+	}
+
+	//Append new color option button with info
+	$('<button/>', {
+		style: "background-color: " + selectedColor,
+		class: "pBtn",
+		'data-color' :selectedColor,
+		'data-number' : dataNumber,
+		'data-place' : pBtnCount
+	}).appendTo('#color-options');
+	
+	}						
 
 $('#grid-container').css({
     'width':807 + 'px' ,'height':807 + 'px'

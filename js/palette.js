@@ -23,6 +23,7 @@ class Palette {
   }
   addBinding(weight){
     this.weight_list.add(this.paint_color,weight);
+	console.log(this.paint_color + " bounded to a weight of " +weight);
   }
   removeBinding(color){
     this.weight_list.remove(color);

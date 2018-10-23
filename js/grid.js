@@ -148,7 +148,6 @@ class Tile {
   }
   getWeight(){
     var new_weight = palette.get_Bound_Weight(this.getColorVisual());
-    console.log(this.x + " " + this.y + " " + this.getColorVisual() + " cur: " + this.weight + " new: " + new_weight);
     if(new_weight != null && new_weight != this.weight){
       this.setWeight(new_weight);
       this.color = this.getColorVisual();

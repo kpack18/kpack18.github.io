@@ -4,11 +4,11 @@ class Palette {
   constructor(){
 /* vars: paint_color: The current color of the brush.
                       When a tile is clicked it'll change to current color */
-    this.paint_color = "rgb(0, 0, 0)";
+    this.paint_color = "#000000";
 
     this.weight_list = new Map();
-    this.weight_list.add("rgb(0, 0, 0)",0);
-    this.weight_list.add("rgb(255, 255, 255)",1);
+    this.weight_list.add("#000000",0);
+    this.weight_list.add("#ffffff",1);
     //this.weight_list.add("rgb(0, 255, 128)",2);
   }
 /* setPaint: (PARAM) color: new color of the Brush
@@ -40,7 +40,14 @@ class Palette {
       output = output + " (" + this.weight_list.map[i].key + ", " + this.weight_list.map[i].val + "),";
     }
     output = output + "]";
-  
+
     return output;
+  }
+  rgb2hex(rgb) {
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    function hex(x) {
+        return ("0" + parseInt(x).toString(16)).slice(-2);
+    }
+    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
   }
 }

@@ -63,26 +63,26 @@ class Grid {
     var time = 50;
     for(var i = 0; i < path.length; ++i){
       time += 50;
-      setTimeout(function() { if(!running){ return; } path[0].setColor("rgb(0, 255, 128)"); path.splice(0, 1); },time);
+      setTimeout(function() { if(!running){ return; } path[0].setColor("#00ff80"); path.splice(0, 1); },time);
     }
   }
   blink_Fail(tile){
     var current_iter = ITER;
     var color = tile.getColor();
     var time = 400;
-    setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColor("rgb(255, 128, 128)"); },time);
+    setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColor("#ff8080"); },time);
     time += 100;
     setTimeout(function() { tile.setColor(color); },time);
     time += 100;
-    setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColor("rgb(255, 128, 128)"); },time);
+    setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColor("#ff8080"); },time);
     time += 100;
     setTimeout(function() { tile.setColor(color); },time);
   }
   clearPaths(){
     for(var i = 0; i < this.length; ++i){
       for(var j = 0; j < this.width; ++j){
-          if(this.getTile(i,j).getColor() == "rgb(0, 255, 128)"){
-            this.getTile(i,j).setColor("rgb(255, 255, 255)");
+          if(this.getTile(i,j).getColor() == "#00ff80"){
+            this.getTile(i,j).setColor("#ffffff");
           }
           this.getTile(i,j).removeFade();
         }
@@ -135,7 +135,7 @@ class Tile {
     this.weight = 1;
     this.x = xcoor;
     this.y = ycoor;
-    this.setColor("rgb(255, 255, 255)");
+    this.setColor("#ffffff");
   }
 /* getX returns the x coordinate of the tile in grid */
   getX(){
@@ -169,7 +169,7 @@ class Tile {
     this.element.style.backgroundColor = color;
   }
   getColor(){
-    return this.element.style.backgroundColor;
+    return palette.rgb2hex(this.element.style.backgroundColor);
   }
   addFade(){
     if(this.weight == 0){ return; } //Walls Do Not Get Faded

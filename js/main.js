@@ -2,7 +2,7 @@ var running = false;
 $(document).ready(function () {
 	$('#add-colors').click(function(){
 		AddNewColorOption();
-		palette.addBinding($('#add-colors-number').val() || 1);	
+		palette.addBinding($('#add-colors-number').val() || 1);
 		var newButton = document.getElementById("color-options").lastChild;
 		newButton.innerHTML = $(newButton).data('number');
 	});
@@ -10,9 +10,9 @@ $(document).ready(function () {
 	//Set palate on click of color options
 	$('#color-options').on('click','button',function(){
 		selectedPBtn = $(this).data('place');
-		palette.setPaint($(this).data('color'));		
+		palette.setPaint($(this).data('color'));
 	});
-	
+
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
     });
@@ -39,7 +39,7 @@ $(document).ready(function () {
         $(this).prop('disabled', true);
         setTimeout(function() { $(elem).prop('disabled', false); },250);
         $(this).html("Algorithm");
-        $(this).css("background-color","#4285F4");
+        $(this).css("background-color","#4285f4");
 
         running = false;
         grid.lightTiles();
@@ -49,7 +49,7 @@ $(document).ready(function () {
       else{
         running = true;
         $(this).html("Stop");
-        $(this).css("background-color","rgb(255, 66, 66)");
+        $(this).css("background-color","#ff4242");
 
         var algorithm = new Algorithm("bfs");
 	       var algoBarVal = document.getElementById("algo_select");
@@ -87,12 +87,12 @@ function AddNewColorOption(){
 	var selectedColor = $('#color-pick').val();
 	var dataNumber = $('#add-colors-number').val() || 1; // Use 1 if no number is selected
 	++pBtnCount;
-	
+
 	if($('#color-options button').length > 9) // check to allow only 10 elements, replace colors if at 10 elems
 	{
-	
+
 		if(selectedPBtn!=null){
-			$("[data-place='"+selectedPBtn+"']").remove(); 
+			$("[data-place='"+selectedPBtn+"']").remove();
 			pBtnCount = selectedPBtn;
 			selectedPBtn = null;
 			}
@@ -107,8 +107,8 @@ function AddNewColorOption(){
 		'data-number' : dataNumber,
 		'data-place' : pBtnCount
 	}).appendTo('#color-options');
-	
-	}						
+
+	}
 
 $('#grid-container').css({
     'width':807 + 'px' ,'height':807 + 'px'

@@ -52,29 +52,29 @@
                     <div class="col col-12 col-sm-auto default-cursor tight">
                         <b>Paint Color</b>
                     </div>
-					<div class="row">
-							<div class="col col-12">
-								<div class="">
-									<div class="col col-2" >
-										<input type="number" id="add-colors-number" class="form-control" style="width:50px;" placeholder="0-9"/>
-										<button class="btn blue" id="add-colors"><b>+</b></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					
-	
+                    <div class="row">
+                        <div class="col col-12">
+                            <div class="">
+                                <div class="col col-2">
+                                    <input type="number" id="add-colors-number" class="form-control" style="width:50px;" placeholder="0-9" />
+                                    <button class="btn blue" id="add-colors"><b>+</b></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="col col-12">
                         <div class="input-color-container">
                             <input class="color-btn" type="color" id="color-pick" />
                         </div>
-						
-						<div class="col col-6 float-right " id='color-options'>
-							<div><center><b>Palette</b></center></div>
-							<button style="background-color: #000000" class="pBtn" data-color='#000000' data-number='0' data-place='1'>0</button>
-							<button style="background-color: #ffffff;" class="pBtn" data-color='#ffffff' data-number='1' data-place='0'>1</button>						
-						</div>
-						
+
+                        <div class="col col-6 float-right " id='color-options'>
+                            <div><center><b>Palette</b></center></div>
+                            <button style="background-color: #000000" class="pBtn" data-color='#000000' data-number='0' data-place='1'>0</button>
+                            <button style="background-color: #ffffff;" class="pBtn" data-color='#ffffff' data-number='1' data-place='0'>1</button>
+                        </div>
+
                     </div>
                 </div>
 
@@ -168,8 +168,33 @@
     <script type="text/javascript" src="js/saveload.js"></script>
 
     <!-- Test Scripts Below: IMPORTANT_NOTE: visual tiles will bug out during algorithm tests since multiple are run at the same time -->
-    <!-- <script type="text/javascript" src="tests/run_Algorithm/test_Grid.js"></script> -->
-    <!-- <script type="text/javascript" src="tests/run_Algorithm/test_Algorithm.js"></script> -->
-    <!-- <script type="text/javascript" src="tests/save_Load/test_SaveLoad.js"></script> -->
+    <script type="text/javascript" src="tests/run_Algorithm/test_Grid.js"></script>
+    <script type="text/javascript" src="tests/run_Algorithm/test_Algorithm.js"></script>
+    <script type="text/javascript" src="tests/save_Load/test_SaveLoad.js"></script>
+
+    <div id="testModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Unit Tests</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="tests" class="btn-group-vertical" role="group" aria-label="Unit Tests">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src="tests/tests.js"></script>
 </body>
     </html>

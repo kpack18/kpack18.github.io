@@ -311,17 +311,21 @@ function test_Dfs_Path_Complex_2(){
   console.log(output);
 }
 
-console.log("Algorithm Tests:");
-console.log("\nBfs:");
-test_Bfs_Same_Point();
-test_Bfs_Path_Simple();
-test_Bfs_Path_Wall();
-test_Bfs_Path_None();
-test_Bfs_Path_Complex();
+function execute_test_Algorithm() {
 
-console.log("\nDfs:");
-test_Dfs_Path_Simple();
-test_Dfs_Path_None();
-test_Dfs_Path_Complex();
-test_Dfs_Path_Complex_2();
-console.log("\n");
+    console.log("Algorithm Tests:");
+    console.log("\nBfs:");
+    test_Bfs_Same_Point();
+    test_Bfs_Path_Simple();
+    test_Bfs_Path_Wall();
+    test_Bfs_Path_None();
+    test_Bfs_Path_Complex();
+
+    console.log("\nDfs:");
+    test_Dfs_Path_Simple();
+    test_Dfs_Path_None();
+    test_Dfs_Path_Complex();
+    test_Dfs_Path_Complex_2();
+    console.log("\n");
+
+}

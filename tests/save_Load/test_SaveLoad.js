@@ -91,6 +91,10 @@ function test_Save_Load(){
   console.log(output);
 }
 
-console.log("Save/Load Tests: ");
-test_Save_Load();
-console.log("\n");
+function execute_test_SaveLoad() {
+
+    console.log("Save/Load Tests: ");
+    test_Save_Load();
+    console.log("\n");
+
+}

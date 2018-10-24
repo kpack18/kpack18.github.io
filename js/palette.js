@@ -22,8 +22,12 @@ class Palette {
     return this.paint_color;
   }
   addBinding(weight){
-    this.weight_list.add(this.paint_color,weight);
-	console.log(this.paint_color + " bounded to a weight of " +weight);
+    var w = weight;
+    if (typeof weight === 'string' || weight instanceof String){
+      w = parseInt(weight, 10);
+    }
+    this.weight_list.add(this.paint_color,w);
+	   console.log(this.paint_color + " bounded to a weight of " + w);
   }
   removeBinding(color){
     this.weight_list.remove(color);

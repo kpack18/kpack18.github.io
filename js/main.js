@@ -69,8 +69,8 @@ $(document).ready(function () {
     $('#btnAlgorithm').click(myAlert);
 
     $('#apply_btn').click(function () {
-        var grid_width = document.getElementById("grid-width").value;
-        var grid_height = document.getElementById("grid-height").value;
+        let grid_width = document.getElementById("grid-width").value;
+        let grid_height = document.getElementById("grid-height").value;
         resizeGrid(grid_width, grid_height);
     });
 
@@ -139,6 +139,13 @@ function resizeGrid(width, height){
     var total = width * height;
     let total_width = 0;
     let total_height = 0;
+
+    if(width % 1 != 0){
+        width = Math.floor(width);
+    }
+    if(height % 1 != 0){
+        height = Math.floor(height);
+    }
 
     if(height == 0 || width == 0 || height < 0 || width < 0){
         return;

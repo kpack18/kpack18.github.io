@@ -121,12 +121,18 @@ function parseData(arr, hasHeader=false) {
 
     // Next 'weights' * 7 bytes are the weights' colors
     palette.weight_list = new Map();
+    pBtnCount = -1;
+    $('#color-options button').remove();
     for (var w = 0; w < weights; w++) {
         var red = arr[i++];
         var green = arr[i++];
         var blue = arr[i++];
         var weight = view.getInt32(i, false); i += 4;
-        palette.weight_list.add(dataToHex(red, green, blue), weight);
+        $('#add-colors-number').val(weight);
+        color = dataToHex(red, green, blue);
+        $('#color-pick').val(color);
+        palette.setPaint(color);
+        $('#add-colors').click();
     }
 
     // Next four bytes are length x width of grid

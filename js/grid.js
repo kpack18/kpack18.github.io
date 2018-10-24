@@ -120,6 +120,15 @@ class Grid {
       }
     }
   }
+  getWeightList(){
+    var matrix = getMatrix(grid.getLength(),grid.getWidth(),0);
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+        matrix[i][j] = this.getTile(i,j).getWeight();
+      }
+    }
+    return matrix;
+  }
 
 }
 

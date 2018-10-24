@@ -49,6 +49,8 @@ class Algorithm{
     var visited_list = getMatrix(grid.getLength(),grid.getWidth(),false);
     var previous_list = getMatrix(grid.getLength(),grid.getWidth(),null);
 
+    var weight_list = grid.getWeightList();
+
     if(start_tile.compare(end_tile)){
       time = this.delay_Remove_Fade(start_tile,time);
       setTimeout(function() { grid.setPath([start_tile]); },time);
@@ -67,50 +69,39 @@ class Algorithm{
       var cur = queue.peak();
       queue.pop();
 
-      var left = cur.getLeft(grid);
-      if(left != null && left.getWeight() != 0 && visited_list[left.getX()][left.getY()] == false ){
-        queue.push(left);
-        visited_list[left.getX()][left.getY()] = true;
-        previous_list[left.getX()][left.getY()] = cur;
-
-        time = this.delay_Remove_Fade(left,time);
-
-        if(left.compare(end_tile)){
+      if(weight_list[cur.getX()][cur.getY()] > 1){
+        time += TIME_INC;
+        --weight_list[cur.getX()][cur.getY()];
+        queue.push(cur);
+      }
+      else{
+        time = this.delay_Remove_Fade(cur,time);
+        if(cur.compare(end_tile)){
           break;
         }
-      }
-      var right = cur.getRight(grid);
-      if(right != null && right.getWeight() != 0 && visited_list[right.getX()][right.getY()] == false){
-        queue.push(right);
-        visited_list[right.getX()][right.getY()] = true;
-        previous_list[right.getX()][right.getY()] = cur;
-
-        time = this.delay_Remove_Fade(right,time);
-        if(right.compare(end_tile)){
-          break;
+        var left = cur.getLeft(grid);
+        if(left != null && left.getWeight() != 0 && visited_list[left.getX()][left.getY()] == false ){
+          queue.push(left);
+          visited_list[left.getX()][left.getY()] = true;
+          previous_list[left.getX()][left.getY()] = cur;
         }
-      }
-      var up = cur.getUp(grid);
-      if(up != null && up.getWeight() != 0 && visited_list[up.getX()][up.getY()] == false){
-        queue.push(up);
-        visited_list[up.getX()][up.getY()] = true;
-        previous_list[up.getX()][up.getY()] = cur;
-
-        time = this.delay_Remove_Fade(up,time);
-        if(up.compare(end_tile)){
-          break;
+        var right = cur.getRight(grid);
+        if(right != null && right.getWeight() != 0 && visited_list[right.getX()][right.getY()] == false){
+          queue.push(right);
+          visited_list[right.getX()][right.getY()] = true;
+          previous_list[right.getX()][right.getY()] = cur;
         }
-      }
-      var down = cur.getDown(grid);
-      if(down != null && down.getWeight() != 0 && visited_list[down.getX()][down.getY()] == false){
-        queue.push(down);
-        visited_list[down.getX()][down.getY()] = true;
-        previous_list[down.getX()][down.getY()] = cur;
-
-        time = this.delay_Remove_Fade(down,time);
-
-        if(down.compare(end_tile)){
-          break;
+        var up = cur.getUp(grid);
+        if(up != null && up.getWeight() != 0 && visited_list[up.getX()][up.getY()] == false){
+          queue.push(up);
+          visited_list[up.getX()][up.getY()] = true;
+          previous_list[up.getX()][up.getY()] = cur;
+        }
+        var down = cur.getDown(grid);
+        if(down != null && down.getWeight() != 0 && visited_list[down.getX()][down.getY()] == false){
+          queue.push(down);
+          visited_list[down.getX()][down.getY()] = true;
+          previous_list[down.getX()][down.getY()] = cur;
         }
       }
     }
@@ -142,6 +133,8 @@ class Algorithm{
     var visited_list = getMatrix(grid.getLength(),grid.getWidth(),false);
     var previous_list = getMatrix(grid.getLength(),grid.getWidth(),null);
 
+    var weight_list = grid.getWeightList();
+
     if(start_tile.compare(end_tile)){
       time = this.delay_Remove_Fade(start_tile,time);
       setTimeout(function() { grid.setPath([start_tile]); },time);
@@ -159,6 +152,12 @@ class Algorithm{
     while(!stack.isEmpty()){
       var cur = stack.peak();
       stack.pop();
+
+      if(weight_list[cur.getX()][cur.getY()] > 1){
+        time += TIME_INC;
+        --weight_list[cur.getX()][cur.getY()];
+        stack.push(cur);
+      }
 
       visited_list[cur.getX()][cur.getY()] = true;
 

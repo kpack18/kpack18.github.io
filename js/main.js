@@ -85,6 +85,11 @@ function AddNewColorOption(){
 
 	var selectedColor = $('#color-pick').val();
 	var dataNumber = $('#add-colors-number').val() || 1; // Use 1 if no number is selected
+	if(dataNumber > 9 || dataNumber < 0){
+		alert("You must enter a number between 0 & 9!");
+		return;
+	}
+	dataNumber = Math.floor(dataNumber);
 	++pBtnCount;
 
 	if($('#color-options button').length > 9) // check to allow only 10 elements, replace colors if at 10 elems

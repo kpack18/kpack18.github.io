@@ -219,5 +219,12 @@ function myAlert() {
 
 function error(message) {
     $('#alertError .message').text(message);
+    $('#alertSuccess').hide();
     $('#alertError').fadeIn("slow");
+}
+
+function success(message) {
+    $('#alertSuccess .message').text(message);
+    $('#alertError').hide();
+    $('#alertSuccess').fadeIn("slow");
 }

@@ -8,26 +8,37 @@ $(document).ready(function () {
     });
 });
 
+var loadfile = "";
 var header = textToData("!ALGORITHM_VISUALIZER!");
 var reader = new FileReader();
 
 reader.onloadend = function (evt) {
     var contents = evt.target.result;
-    var error = evt.target.error;
+    var err = evt.target.error;
 
-    if (error === null && contents instanceof ArrayBuffer) {
+    if (err === null && contents instanceof ArrayBuffer) {
         var arr = new Uint8Array(contents);
-        parseData(arr, true);
+        try {
+            parseData(arr, true);
+            success("Successfully loaded grid file" + (loadfile ? " '" + loadfile + "'" : "") + ".")
+        }
+        catch (err) {
+            error("Failed to parse file" + (loadfile ? " '" + loadfile + "'" : "") + ".");
+        }
+    }
+    else {
+        error("Failed to load file" + (loadfile ? " '" + loadfile + "'" : "") + ".");
     }
 };
 
 function load(file) {
+    loadfile = file.name;
     reader.readAsArrayBuffer(file);
 }
 
 function save() {
     try {
-        var temp_weights = grid.getWeights();
+        grid.getWeights();
         var data = generateData(grid, palette);
     }
     catch (err) {
@@ -44,6 +55,7 @@ function save() {
         error("Failed to save the generated data file.");
         return null;
     }
+    success("Successfully saved the grid to '" + filename + "'.");
     return filename;
 }
 
@@ -125,7 +137,8 @@ function parseData(arr, hasHeader=false) {
     if (hasHeader) {
         // Check header
         for (; i < header.length; i++) {
-            if (arr[i] !== header[i]) return;
+            if (arr[i] !== header[i])
+                throw new Error("File header mismatch.");
         }
     }
 

@@ -422,3 +422,8 @@ font-family: fantasy;
 	top: 10px;	
 }
 }
+
+.alert{
+    top: 20px;
+    display: none;
+}

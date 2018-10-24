@@ -11,7 +11,7 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
@@ -52,29 +52,29 @@
                     <div class="col col-12 col-sm-auto default-cursor tight">
                         <b>Paint Color</b>
                     </div>
-					<div class="row">
-							<div class="col col-12">
-								<div class="">
-									<div class="col col-2" >
-										<input type="number" id="add-colors-number" class="form-control" style="width:50px;" />
-										<button class="btn blue" id="add-colors"><b>+</b></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					
-	
+                    <div class="row">
+                        <div class="col col-12">
+                            <div class="">
+                                <div class="col col-2">
+                                    <input type="number" id="add-colors-number" class="form-control" style="width:50px;" />
+                                    <button class="btn blue" id="add-colors"><b>+</b></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="col col-12">
                         <div class="input-color-container">
                             <input class="color-btn" type="color" id="color-pick" />
                         </div>
-						
-						<div class="col col-6 float-right " id='color-options'>
-							<div><center><b>Palette</b></center></div>
-							<button style="background-color: #ffffff;" class="pBtn" data-color='#ffffff' data-number='1' data-place='0'>1</button>
-							<button style="background-color: #000000" class="pBtn" data-color='#000000' data-number='0' data-place='1'>0</button>
-						</div>
-						
+
+                        <div class="col col-6 float-right " id='color-options'>
+                            <div><center><b>Palette</b></center></div>
+                            <button style="background-color: #ffffff;" class="pBtn" data-color='#ffffff' data-number='1' data-place='0'>1</button>
+                            <button style="background-color: #000000" class="pBtn" data-color='#000000' data-number='0' data-place='1'>0</button>
+                        </div>
+
                     </div>
                 </div>
 
@@ -130,6 +130,10 @@
 
         <!-- Maze Grid Tiles -->
         <div id="content">
+            <div id="alertError" class="alert alert-danger alert-dismissable">
+                <a href="javascript:void(0);" class="close" aria-label="close">&times;</a>
+                <strong>Error!</strong> <span class="message">The module availability database failed to reload from the file system. Please try again later or contact the system administrators.</span>
+            </div>
             <div id="sidebarCollapseDiv">
                 <div id="sidebarCollapseTop"><div></div></div>
                 <div>

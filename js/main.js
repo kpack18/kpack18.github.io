@@ -73,6 +73,12 @@ $(document).ready(function () {
         var grid_height = document.getElementById("grid-height").value;
         resizeGrid(grid_width, grid_height);
     });
+
+    $('.alert .close').click(function (evt) {
+        $(evt.target).parent().fadeOut("slow", function () {
+            $(evt.target).parent().hide();
+        });
+    });
 });
 
 var old_crd = 0;
@@ -205,4 +211,9 @@ function setColor(elem) {
 
 function myAlert() {
 	alert("Oops! Looks like we don't have any algorithms yet!");
+}
+
+function error(message) {
+    $('#alertError .message').text(message);
+    $('#alertError').fadeIn("slow");
 }

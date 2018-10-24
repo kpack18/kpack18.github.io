@@ -26,11 +26,23 @@ function load(file) {
 }
 
 function save() {
-    var data = generateData(grid, palette);
-    var blob = new Blob([header, data]);
-    var date = new Date();
-    var filename = "grid_" + (date.getMonth() + 1) + "_" + date.getDate() + "_" + date.getFullYear() + ".avg";
-    saveAs(blob, filename);
+    try {
+        var data = generateData(grid, palette);
+    }
+    catch (err) {
+        error("Failed to generate the savefile data.");
+        return null;
+    }
+    try {
+        var blob = new Blob([header, data]);
+        var date = new Date();
+        var filename = "grid_" + (date.getMonth() + 1) + "_" + date.getDate() + "_" + date.getFullYear() + ".avg";
+        saveAs(blob, filename);
+    }
+    catch (err) {
+        error("Failed to save the generated data file.");
+        return null;
+    }
     return filename;
 }
 

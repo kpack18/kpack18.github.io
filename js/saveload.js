@@ -42,14 +42,23 @@ function textToData(chars) {
     return bytes;
 }
 
-function rgbToData(rgb) {
-    return rgb
-        .match(/^\d+|\d+\b|\d+(?=\w)/g)
-        .map(function (v) { return +v; });
+function hexToData(hex) {
+    var val = hex;
+    if (val.startsWith('#'))
+        val = val.substr(1);
+    data = [NaN, NaN, NaN];
+    if (val.length == 6) {
+        data[0] = parseInt(val.substr(0, 2), 16);
+        data[1] = parseInt(val.substr(2, 2), 16);
+        data[2] = parseInt(val.substr(4, 2), 16);
+    }
+    if (data[0] === NaN || data[1] === NaN || data[2] === NaN)
+        throw new Error("Invalid palette color '" + hex + "'");
+    return data;
 }
 
-function dataToRgb(red, green, blue) {
-    return "rgb(" + red + ", " + green + ", " + blue + ")";
+function dataToHex(red, green, blue) {
+    return "#" + hex(red) + hex(green) + hex(blue);
 }
 
 function generateData(grid, palette) {
@@ -72,7 +81,7 @@ function generateData(grid, palette) {
 
     // Next 'weights' * 7 bytes are the weights' colors
     for (var kvp of palette.weight_list.map) {
-        var rgb = rgbToData(kvp.key);
+        var rgb = hexToData(kvp.key);
         arr[i++] = rgb[0];
         arr[i++] = rgb[1];
         arr[i++] = rgb[2];
@@ -117,7 +126,7 @@ function parseData(arr, hasHeader=false) {
         var green = arr[i++];
         var blue = arr[i++];
         var weight = view.getInt32(i, false); i += 4;
-        palette.weight_list.add(dataToRgb(red, green, blue), weight);
+        palette.weight_list.add(dataToHex(red, green, blue), weight);
     }
 
     // Next four bytes are length x width of grid

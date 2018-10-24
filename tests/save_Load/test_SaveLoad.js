@@ -4,11 +4,11 @@ function test_Save_Load(){
     
     resizeGrid(5, 5);
     var test_palette = new Palette();
-    test_palette.setPaint("rgb(50, 250, 200)");
+    test_palette.setPaint("#50f0bb");
     test_palette.addBinding(2);
-    test_palette.setPaint("rgb(40, 80, 120)");
+    test_palette.setPaint("#4080b0");
     test_palette.addBinding(3);
-    test_palette.setPaint("rgb(200, 100, 250)");
+    test_palette.setPaint("#ccaadd");
     test_palette.addBinding(4);
 
     var count = 0;
@@ -80,7 +80,7 @@ function test_Save_Load(){
       if (paletteSizeFail)
           output = output + "      Expected: 5 colors           Actual: " + palette.weight_list.map.length + " colors";
       else {
-          output = output + "      Expected: [ (rgb(0, 0, 0), 0), (rgb(255, 255, 255), 1), (rgb(50, 250, 200), 2), (rgb(40, 80, 120), 3), (rgb(200, 100, 250), 4),]\n"
+          output = output + "      Expected: [ (#000000, 0), (#ffffff, 1), (#50f0bb, 2), (#4080b0, 3), (#ccaadd, 4),]\n"
           output = output + "        Actual: " + palette.printPalette() + "\n";
       }
   }

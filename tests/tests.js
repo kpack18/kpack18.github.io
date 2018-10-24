@@ -46,6 +46,10 @@ $('#testModal').on('shown.bs.modal', function (evt) {
         $(this).modal('hide');
 });
 
+$('#testModal').on('hide.bs.modal', function (evt) {
+    modalVisible = false;
+});
+
 $('#testModal').on('hidden.bs.modal', function (evt) {
     if (modalVisible)
         $(this).modal('show');

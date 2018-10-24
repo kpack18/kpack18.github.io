@@ -31,10 +31,10 @@ function zero_Resize(){
     resizeGrid(0,-10.8); 
     resizeGrid(0,10.8);
     if(grid.getLength() == 8 && grid.getWidth() == 8){
-        console.log("PASS");
+        console.log("Zero resize: PASS");
     }
     else{
-        console.log("FAIL: Unexpected behavior, grid resized when one of the input is 0");
+        console.log("Zero resize: FAIL, Unexpected behavior, grid resized when one of the input is 0");
     }
 }
 
@@ -48,44 +48,46 @@ function negative_Resize(){
     resizeGrid(-87.2,10);
     resizeGrid(-10.3,-18.2);
     if(grid.getLength() == 8 && grid.getWidth() == 8){
-        console.log("PASS");
+        console.log("Negative resize: PASS");
     }
     else{
-        console.log("FAIL: Invalid resize, grid resized when there is a negative in the input");
+        console.log("Negative resize: FAIL, Invalid resize, grid resized when there is a negative in the input");
     }
 }
 
 /* Test resize functionality against valid resize inputs*/
 function valid_Resize(){
     resizeGrid(1,1);
+    test_Tiles();
     if(grid.getLength() != 1 && grid.getWidth() != 1){
-        test_Tiles();
-        console.log("FAIL, 1x1")
+        console.log("Valid resize: FAIL, at 1x1")
     }
     resizeGrid(15,15);
+    test_Tiles();
     if(grid.getLength() != 15 && grid.getWidth() != 15){
-        test_Tiles();
-        console.log("FAIL")
+        console.log("Valid resizes: FAIL at square input")
     }
     resizeGrid(10.8,13.8);
+    test_Tiles();
     if(grid.getLength() != 13 && grid.getWidth() != 10){
-        test_Tiles();
-        console.log("FAIL, decimal inputs")
+        console.log("Valid resizes: FAIL, at decimal inputs")
     }
     resizeGrid(11,18);
+    test_Tiles();
     if(grid.getLength() != 18 && grid.getWidth() != 11){
-        test_Tiles();
-        console.log("FAIL, odd input")
+        console.log("Valid resizes: FAIL, at odd input")
     }
     resizeGrid(12,14);
+    test_Tiles();
     if(grid.getLength() != 14 && grid.getWidth() != 12){
-        test_Tiles();
-        console.log("FAIL, even input")
+        console.log("Valid resized: FAIL, at even input")
     }
-    console.log("PASS");
+    console.log("Valid resizes: PASS");
 }
 
+function run_Resize_Tests(){
 zero_Resize();
 negative_Resize();
 valid_Resize();
 resizeGrid(8,8);
+}

@@ -71,6 +71,8 @@ $(document).ready(function () {
     $('#apply_btn').click(function () {
         let grid_width = document.getElementById("grid-width").value;
         let grid_height = document.getElementById("grid-height").value;
+        grid_width = Number(grid_width);
+        grid_height = Number(grid_height);
         resizeGrid(grid_width, grid_height);
     });
 
@@ -146,19 +148,21 @@ function resizeGrid(width, height){
     if(height % 1 != 0){
         height = Math.floor(height);
     }
-
     if(height == 0 || width == 0 || height < 0 || width < 0){
         return;
     }
     if(width == grid.getWidth() && height == grid.getLength()){
         return;
     }
+    if(total > 10000){
+        return;
+    }
     else{
         switch (true){
             case (total >= 5000):
-                document.documentElement.style.setProperty("--size", "20px");
-                total_width = (width * 20) + (1 * width);
-                total_height = (height * 20) + (1 * height);
+                document.documentElement.style.setProperty("--size", "25px");
+                total_width = (width * 25) + (1 * width);
+                total_height = (height * 25) + (1 * height);
                 //sets the css style width and height
                 $('#grid-container').css({
                     'width':total_width + 'px' ,'height':total_height + 'px'

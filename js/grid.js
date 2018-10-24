@@ -92,6 +92,7 @@ class Grid {
     for(var i = 0; i < this.length; ++i){
       for(var j = 0; j < this.width; ++j){
           this.getTile(i,j).setWeight(1);
+          this.getTile(i,j).setColor("#ffffff");
         }
       }
   }

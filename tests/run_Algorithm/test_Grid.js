@@ -74,7 +74,11 @@ function test_grid_tile_access(width, height){
   console.log("pass");
 }
 
-console.log("Grid Tests: ");
-test_Grid_Default();
-test_Grid_Set_Weights();
-console.log("\n");
+function execute_test_Grid() {
+
+    console.log("Grid Tests: ");
+    test_Grid_Default();
+    test_Grid_Set_Weights();
+    console.log("\n");
+
+}

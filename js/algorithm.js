@@ -25,12 +25,12 @@ class Algorithm{
   set_Algo(algo_type,grid){
     this.algo = algo_type;
   }
-  delay_Remove_Fade(tile,time){
+  delay_Remove_Fade(tile,time,delay){
     time += TIME_INC;
     //fade_Array.push(tile);
     //setTimeout(function() { if(!running || fade_Array.isEmpty()){ return; } fade_Array.peak().removeFade(); fade_Array.pop(); },time);
     var current_iter = ITER;
-    setTimeout(function() { var this_tile = tile; if(!check_Iteration(current_iter)){ return; }; this_tile.removeFade(); },time);
+    setTimeout(function() { var this_tile = tile; if(!check_Iteration(current_iter)){ return; }; this_tile.removeFade(); },time + delay);
     return time;
   }
   fail(start_tile,end_tile,time){
@@ -50,9 +50,10 @@ class Algorithm{
     var previous_list = getMatrix(grid.getLength(),grid.getWidth(),null);
 
     var weight_list = grid.getWeightList();
+    var timing_list = getMatrix(grid.getLength(),grid.getWidth(),0);
 
     if(start_tile.compare(end_tile)){
-      time = this.delay_Remove_Fade(start_tile,time);
+      time = this.delay_Remove_Fade(start_tile,time,0);
       setTimeout(function() { grid.setPath([start_tile]); },time);
       return [start_tile];
     }
@@ -70,12 +71,12 @@ class Algorithm{
       queue.pop();
 
       if(weight_list[cur.getX()][cur.getY()] > 1){
-        time += TIME_INC;
+        timing_list[cur.getX()][cur.getY()] = timing_list[cur.getX()][cur.getY()] + TIME_INC;
         --weight_list[cur.getX()][cur.getY()];
         queue.push(cur);
       }
       else{
-        time = this.delay_Remove_Fade(cur,time);
+        time = this.delay_Remove_Fade(cur,time,timing_list[cur.getX()][cur.getY()]);
         if(cur.compare(end_tile)){
           break;
         }
@@ -135,8 +136,10 @@ class Algorithm{
 
     var weight_list = grid.getWeightList();
 
+    var timing_list = getMatrix(grid.getLength(),grid.getWidth(),0);
+
     if(start_tile.compare(end_tile)){
-      time = this.delay_Remove_Fade(start_tile,time);
+      time = this.delay_Remove_Fade(start_tile,time,0);
       setTimeout(function() { grid.setPath([start_tile]); },time);
       return [start_tile];
     }
@@ -154,14 +157,14 @@ class Algorithm{
       stack.pop();
 
       if(weight_list[cur.getX()][cur.getY()] > 1){
-        time += TIME_INC;
+        timing_list[cur.getX()][cur.getY()] = timing_list[cur.getX()][cur.getY()] + TIME_INC;
         --weight_list[cur.getX()][cur.getY()];
         stack.push(cur);
       }
 
       visited_list[cur.getX()][cur.getY()] = true;
 
-      time = this.delay_Remove_Fade(cur,time);
+      time = this.delay_Remove_Fade(cur,time,timing_list[cur.getX()][cur.getY()]);
 
       if(cur.compare(end_tile)){
         break;

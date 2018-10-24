@@ -82,7 +82,6 @@ var pBtnCount = 1;
 var selectedPBtn;
 
 function AddNewColorOption(){
-	if(selectedPBtn == 0 || selectedPBtn == 1) return;
 
 	var selectedColor = $('#color-pick').val();
 	var dataNumber = $('#add-colors-number').val() || 1; // Use 1 if no number is selected
@@ -90,7 +89,7 @@ function AddNewColorOption(){
 
 	if($('#color-options button').length > 9) // check to allow only 10 elements, replace colors if at 10 elems
 	{
-
+		if(selectedPBtn == 0 || selectedPBtn == 1) return;
 		if(selectedPBtn!=null){
 			$("[data-place='"+selectedPBtn+"']").remove();
 			pBtnCount = selectedPBtn;

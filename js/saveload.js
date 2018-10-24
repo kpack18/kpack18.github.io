@@ -27,6 +27,7 @@ function load(file) {
 
 function save() {
     try {
+        var temp_weights = grid.getWeights();
         var data = generateData(grid, palette);
     }
     catch (err) {

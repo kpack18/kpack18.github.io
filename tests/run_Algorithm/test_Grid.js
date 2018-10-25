@@ -67,7 +67,7 @@ function test_Grid_Set_Weights(){
 
 function test_grid_tile_access(width, height){
   for(var i = 0; i < width; ++i){
-    for(var j = 0; j < height; ++j){ 
+    for(var j = 0; j < height; ++j){
       grid.getTile(i,j);
     }
   }
@@ -76,9 +76,12 @@ function test_grid_tile_access(width, height){
 
 function execute_test_Grid() {
 
-    console.log("Grid Tests: ");
-    test_Grid_Default();
-    test_Grid_Set_Weights();
-    console.log("\n");
+  var time = 200;
+  running = false;
+  setTimeout(function(){ console.log("Grid Tests:"); },time);
+  setTimeout(function(){ test_Grid_Default(); },time += 1000);
+  setTimeout(function(){ test_Grid_Set_Weights(); },time += 2000);
+  setTimeout(function(){ resizeGrid(3,3); grid.clearAll(); }, time += 2000);
+  setTimeout(function(){ resizeGrid(8,8); }, time += 1000);
 
 }

@@ -1,6 +1,7 @@
 tests = {
     "Test Algorithm": execute_test_Algorithm,
     "Test Grid": execute_test_Grid,
+    "Test Resize": execute_test_Resize,
     "Test Save/Load": execute_test_SaveLoad,
     "Test Weights": execute_test_Weight
 };

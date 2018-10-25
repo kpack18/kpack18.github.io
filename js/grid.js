@@ -157,6 +157,8 @@ class Tile {
     this.x = xcoor;
     this.y = ycoor;
     this.setColor("#ffffff");
+    $(this.element).data('x',this.x); 
+    $(this.element).data('y',this.y);
     //this.is_start = false;
   }
 /* getX returns the x coordinate of the tile in grid */

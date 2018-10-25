@@ -17,7 +17,7 @@ class Palette {
     : set's the color of the brush to "color" */
   setPaint(color){
     this.paint_color = color;
-    console.log("Color set to: " + color);
+    //console.log("Color set to: " + color);
   }
 // getPaint: Returns the current color of the brush
   getPaint(){
@@ -29,7 +29,7 @@ class Palette {
       w = parseInt(weight, 10);
     }
     this.weight_list.add(this.paint_color,w);
-	   console.log(this.paint_color + " bounded to a weight of " + w);
+	   //console.log(this.paint_color + " bounded to a weight of " + w);
   }
   removeBinding(color){
     this.weight_list.remove(color);

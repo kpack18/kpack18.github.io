@@ -352,40 +352,6 @@ input:focus{outline: 0;}
   transform: rotate(45deg);
 }
 
-<<<<<<< HEAD
-/* save button popup */
-.save-modal{
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 300px;
-    top: -100px; 
-    height: 100%;
-    width: 100%;
-    overflow: auto; 
-}
-
-.save-modal-content{
-    background-color:lightblue;
-    margin: 20%;
-    padding: 10px;
-    width: 40%;
-    height: 30%;
-    border-radius: 10px;
-}
-
-.save-modal-closeBtn{
-    color:black;
-    float: right; 
-    font-size: 20px;
-}
-
-.save-modal-closeBtn:hover, .save-modal-closeBtn:focus{
-    color: white;
-    text-decoration: none;
-    cursor: pointer; 
-}
-=======
 #add-colors-number{
 	position: relative;
     left: -51px;
@@ -461,4 +427,3 @@ font-family: fantasy;
     top: 20px;
     display: none;
 }
->>>>>>> Running_Algo

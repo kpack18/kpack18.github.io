@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-var current_color = 'black';
-var old_crd = 0;
-var saveModal = document.getElementById("saveModalPopup");
-var saveButton = document.getElementById("saveButton");
-var closeSaveModalBtn = document.getElementsByClassName("save-modal-closeBtn")[0];
-
-=======
 var running = false;
 var start_x = 0;
 var start_y = 0;
@@ -14,7 +6,6 @@ var end_y = 3;
 var start_selected = false;
 var start_exists = true;
 mousedown = false;
->>>>>>> Running_Algo
 $(document).ready(function () {
     var start_tile = grid.getTile(0,0);
 	$('#add-colors').click(function(){
@@ -276,19 +267,6 @@ function myAlert() {
 	alert("Oops! Looks like we don't have any algorithms yet!");
 }
 
-<<<<<<< HEAD
-//Setting save button popup's event listeners
-saveButton.addEventListener("click", save);
-closeSaveModalBtn.addEventListener("click", closeSaveModal);
-
-function save(){
-    saveModal.style.display = "block";
-}
-
-function closeSaveModal(){
-    saveModal.style.display = "none";
-}
-=======
 function error(message) {
     $('#alertError .message').text(message);
     $('#alertSuccess').hide();
@@ -300,4 +278,3 @@ function success(message) {
     $('#alertError').hide();
     $('#alertSuccess').fadeIn("slow");
 }
->>>>>>> Running_Algo

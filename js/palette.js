@@ -9,6 +9,8 @@ class Palette {
     this.weight_list = new Map();
     this.weight_list.add("#000000",0);
     this.weight_list.add("#ffffff",1);
+    this.weight_list.add("#28a745",-1);
+    this.weight_list.add("#dc3545", -2)
     //this.weight_list.add("rgb(0, 255, 128)",2);
   }
 /* setPaint: (PARAM) color: new color of the Brush
@@ -22,8 +24,12 @@ class Palette {
     return this.paint_color;
   }
   addBinding(weight){
-    this.weight_list.add(this.paint_color,weight);
-	console.log(this.paint_color + " bounded to a weight of " +weight);
+    var w = weight;
+    if (typeof weight === 'string' || weight instanceof String){
+      w = parseInt(weight, 10);
+    }
+    this.weight_list.add(this.paint_color,w);
+	   console.log(this.paint_color + " bounded to a weight of " + w);
   }
   removeBinding(color){
     this.weight_list.remove(color);

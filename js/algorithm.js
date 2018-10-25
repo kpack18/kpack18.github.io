@@ -25,12 +25,12 @@ class Algorithm{
   set_Algo(algo_type,grid){
     this.algo = algo_type;
   }
-  delay_Remove_Fade(tile,time){
+  delay_Remove_Fade(tile,time,delay){
     time += TIME_INC;
     //fade_Array.push(tile);
     //setTimeout(function() { if(!running || fade_Array.isEmpty()){ return; } fade_Array.peak().removeFade(); fade_Array.pop(); },time);
     var current_iter = ITER;
-    setTimeout(function() { var this_tile = tile; if(!check_Iteration(current_iter)){ return; }; this_tile.removeFade(); },time);
+    setTimeout(function() { var this_tile = tile; if(!check_Iteration(current_iter)){ return; }; this_tile.removeFade(); },time + delay);
     return time;
   }
   fail(start_tile,end_tile,time){
@@ -49,8 +49,11 @@ class Algorithm{
     var visited_list = getMatrix(grid.getLength(),grid.getWidth(),false);
     var previous_list = getMatrix(grid.getLength(),grid.getWidth(),null);
 
+    var weight_list = grid.getWeightList();
+    var timing_list = getMatrix(grid.getLength(),grid.getWidth(),0);
+
     if(start_tile.compare(end_tile)){
-      time = this.delay_Remove_Fade(start_tile,time);
+      time = this.delay_Remove_Fade(start_tile,time,0);
       setTimeout(function() { grid.setPath([start_tile]); },time);
       return [start_tile];
     }
@@ -67,50 +70,39 @@ class Algorithm{
       var cur = queue.peak();
       queue.pop();
 
-      var left = cur.getLeft(grid);
-      if(left != null && left.getWeight() != 0 && visited_list[left.getX()][left.getY()] == false ){
-        queue.push(left);
-        visited_list[left.getX()][left.getY()] = true;
-        previous_list[left.getX()][left.getY()] = cur;
-
-        time = this.delay_Remove_Fade(left,time);
-
-        if(left.compare(end_tile)){
+      if(weight_list[cur.getX()][cur.getY()] > 1){
+        timing_list[cur.getX()][cur.getY()] = timing_list[cur.getX()][cur.getY()] + TIME_INC;
+        --weight_list[cur.getX()][cur.getY()];
+        queue.push(cur);
+      }
+      else{
+        time = this.delay_Remove_Fade(cur,time,timing_list[cur.getX()][cur.getY()]);
+        if(cur.compare(end_tile)){
           break;
         }
-      }
-      var right = cur.getRight(grid);
-      if(right != null && right.getWeight() != 0 && visited_list[right.getX()][right.getY()] == false){
-        queue.push(right);
-        visited_list[right.getX()][right.getY()] = true;
-        previous_list[right.getX()][right.getY()] = cur;
-
-        time = this.delay_Remove_Fade(right,time);
-        if(right.compare(end_tile)){
-          break;
+        var left = cur.getLeft(grid);
+        if(left != null && left.getWeight() != 0 && visited_list[left.getX()][left.getY()] == false ){
+          queue.push(left);
+          visited_list[left.getX()][left.getY()] = true;
+          previous_list[left.getX()][left.getY()] = cur;
         }
-      }
-      var up = cur.getUp(grid);
-      if(up != null && up.getWeight() != 0 && visited_list[up.getX()][up.getY()] == false){
-        queue.push(up);
-        visited_list[up.getX()][up.getY()] = true;
-        previous_list[up.getX()][up.getY()] = cur;
-
-        time = this.delay_Remove_Fade(up,time);
-        if(up.compare(end_tile)){
-          break;
+        var right = cur.getRight(grid);
+        if(right != null && right.getWeight() != 0 && visited_list[right.getX()][right.getY()] == false){
+          queue.push(right);
+          visited_list[right.getX()][right.getY()] = true;
+          previous_list[right.getX()][right.getY()] = cur;
         }
-      }
-      var down = cur.getDown(grid);
-      if(down != null && down.getWeight() != 0 && visited_list[down.getX()][down.getY()] == false){
-        queue.push(down);
-        visited_list[down.getX()][down.getY()] = true;
-        previous_list[down.getX()][down.getY()] = cur;
-
-        time = this.delay_Remove_Fade(down,time);
-
-        if(down.compare(end_tile)){
-          break;
+        var up = cur.getUp(grid);
+        if(up != null && up.getWeight() != 0 && visited_list[up.getX()][up.getY()] == false){
+          queue.push(up);
+          visited_list[up.getX()][up.getY()] = true;
+          previous_list[up.getX()][up.getY()] = cur;
+        }
+        var down = cur.getDown(grid);
+        if(down != null && down.getWeight() != 0 && visited_list[down.getX()][down.getY()] == false){
+          queue.push(down);
+          visited_list[down.getX()][down.getY()] = true;
+          previous_list[down.getX()][down.getY()] = cur;
         }
       }
     }
@@ -142,8 +134,12 @@ class Algorithm{
     var visited_list = getMatrix(grid.getLength(),grid.getWidth(),false);
     var previous_list = getMatrix(grid.getLength(),grid.getWidth(),null);
 
+    var weight_list = grid.getWeightList();
+
+    var timing_list = getMatrix(grid.getLength(),grid.getWidth(),0);
+
     if(start_tile.compare(end_tile)){
-      time = this.delay_Remove_Fade(start_tile,time);
+      time = this.delay_Remove_Fade(start_tile,time,0);
       setTimeout(function() { grid.setPath([start_tile]); },time);
       return [start_tile];
     }
@@ -160,9 +156,15 @@ class Algorithm{
       var cur = stack.peak();
       stack.pop();
 
+      if(weight_list[cur.getX()][cur.getY()] > 1){
+        timing_list[cur.getX()][cur.getY()] = timing_list[cur.getX()][cur.getY()] + TIME_INC;
+        --weight_list[cur.getX()][cur.getY()];
+        stack.push(cur);
+      }
+
       visited_list[cur.getX()][cur.getY()] = true;
 
-      time = this.delay_Remove_Fade(cur,time);
+      time = this.delay_Remove_Fade(cur,time,timing_list[cur.getX()][cur.getY()]);
 
       if(cur.compare(end_tile)){
         break;

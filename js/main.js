@@ -1,5 +1,13 @@
 var running = false;
+var start_x = 0;
+var start_y = 0;
+var end_x = 3;
+var end_y = 3;
+var start_selected = false;
+var start_exists = true;
+mousedown = false;
 $(document).ready(function () {
+    var start_tile = grid.getTile(0,0);
 	$('#add-colors').click(function(){
 		AddNewColorOption();
 		palette.addBinding($('#add-colors-number').val() || 1);
@@ -12,6 +20,22 @@ $(document).ready(function () {
 		selectedPBtn = $(this).data('place');
 		palette.setPaint($(this).data('color'));
 	});
+
+    /*$('#set_btn').click(function () {
+        start_x = document.getElementById("start-x").value;
+        start_y = document.getElementById("start-y").value;
+        end_x = document.getElementById("end-x").value;
+        end_y = document.getElementById("end-y").value;
+    });*/
+
+    $('#start-select').click(function(){
+        start_selected = true;
+        palette.setPaint($(this).data('color'));
+        console.log("Start selected");
+        if(start_exists){
+            //grid.start_tile.setColor("#ffffff");   
+        }    
+    });
 
     $("#sidebar").mCustomScrollbar({
         theme: "minimal"
@@ -26,9 +50,27 @@ $(document).ready(function () {
         palette.setPaint($(this).val());
     });
 
-    $('.tile').click(function () {
+    $('.tile').mousedown(function () {
+        mousedown = true;
         setColor($(this));
+        if(start_selected){
+            palette.setPaint(palette.get_Bound_Color(0));
+            start_selected = false;
+        }
         grid.getWeights();
+    });
+
+    $('.tile').mouseup(function () {
+        mousdown = false;
+    });
+
+    $('.tile').mousemove(function (e) {
+        if(mousedown){
+            setWall($(this), e);
+            grid.getWeights();
+        }
+        //console.log(grid.start_tile);
+        //grid.getWeights();
     });
 
     $('#algo').click(function () {
@@ -56,21 +98,22 @@ $(document).ready(function () {
 	        var selected_algo = algoBarVal.value;
           grid.clearPaths();
           var algorithm = new Algorithm(selected_algo);
-          var path = algorithm.run(grid.getTile(0,0),grid.getTile(3,3),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
+<<<<<<< HEAD
+          var path = algorithm.run(grid.getTile(start_x,start_y),grid.getTile(end_x, end_y),grid); //Will Return a List containing the shortest path from the start tile to the end tile
+=======
+          var path = algorithm.run(grid.getTile(0,0),grid.getTile(7,7),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
+>>>>>>> 392b8b656e4efb6ccaefb2a771fd9469f1228a82
           console.log("path: " + printPath(path));
       }
-    });
-
-    $('.tile').mousemove(function (e) {
-        setWall($(this), e);
-        //grid.getWeights();
     });
 
     $('#btnAlgorithm').click(myAlert);
 
     $('#apply_btn').click(function () {
-        var grid_width = document.getElementById("grid-width").value;
-        var grid_height = document.getElementById("grid-height").value;
+        let grid_width = document.getElementById("grid-width").value;
+        let grid_height = document.getElementById("grid-height").value;
+        grid_width = Number(grid_width);
+        grid_height = Number(grid_height);
         resizeGrid(grid_width, grid_height);
     });
 
@@ -86,6 +129,8 @@ let grid = new Grid(8,8);
 var palette = new Palette();
 var pBtnCount = 1;
 var selectedPBtn;
+
+
 
 function AddNewColorOption(){
 
@@ -140,18 +185,27 @@ function resizeGrid(width, height){
     let total_width = 0;
     let total_height = 0;
 
+    if(width % 1 != 0){
+        width = Math.floor(width);
+    }
+    if(height % 1 != 0){
+        height = Math.floor(height);
+    }
     if(height == 0 || width == 0 || height < 0 || width < 0){
         return;
     }
     if(width == grid.getWidth() && height == grid.getLength()){
         return;
     }
+    if(total > 10000){
+        return;
+    }
     else{
         switch (true){
             case (total >= 5000):
-                document.documentElement.style.setProperty("--size", "20px");
-                total_width = (width * 20) + (1 * width);
-                total_height = (height * 20) + (1 * height);
+                document.documentElement.style.setProperty("--size", "25px");
+                total_width = (width * 25) + (1 * width);
+                total_height = (height * 25) + (1 * height);
                 //sets the css style width and height
                 $('#grid-container').css({
                     'width':total_width + 'px' ,'height':total_height + 'px'
@@ -219,5 +273,12 @@ function myAlert() {
 
 function error(message) {
     $('#alertError .message').text(message);
+    $('#alertSuccess').hide();
     $('#alertError').fadeIn("slow");
+}
+
+function success(message) {
+    $('#alertSuccess .message').text(message);
+    $('#alertError').hide();
+    $('#alertSuccess').fadeIn("slow");
 }

@@ -24,7 +24,17 @@ class Grid {
         this.grid[row].push(temporary_tile);
       }
     }
+    this.start_tile = this.grid[0][0];
+   
   }
+  /*getStart(){
+    return grid.start_tile;
+  }
+
+  setStart(xcoor,ycoor){
+    start_tile = grid[xcoor,ycoor];
+  }*/
+
   getLength(){
     return this.length;
   }
@@ -92,6 +102,7 @@ class Grid {
     for(var i = 0; i < this.length; ++i){
       for(var j = 0; j < this.width; ++j){
           this.getTile(i,j).setWeight(1);
+          this.getTile(i,j).setColor("#ffffff");
         }
       }
   }
@@ -120,6 +131,15 @@ class Grid {
       }
     }
   }
+  getWeightList(){
+    var matrix = getMatrix(grid.getLength(),grid.getWidth(),0);
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+        matrix[i][j] = this.getTile(i,j).getWeight();
+      }
+    }
+    return matrix;
+  }
 
 }
 
@@ -137,6 +157,7 @@ class Tile {
     this.x = xcoor;
     this.y = ycoor;
     this.setColor("#ffffff");
+    //this.is_start = false;
   }
 /* getX returns the x coordinate of the tile in grid */
   getX(){

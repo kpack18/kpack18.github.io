@@ -1,7 +1,7 @@
 /* Palette Class: Hold's the current paint color and data structures
                  for user defined color weights */
 class Palette {
-  constructor(){
+  constructor(create_start){
 /* vars: paint_color: The current color of the brush.
                       When a tile is clicked it'll change to current color */
     this.paint_color = "#000000";
@@ -9,8 +9,11 @@ class Palette {
     this.weight_list = new Map();
     this.weight_list.add("#000000",0);
     this.weight_list.add("#ffffff",1);
-    this.weight_list.add("#28a745",-1);
-    this.weight_list.add("#dc3545", -2)
+
+    if(create_start){
+      this.weight_list.add("#28a745",-1);
+      this.weight_list.add("#dc3545", -2);
+    }
     //this.weight_list.add("rgb(0, 255, 128)",2);
   }
 /* setPaint: (PARAM) color: new color of the Brush

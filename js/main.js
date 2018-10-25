@@ -33,8 +33,8 @@ $(document).ready(function () {
         palette.setPaint($(this).data('color'));
         console.log("Start selected");
         if(start_exists){
-            //grid.start_tile.setColor("#ffffff");   
-        }    
+            //grid.start_tile.setColor("#ffffff");
+        }
     });
 
     $("#sidebar").mCustomScrollbar({

@@ -1,9 +1,9 @@
 // Tests if we can modify a grid and palette, save them, and reload them back
 function test_Save_Load(){
     var fail = false;
-    
+
     resizeGrid(5, 5);
-    var test_palette = new Palette();
+    var test_palette = new Palette(false);
     test_palette.setPaint("#50f0bb");
     test_palette.addBinding(2);
     test_palette.setPaint("#4080b0");
@@ -80,7 +80,7 @@ function test_Save_Load(){
       if (paletteSizeFail)
           output = output + "      Expected: 5 colors           Actual: " + palette.weight_list.map.length + " colors";
       else {
-          output = output + "      Expected: [ (#000000, 0), (#ffffff, 1), (#50f0bb, 2), (#4080b0, 3), (#ccaadd, 4),]\n"
+          output = output + "      Expected: [ (#000000, 0), (#ffffff, 1), (#28a745, -1), (#dc3545, -2), (#50f0bb, 2), (#4080b0, 3), (#ccaadd, 4),]\n"
           output = output + "        Actual: " + palette.printPalette() + "\n";
       }
   }

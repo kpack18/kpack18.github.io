@@ -98,7 +98,7 @@ $(document).ready(function () {
 	        var selected_algo = algoBarVal.value;
           grid.clearPaths();
           var algorithm = new Algorithm(selected_algo);
-          var path = algorithm.run(grid.getTile(0,0),grid.getTile(7,7),grid); //Will Return a List containing the shortest path from the start tile to the end tile
+          var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,0),grid); //Will Return a List containing the shortest path from the start tile to the end tile
           console.log("path: " + printPath(path));
       }
     });

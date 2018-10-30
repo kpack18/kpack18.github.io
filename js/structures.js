@@ -1,3 +1,12 @@
+function printList(path){
+  var output = "[";
+  for(var i = 0; i < path.length; ++i){
+    output = output + " " + path[i];
+  }
+  output = output + "]\n";
+  return output;
+}
+
 // Pair Class: Hold's a Color(key) - Weight(val) Pair defined by the user.
 class Pair {
   constructor(key,val){
@@ -63,56 +72,83 @@ class Map {
 // Queue class: Gives an Interface for using a queue with an array implementation
 class Queue{
   constructor(){
-    this.queue = [];
+    this.list = [];
   }
   push(elem){
-    this.queue.push(elem);
+    this.list.push(elem);
   }
   pop(elem){
-    this.queue.splice(0, 1);
+    this.list.splice(0, 1);
   }
   peak(){
-    return this.queue[0];
+    return this.list[0];
   }
   isEmpty(){
-    return this.queue.length == 0;
+    return this.list.length == 0;
   }
   length(){
-    return this.queue.length
+    return this.list.length
   }
   clear(){
-    this.queue = [];
+    this.list = [];
   }
-  printQueue(){
-    return printPath(this.queue);
+  printList(){
+    return printPath(this.list);
+  }
+}
+
+function lessThan(a,b){
+  return a < b;
+}
+class Priority_Queue extends Queue {
+  constructor(comparator){
+    super();
+    if(comparator == null){
+      this.compare = lessThan;
+    }
+    else {
+      this.compare = comparator;
+    }
+  }
+  findIndex(val){
+    console.log("Searching for: " + val);
+    var index = 0;
+    while(index < this.length()){
+      console.log("  Comparing: " + index + " and " + this.list[index] + ": " + this.compare(val,this.list[index]));
+      if(this.compare(val,this.list[index])){
+        console.log("  index " + index);
+          return index;
+      }
+      ++index;
+    }
+    console.log("  index " + index);
+    return index;
+  }
+  push(elem){
+    var index = this.findIndex(elem);
+    if(this.findIndex == this.length()){
+      this.list.push(elem);
+    } else {
+      this.list.splice(index, 0, elem);
+    }
+  }
+  // Use "NULL" to set back to lessThan
+  setCompare(compare){
+    if(compare == null){
+      this.compare = lessThan;
+    }
+    this.compare = compare;
   }
 }
 
 // Stack class: Gives an Interface for using a stack with an array implementation
-class Stack{
-  constructor(){
-    this.stack = [];
-  }
-  push(elem){
-    this.stack.push(elem);
-  }
+class Stack extends Queue {
+  //See Queue class for Other Functions
   pop(elem){
-    return this.stack.pop();
+    return this.list.pop();
   }
   peak(elem){
-    return this.stack[this.stack.length-1];
-  }
-  isEmpty(){
-    return this.stack.length == 0;
-  }
-  length(){
-    return this.stack.length;
-  }
-  clear(){
-    this.queue = [];
-  }
-  printStack(){
-    return printPath(this.stack);
+    return this.list[this.list.length-1];
   }
 }
 // getMatrix: returns a l x w array with all values initialized to initial_val

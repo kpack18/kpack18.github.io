@@ -95,6 +95,9 @@ class Queue{
   printList(){
     return printPath(this.list);
   }
+  printListDjikstra(dw){
+    return printPathDjikstra(this.list,dw);
+  }
 }
 
 function lessThan(a,b){
@@ -111,17 +114,17 @@ class Priority_Queue extends Queue {
     }
   }
   findIndex(val){
-    console.log("Searching for: " + val);
+    //console.log("Searching for: " + val);
     var index = 0;
     while(index < this.length()){
-      console.log("  Comparing: " + index + " and " + this.list[index] + ": " + this.compare(val,this.list[index]));
+      //console.log("  Comparing: " + index + " and " + this.list[index] + ": " + this.compare(val,this.list[index]));
       if(this.compare(val,this.list[index])){
-        console.log("  index " + index);
+        //console.log("  index " + index);
           return index;
       }
       ++index;
     }
-    console.log("  index " + index);
+    //console.log("  index " + index);
     return index;
   }
   push(elem){

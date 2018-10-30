@@ -15,6 +15,18 @@ function printPath(path){
   return output;
 }
 
+function printPathDjikstra(path,dw){
+  if(path == null || path.length == 0){
+    return "[]";
+  }
+  var output = "[";
+  for(var i = 0; i < path.length; ++i){
+    output = output + " (" + path[i].getX() + "," + path[i].getY() + ") " + dw[path[i].getX()][path[i].getY()] + ",";
+  }
+  output = output + "]\n";
+  return output;
+}
+
 function check_Iteration(current_iter){
   return current_iter == ITER;
 }
@@ -178,7 +190,7 @@ class Algorithm{
     return shortest_path;
 
   }
-  dijkstra(start_tile,end_tile){
+  dijkstra(start_tile,end_tile,visited_list,previous_list,weight_list,timing_list){
     var time = TIME_INIT;
 
     var dw = getMatrix(grid.getLength(),grid.getWidth(),0);
@@ -186,8 +198,72 @@ class Algorithm{
     var comparator = function(tileA,tileB) {
                         return dw[tileA.getX()][tileA.getY()] < dw[tileB.getX()][tileB.getY()];
                      };
-    console.log("Ran Djikstra");
-    return [];
+
+    var prior_queue = new Priority_Queue(comparator);
+    prior_queue.push(start_tile);
+
+    while(!prior_queue.isEmpty()){
+      console.log(prior_queue.printListDjikstra(dw));
+      var cur = prior_queue.peak();
+      prior_queue.pop();
+
+      visited_list[cur.getX()][cur.getY()] = true;
+      time = this.delay_Remove_Fade(cur,time,timing_list[cur.getX()][cur.getY()]);
+
+      var cur_dw = dw[cur.getX()][cur.getY()];
+
+      if(cur.compare(end_tile)){
+        break;
+      }
+      var left = cur.getLeft(grid);
+      if(left != null && left.getWeight() != 0 && visited_list[left.getX()][left.getY()] == false ){
+        dw[left.getX()][left.getY()] = cur_dw + weight_list[left.getX()][left.getY()];
+        prior_queue.push(left);
+        visited_list[left.getX()][left.getY()] = true;
+        previous_list[left.getX()][left.getY()] = cur;
+      }
+      var right = cur.getRight(grid);
+      if(right != null && right.getWeight() != 0 && visited_list[right.getX()][right.getY()] == false){
+        dw[right.getX()][right.getY()] = cur_dw + weight_list[right.getX()][right.getY()];
+        prior_queue.push(right);
+        visited_list[right.getX()][right.getY()] = true;
+        previous_list[right.getX()][right.getY()] = cur;
+      }
+      var up = cur.getUp(grid);
+      if(up != null && up.getWeight() != 0 && visited_list[up.getX()][up.getY()] == false){
+        dw[up.getX()][up.getY()] = cur_dw + weight_list[up.getX()][up.getY()];
+        prior_queue.push(up);
+        visited_list[up.getX()][up.getY()] = true;
+        previous_list[up.getX()][up.getY()] = cur;
+      }
+      var down = cur.getDown(grid);
+      if(down != null && down.getWeight() != 0 && visited_list[down.getX()][down.getY()] == false){
+        dw[down.getX()][down.getY()] = cur_dw + weight_list[down.getX()][down.getY()];
+        prior_queue.push(down);
+        visited_list[down.getX()][down.getY()] = true;
+        previous_list[down.getX()][down.getY()] = cur;
+      }
+    }
+
+    var shortest_path = [];
+    var tile_pointer = end_tile;
+
+    shortest_path.push(tile_pointer);
+
+    if(previous_list[tile_pointer.getX()][tile_pointer.getY()] == null){
+      this.fail(start_tile,end_tile,time);
+      return [];
+    }
+
+    while(previous_list[tile_pointer.getX()][tile_pointer.getY()] != null){
+      tile_pointer = previous_list[tile_pointer.getX()][tile_pointer.getY()];
+      shortest_path.push(tile_pointer);
+    }
+
+    var shortest_path = shortest_path.reverse();
+    this.succeed(shortest_path,time);
+
+    return shortest_path;
   }
   run(start_tile,end_tile,grid){
 

@@ -203,7 +203,7 @@ class Algorithm{
     prior_queue.push(start_tile);
 
     while(!prior_queue.isEmpty()){
-      console.log(prior_queue.printListDjikstra(dw));
+      //console.log(prior_queue.printListDjikstra(dw));
       var cur = prior_queue.peak();
       prior_queue.pop();
 

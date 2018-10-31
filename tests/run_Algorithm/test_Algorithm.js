@@ -330,11 +330,6 @@ function execute_test_Algorithm() {
     setTimeout(function(){ test_Bfs_Path_Wall(); },time += 2000);
     setTimeout(function(){ test_Bfs_Path_None(); },time += 2000);
     setTimeout(function(){ test_Bfs_Path_Complex(); },time += 2000);
-    //test_Bfs_Same_Point();
-    //test_Bfs_Path_Simple();
-    //test_Bfs_Path_Wall();
-    //test_Bfs_Path_None();
-    //test_Bfs_Path_Complex();
 
     setTimeout(function(){ console.log("\nDfs:"); },time += 2500);
     setTimeout(function(){ test_Dfs_Path_Simple(); },time += 3000);
@@ -342,10 +337,6 @@ function execute_test_Algorithm() {
     setTimeout(function(){ test_Dfs_Path_Complex(); }, time += 4000);
     setTimeout(function(){ test_Dfs_Path_Complex_2(); },time += 4000);
     setTimeout(function(){ resizeGrid(8,8); grid.clearAll(); grid.lightTiles(); }, time += 5000);
-    // test_Dfs_Path_Simple();
-    // test_Dfs_Path_None();
-    // test_Dfs_Path_Complex();
-    // test_Dfs_Path_Complex_2();
     console.log("\n");
 
 }

@@ -57,8 +57,9 @@ $(document).ready(function () {
     $('.tile').mousedown(function () {
         mousedown = true;
         setColor($(this));
-        console.log($(this).data('x'));
-        console.log($(this).data('y'));
+        //console.log("MOUSEDOWN");
+        console.log("x = " + $(this).data('x'));
+        console.log("y = " + $(this).data('y'));
         if(start_pressed && start_set == false){
             start_set = true;
             start_pressed = false;
@@ -73,14 +74,17 @@ $(document).ready(function () {
     });
 
     $('.tile').mouseup(function () {
-        mousdown = false;
+        mousedown = false;
+        //console.log("MOUSEUP");
     });
 
     $('.tile').mousemove(function (e) {
         if(mousedown){
+            //console.log("DOWNMOVE");
             setWall($(this), e);
             grid.getWeights();
         }
+        //else{console.log("MOVE");}
         //console.log(grid.start_tile);
         //grid.getWeights();
     });

@@ -1,13 +1,12 @@
 var running = false;
-var start_x = 0;
-var start_y = 0;
-var end_x = 3;
-var end_y = 3;
-var start_selected = false;
-var start_exists = true;
+var start_set = false;
+var end_set = false;
+var start_pressed = false;
+var end_pressed = false;
+var start;
+var end; 
 mousedown = false;
 $(document).ready(function () {
-    var start_tile = grid.getTile(0,0);
 	$('#add-colors').click(function(){
 		AddNewColorOption();
 		palette.addBinding($('#add-colors-number').val() || 1);
@@ -29,12 +28,17 @@ $(document).ready(function () {
     });*/
 
     $('#start-select').click(function(){
-        start_selected = true;
+        start_pressed = true;
         palette.setPaint($(this).data('color'));
         console.log("Start selected");
-        if(start_exists){
+        //if(start_exists){
             //grid.start_tile.setColor("#ffffff");
-        }
+        //}
+    });
+
+    $('#end-select').click(function(){
+        end_pressed = true;
+        palette.setPaint($(this).data('color'));
     });
 
     $("#sidebar").mCustomScrollbar({
@@ -53,22 +57,34 @@ $(document).ready(function () {
     $('.tile').mousedown(function () {
         mousedown = true;
         setColor($(this));
-        if(start_selected){
-            palette.setPaint(palette.get_Bound_Color(0));
-            start_selected = false;
+        //console.log("MOUSEDOWN");
+        console.log("x = " + $(this).data('x'));
+        console.log("y = " + $(this).data('y'));
+        if(start_pressed && start_set == false){
+            start_set = true;
+            start_pressed = false;
+            start = grid.getTile($(this).data('x'), $(this).data('y'));
+        }
+        if(start_set && end_pressed && !end_set){
+            end_set = true;
+            end_pressed = false;
+            end = grid.getTile($(this).data('x'), $(this).data('y'));
         }
         grid.getWeights();
     });
 
     $('.tile').mouseup(function () {
-        mousdown = false;
+        mousedown = false;
+        //console.log("MOUSEUP");
     });
 
     $('.tile').mousemove(function (e) {
         if(mousedown){
+            //console.log("DOWNMOVE");
             setWall($(this), e);
             grid.getWeights();
         }
+        //else{console.log("MOVE");}
         //console.log(grid.start_tile);
         //grid.getWeights();
     });
@@ -98,7 +114,7 @@ $(document).ready(function () {
 	        var selected_algo = algoBarVal.value;
           grid.clearPaths();
           var algorithm = new Algorithm(selected_algo);
-          var path = algorithm.run(grid.getTile(0,0),grid.getTile(7,7),grid); //Will Return a List containing the shortest path from the start tile to the end tile
+          var path = algorithm.run(start,end,grid); //Will Return a List containing the shortest path from the start tile to the end tile
           console.log("path: " + printPath(path));
       }
     });
@@ -248,12 +264,33 @@ function resizeGrid(width, height){
         document.getElementById("grid-container").style.maxWidth
         grid = new Grid(height, width);
 
-        $('.tile').click(function () {
+        $('.tile').mousedown(function () {
+            mousedown = true;
             setColor($(this));
+            if(start_pressed && !start_set){
+                start_set = true;
+                start_pressed = false;
+                start = grid.getTile($(this).data('x'), $(this).data('y'));
+            }
+            if(start_set && end_pressed && !end_set){
+                end_set = true;
+                end_pressed = false;
+                end = grid.getTile($(this).data('x'), $(this).data('y'));
+            }
+            grid.getWeights();
         });
+    
+        $('.tile').mouseup(function () {
+            mousdown = false;
+        });
+    
         $('.tile').mousemove(function (e) {
-            setWall($(this), e);
+            if(mousedown){
+                setWall($(this), e);
+                grid.getWeights();
+            }
         });
+
     }
 }
 

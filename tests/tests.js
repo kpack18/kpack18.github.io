@@ -9,24 +9,35 @@ tests = {
 
 var i = 1;
 var testIDs = {};
-for (test in tests) {
+for (let test in tests) {
     btn = $('<button>', {
         type: "btn",
         class: "btn btn-secondary text-left",
-        'data-test': test
     });
     btn.html("<b>" + i + ":</b> " + test);
-    btn.click(tests[test]);
+    btn.click(function () {
+        tests[test]();
+        hideTestModal();
+    });
     btn.appendTo('#tests');
     testIDs[i.toString()] = test;
     i++;
 }
 
 var modalVisible = false;
+function showTestModal() {
+    modalVisible = true;
+    $('#testModal').modal('show');
+}
+
+function hideTestModal() {
+    modalVisible = false;
+    $('#testModal').modal('hide');
+}
+
 $(document).keypress(function (evt) {
     if (evt.key === 't' || evt.key === 'T') {
-        modalVisible = true;
-        $('#testModal').modal('show');
+        showTestModal();
     }
 });
 
@@ -34,12 +45,10 @@ $(document).keydown(function (evt) {
     if (modalVisible || $('#testModal').hasClass('show')) {
         if (testIDs[evt.key]) {
             tests[testIDs[evt.key]]();
-            modalVisible = false;
-            $('#testModal').modal('hide');
+            hideTestModal();
         }
         else if (evt.which == 27) {
-            modalVisible = false;
-            $('#testModal').modal('hide');
+            hideTestModal();
         }
     }
 });

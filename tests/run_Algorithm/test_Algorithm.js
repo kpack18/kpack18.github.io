@@ -15,8 +15,7 @@ function test_Bfs_Same_Point(){
   resizeGrid(3,3);
   grid.clearAll();
 
-  var algorithm = new Algorithm("bfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,0),grid); //Will Return a List containing the shortest path from  (0,0) to (0,0)
+  var path = execute(grid.getTile(0,0),grid.getTile(0,0),"bfs");
 
   var expected = [grid.getTile(0,0)];
 
@@ -37,8 +36,7 @@ function test_Bfs_Path_Simple(){
   resizeGrid(3,3);
   grid.clearAll();
 
-  var algorithm = new Algorithm("bfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(2,2),grid); //Will Return a List containing the shortest path from  (0,0) to (2,2)
+  var path = execute(grid.getTile(0,0),grid.getTile(2,2),"bfs");
 
   var expected = [grid.getTile(0,0),grid.getTile(1,0),grid.getTile(2,0),grid.getTile(2,1),grid.getTile(2,2)];
 
@@ -64,8 +62,7 @@ function test_Bfs_Path_Wall(){
   grid.getTile(1,1).setWeight(0);
   grid.getTile(1,1).setColor("#000000");
 
-  var algorithm = new Algorithm("bfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,2),grid); //Will Return a List containing the shortest path from  (0,0) to (0,0)
+  var path = execute(grid.getTile(0,0),grid.getTile(0,2),"bfs");
 
   var expected = [grid.getTile(0,0),grid.getTile(1,0),grid.getTile(2,0),grid.getTile(2,1),grid.getTile(2,2),grid.getTile(1,2),grid.getTile(0,2)];
 
@@ -95,8 +92,7 @@ function test_Bfs_Path_None(){
   grid.getTile(1,2).setWeight(0);
   grid.getTile(1,2).setColor("#000000");
 
-  var algorithm = new Algorithm("bfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(2,0),grid); //Will Return a List containing the shortest path from  (0,0) to (0,0)
+  var path = execute(grid.getTile(0,0),grid.getTile(2,0),"bfs");
 
   var expected = [];
 
@@ -149,8 +145,7 @@ function test_Bfs_Path_Complex(){
   grid.getTile(3,7).setWeight(0); grid.getTile(3,7).setColor("#000000");
   grid.getTile(1,6).setWeight(0); grid.getTile(1,6).setColor("#000000");
 
-  var algorithm = new Algorithm("bfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,6),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
+  var path = execute(grid.getTile(0,0),grid.getTile(0,6),"bfs");
 
   var expected = [grid.getTile(0,0),grid.getTile(1,0),grid.getTile(2,0),grid.getTile(3,0),grid.getTile(4,0),grid.getTile(4,1),grid.getTile(4,2),grid.getTile(4,3),grid.getTile(4,4),
   grid.getTile(5,4),grid.getTile(6,4),grid.getTile(7,4),grid.getTile(7,5),grid.getTile(7,6),grid.getTile(6,6),grid.getTile(6,7),grid.getTile(5,7),grid.getTile(4,7),grid.getTile(4,6),
@@ -171,8 +166,7 @@ function test_Dfs_Path_Simple(){
   resizeGrid(8,8);
   grid.clearAll();
 
-  var algorithm = new Algorithm("dfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(7,7),grid); //Will Return a List containing the shortest path from  (0,0) to (0,0)
+  var path = execute(grid.getTile(0,0),grid.getTile(7,7),"dfs");
 
   var expected = [grid.getTile(0,0),grid.getTile(0,1),grid.getTile(0,2),grid.getTile(0,3),grid.getTile(0,4),grid.getTile(0,5),grid.getTile(0,6),grid.getTile(0,7),grid.getTile(1,7),grid.getTile(2,7),grid.getTile(3,7),grid.getTile(4,7),grid.getTile(5,7),grid.getTile(6,7),grid.getTile(7,7)];
 
@@ -199,8 +193,7 @@ function test_Dfs_Path_None(){
   grid.getTile(3,6).setWeight(0); grid.getTile(3,6).setColor("#000000");
   grid.getTile(3,7).setWeight(0); grid.getTile(3,7).setColor("#000000");
 
-  var algorithm = new Algorithm("dfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(7,7),grid); //Will Return a List containing the shortest path from  (0,0) to (0,0)
+  var path = execute(grid.getTile(0,0),grid.getTile(7,7),"dfs");
 
   var expected = [];
 
@@ -253,8 +246,7 @@ function test_Dfs_Path_Complex(){
   grid.getTile(3,7).setWeight(0); grid.getTile(3,7).setColor("#000000");
   grid.getTile(1,6).setWeight(0); grid.getTile(1,6).setColor("#000000");
 
-  var algorithm = new Algorithm("dfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,6),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
+  var path = execute(grid.getTile(0,0),grid.getTile(0,6),"dfs");
 
   var expected = [grid.getTile(0,0),grid.getTile(1,0),grid.getTile(2,0),grid.getTile(3,0),grid.getTile(4,0),grid.getTile(4,1),grid.getTile(4,2),grid.getTile(4,3),grid.getTile(4,4),
   grid.getTile(5,4),grid.getTile(6,4),grid.getTile(7,4),grid.getTile(7,5),grid.getTile(7,6),grid.getTile(6,6),grid.getTile(6,7),grid.getTile(5,7),grid.getTile(4,7),grid.getTile(4,6),
@@ -301,8 +293,7 @@ function test_Dfs_Path_Complex_2(){
   grid.getTile(7,1).setWeight(0); grid.getTile(7,1).setColor("#000000");
   grid.getTile(7,3).setWeight(0); grid.getTile(7,3).setColor("#000000");
 
-  var algorithm = new Algorithm("dfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(4,0),grid); //Will Return a List containing the shortest path from  (0,0) to (0,4)
+  var path = execute(grid.getTile(0,0),grid.getTile(4,0),"dfs");
 
   var expected = [grid.getTile(0,0),grid.getTile(0,1),grid.getTile(0,2),grid.getTile(0,3),grid.getTile(0,4),grid.getTile(1,4),grid.getTile(1,5),grid.getTile(1,6),grid.getTile(2,6),
   grid.getTile(3,6),grid.getTile(4,6),grid.getTile(5,6),grid.getTile(6,6),grid.getTile(7,6),grid.getTile(7,5),grid.getTile(7,4),grid.getTile(6,4),grid.getTile(5,4),grid.getTile(4,4),

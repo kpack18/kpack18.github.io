@@ -16,8 +16,7 @@ function test_Weight_Simple(){
   grid.getTile(2,1).setWeight(2);
   grid.getTile(2,1).setColor("#80FFFF");
 
-  var algorithm = new Algorithm("bfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(2,2),grid); //Will Return a List containing the shortest path from  (0,0) to (2,2)
+  var path = execute(grid.getTile(0,0),grid.getTile(2,2),"bfs");
 
   var expected = [grid.getTile(0,0),grid.getTile(0,1),grid.getTile(1,1),grid.getTile(1,2),grid.getTile(2,2)];
 
@@ -69,8 +68,7 @@ function test_Weight_Paths(){
   grid.getTile(7,2).setWeight(3); grid.getTile(7,2).setColor("#80FFFF");
   grid.getTile(8,2).setWeight(3); grid.getTile(8,2).setColor("#80FFFF");
 
-  var algorithm = new Algorithm("bfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(11,1),grid); //Will Return a List containing the shortest path from  (0,0) to (2,2)
+  var path = execute(grid.getTile(0,0),grid.getTile(11,1),"bfs");
 
   var expected = [grid.getTile(0,0),grid.getTile(0,1),grid.getTile(1,1),grid.getTile(2,1),grid.getTile(2,0),grid.getTile(3,0),grid.getTile(4,0),grid.getTile(5,0),grid.getTile(6,0),grid.getTile(7,0),grid.getTile(8,0),grid.getTile(9,0),grid.getTile(10,0),grid.getTile(11,0),grid.getTile(11,1)];
 
@@ -116,8 +114,7 @@ function test_Weight_Paths(){
   grid.getTile(1,3).setWeight(8); grid.getTile(1,3).setColor("#8080FF");
   grid.getTile(0,3).setWeight(9); grid.getTile(0,3).setColor("#808000");
 
-  var algorithm = new Algorithm("bfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,7),grid); //Will Return a List containing the shortest path from  (0,0) to (2,2)
+  var path = execute(grid.getTile(0,0),grid.getTile(0,7),"bfs");
 
   var expected = [grid.getTile(0,0),grid.getTile(0,1),grid.getTile(0,2),grid.getTile(0,3),grid.getTile(0,4),grid.getTile(0,5),grid.getTile(0,6),grid.getTile(0,7)];
 
@@ -166,8 +163,7 @@ function test_Weight_Square(){
   grid.getTile(6,4).setWeight(4); grid.getTile(6,4).setColor("#FF8080"); grid.getTile(6,5).setWeight(4); grid.getTile(6,5).setColor("#FF8080"); grid.getTile(6,6).setWeight(4); grid.getTile(6,6).setColor("#FF8080"); grid.getTile(6,7).setWeight(4); grid.getTile(6,7).setColor("#FF8080");
   grid.getTile(7,4).setWeight(4); grid.getTile(7,4).setColor("#FF8080"); grid.getTile(7,5).setWeight(4); grid.getTile(7,5).setColor("#FF8080"); grid.getTile(7,6).setWeight(4); grid.getTile(7,6).setColor("#FF8080"); grid.getTile(7,7).setWeight(4); grid.getTile(7,7).setColor("#FF8080");
 
-  var algorithm = new Algorithm("bfs");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(7,7),grid); //Will Return a List containing the shortest path from  (0,0) to (2,2)
+  var path = execute(grid.getTile(0,0),grid.getTile(7,7),"bfs");
 
   var expected = [grid.getTile(0,0),grid.getTile(1,0),grid.getTile(2,0),grid.getTile(3,0),grid.getTile(3,1),grid.getTile(3,2),grid.getTile(3,3),grid.getTile(3,4),grid.getTile(3,5),grid.getTile(3,6),grid.getTile(3,7),grid.getTile(4,7),grid.getTile(5,7),grid.getTile(6,7),grid.getTile(7,7)];
 

@@ -111,6 +111,7 @@ class Grid {
       for(var j = 0; j < this.width; ++j){
           if(this.getTile(i,j).getColorVisual() == color){
             this.getTile(i,j).setColor("#ffffff");
+            this.getTile(i,j).toggleEndPoint();
           }
         }
       }
@@ -165,6 +166,8 @@ class Tile {
     this.weight = 1;
     this.x = xcoor;
     this.y = ycoor;
+    this.isStart = false;
+    this.isEnd = false;
     this.setColor("#ffffff");
     $(this.element).data('x',this.x);
     $(this.element).data('y',this.y);
@@ -180,16 +183,20 @@ class Tile {
   }
   getWeight(){
     var new_weight = palette.get_Bound_Weight(this.getColorVisual());
-    if(this.getColorVisual() == "#28a745"){
+    if(!this.isStart && this.getColorVisual() == "#28a745"){
       console.log("x: " + this.x + " y: " + this.y + " set to Start");
       this.color = this.getColorVisual();
       start = this;
+      this.isStart = true;
+      this.isEnd = false;
       this.setWeight(new_weight);
     }
-    else if(this.getColorVisual() == "#dc3545"){
+    else if(!this.isEnd && this.getColorVisual() == "#dc3545"){
       console.log("x: " + this.x + " y: " + this.y + " set to End");
       this.color = this.getColorVisual();
       end = this;
+      this.isStart = false;
+      this.isEnd = true;
       this.setWeight(new_weight);
     }
     else if(new_weight != null && new_weight != this.weight){
@@ -198,6 +205,10 @@ class Tile {
     }
 
     return this.weight;
+  }
+  toggleEndPoint(){
+    this.isStart = false;
+    this.isEnd = false;
   }
   //For Testing Only
   getWeightNoColor(){

@@ -2,8 +2,7 @@ function test_Dji_Same_Point(){
   resizeGrid(3,3);
   grid.clearAll();
 
-  var algorithm = new Algorithm("djikstra");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,0),grid); //Will Return a List containing the shortest path from  (0,0) to (0,0)
+  var path = execute(grid.getTile(0,0),grid.getTile(0,0),"djikstra");
 
   var expected = [grid.getTile(0,0)];
 
@@ -24,8 +23,7 @@ function test_Dji_Path_Simple(){
   resizeGrid(3,3);
   grid.clearAll();
 
-  var algorithm = new Algorithm("djikstra");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(2,2),grid); //Will Return a List containing the shortest path from  (0,0) to (2,2)
+  var path = execute(grid.getTile(0,0),grid.getTile(2,2),"djikstra");
 
   var expected = [grid.getTile(0,0),grid.getTile(1,0),grid.getTile(2,0),grid.getTile(2,1),grid.getTile(2,2)];
 
@@ -51,8 +49,7 @@ function test_Dji_Path_Wall(){
   grid.getTile(1,1).setWeight(0);
   grid.getTile(1,1).setColor("#000000");
 
-  var algorithm = new Algorithm("djikstra");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(0,2),grid); //Will Return a List containing the shortest path from  (0,0) to (0,0)
+  var path = execute(grid.getTile(0,0),grid.getTile(0,2),"djikstra");
 
   var expected = [grid.getTile(0,0),grid.getTile(1,0),grid.getTile(2,0),grid.getTile(2,1),grid.getTile(2,2),grid.getTile(1,2),grid.getTile(0,2)];
 
@@ -82,8 +79,7 @@ function test_Dji_Path_None(){
   grid.getTile(1,2).setWeight(0);
   grid.getTile(1,2).setColor("#000000");
 
-  var algorithm = new Algorithm("djikstra");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(2,0),grid); //Will Return a List containing the shortest path from  (0,0) to (0,0)
+  var path = execute(grid.getTile(0,0),grid.getTile(2,0),"djikstra");
 
   var expected = [];
 
@@ -146,8 +142,7 @@ function test_Dji_Path_Complex(){
   grid.getTile(4,5).setWeight(5); grid.getTile(4,5).setColor("#FF80FF");
   grid.getTile(5,7).setWeight(0); grid.getTile(5,7).setColor("#000000");
 
-  var algorithm = new Algorithm("djikstra");
-  var path = algorithm.run(grid.getTile(0,0),grid.getTile(2,6),grid); //Will Return a List containing the shortest path from  (0,0) to (0,6)
+  var path = execute(grid.getTile(0,0),grid.getTile(2,6),"djikstra");
 
   var expected = [grid.getTile(0,0),grid.getTile(1,0),grid.getTile(2,0),grid.getTile(3,0),grid.getTile(4,0),grid.getTile(5,0),grid.getTile(5,1),grid.getTile(5,2),grid.getTile(5,3),
   grid.getTile(6,3),grid.getTile(7,3),grid.getTile(7,4),grid.getTile(7,5),grid.getTile(7,6),grid.getTile(6,6),grid.getTile(5,6),grid.getTile(4,6),grid.getTile(3,6),grid.getTile(2,6)];

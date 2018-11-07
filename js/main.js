@@ -96,8 +96,7 @@ $(document).ready(function () {
 	       var algoBarVal = document.getElementById("algo_select");
 	        var selected_algo = algoBarVal.value;
           grid.clearPaths();
-          var algorithm = new Algorithm(selected_algo);
-          var path = algorithm.run(start,end,grid); //Will Return a List containing the shortest path from the start tile to the end tile
+					var path = execute(start,end,selected_algo);
           console.log("path: " + printPath(path));
       }
     });
@@ -179,7 +178,7 @@ function resizeGrid(width, height){
     var total = width * height;
 		start = null;
 		end = null;
-		
+
     let total_width = 0;
     let total_height = 0;
 

@@ -25,15 +25,8 @@ class Grid {
       }
     }
     this.start_tile = this.grid[0][0];
-   
-  }
-  /*getStart(){
-    return grid.start_tile;
-  }
 
-  setStart(xcoor,ycoor){
-    start_tile = grid[xcoor,ycoor];
-  }*/
+  }
 
   getLength(){
     return this.length;
@@ -106,6 +99,22 @@ class Grid {
         }
       }
   }
+  clearPoint(startEnd){
+    var color;
+    if(startEnd){
+      color = "#28a745";
+    }
+    else{
+      color = "#dc3545";
+    }
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+          if(this.getTile(i,j).getColorVisual() == color){
+            this.getTile(i,j).setColor("#ffffff");
+          }
+        }
+      }
+  }
   dimTiles(){
     for(var i = 0; i < this.length; ++i){
       for(var j = 0; j < this.width; ++j){
@@ -157,7 +166,7 @@ class Tile {
     this.x = xcoor;
     this.y = ycoor;
     this.setColor("#ffffff");
-    $(this.element).data('x',this.x); 
+    $(this.element).data('x',this.x);
     $(this.element).data('y',this.y);
     //this.is_start = false;
   }
@@ -171,7 +180,19 @@ class Tile {
   }
   getWeight(){
     var new_weight = palette.get_Bound_Weight(this.getColorVisual());
-    if(new_weight != null && new_weight != this.weight){
+    if(this.getColorVisual() == "#28a745"){
+      console.log("x: " + this.x + " y: " + this.y + " set to Start");
+      this.color = this.getColorVisual();
+      start = this;
+      this.setWeight(new_weight);
+    }
+    else if(this.getColorVisual() == "#dc3545"){
+      console.log("x: " + this.x + " y: " + this.y + " set to End");
+      this.color = this.getColorVisual();
+      end = this;
+      this.setWeight(new_weight);
+    }
+    else if(new_weight != null && new_weight != this.weight){
       this.setWeight(new_weight);
       this.color = this.getColorVisual();
     }

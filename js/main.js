@@ -4,7 +4,7 @@ var end_set = false;
 var start_pressed = false;
 var end_pressed = false;
 var start;
-var end; 
+var end;
 mousedown = false;
 $(document).ready(function () {
 	$('#add-colors').click(function(){
@@ -31,9 +31,6 @@ $(document).ready(function () {
         start_pressed = true;
         palette.setPaint($(this).data('color'));
         console.log("Start selected");
-        //if(start_exists){
-            //grid.start_tile.setColor("#ffffff");
-        //}
     });
 
     $('#end-select').click(function(){
@@ -56,37 +53,29 @@ $(document).ready(function () {
 
     $('.tile').mousedown(function () {
         mousedown = true;
+				if(palette.getPaint() == "#28a745"){
+					console.log("Clearing True");
+					grid.clearPoint(true);
+				}
+				else if(palette.getPaint() == "#dc3545"){
+					console.log("Clearing False");
+					grid.clearPoint(false);
+				}
         setColor($(this));
-        //console.log("MOUSEDOWN");
-        console.log("x = " + $(this).data('x'));
-        console.log("y = " + $(this).data('y'));
-        if(start_pressed && start_set == false){
-            start_set = true;
-            start_pressed = false;
-            start = grid.getTile($(this).data('x'), $(this).data('y'));
-        }
-        if(start_set && end_pressed && !end_set){
-            end_set = true;
-            end_pressed = false;
-            end = grid.getTile($(this).data('x'), $(this).data('y'));
-        }
         grid.getWeights();
     });
 
     $('.tile').mouseup(function () {
         mousedown = false;
-        //console.log("MOUSEUP");
     });
 
     $('.tile').mousemove(function (e) {
         if(mousedown){
-            //console.log("DOWNMOVE");
+					if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
             setWall($(this), e);
             grid.getWeights();
+					}
         }
-        //else{console.log("MOVE");}
-        //console.log(grid.start_tile);
-        //grid.getWeights();
     });
 
     $('#algo').click(function () {
@@ -267,23 +256,23 @@ function resizeGrid(width, height){
         $('.tile').mousedown(function () {
             mousedown = true;
             setColor($(this));
-            if(start_pressed && !start_set){
-                start_set = true;
-                start_pressed = false;
-                start = grid.getTile($(this).data('x'), $(this).data('y'));
-            }
-            if(start_set && end_pressed && !end_set){
-                end_set = true;
-                end_pressed = false;
-                end = grid.getTile($(this).data('x'), $(this).data('y'));
-            }
+            // if(start_pressed && !start_set){
+            //     start_set = true;
+            //     start_pressed = false;
+            //     start = grid.getTile($(this).data('x'), $(this).data('y'));
+            // }
+            // if(start_set && end_pressed && !end_set){
+            //     end_set = true;
+            //     end_pressed = false;
+            //     end = grid.getTile($(this).data('x'), $(this).data('y'));
+            // }
             grid.getWeights();
         });
-    
+
         $('.tile').mouseup(function () {
             mousdown = false;
         });
-    
+
         $('.tile').mousemove(function (e) {
             if(mousedown){
                 setWall($(this), e);

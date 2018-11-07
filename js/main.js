@@ -1,8 +1,4 @@
 var running = false;
-var start_set = false;
-var end_set = false;
-var start_pressed = false;
-var end_pressed = false;
 var start;
 var end;
 mousedown = false;
@@ -28,13 +24,11 @@ $(document).ready(function () {
     });*/
 
     $('#start-select').click(function(){
-        start_pressed = true;
         palette.setPaint($(this).data('color'));
         console.log("Start selected");
     });
 
     $('#end-select').click(function(){
-        end_pressed = true;
         palette.setPaint($(this).data('color'));
     });
 
@@ -183,6 +177,9 @@ function setWall(elem, e) {
 
 function resizeGrid(width, height){
     var total = width * height;
+		start = null;
+		end = null;
+		
     let total_width = 0;
     let total_height = 0;
 
@@ -256,16 +253,6 @@ function resizeGrid(width, height){
         $('.tile').mousedown(function () {
             mousedown = true;
             setColor($(this));
-            // if(start_pressed && !start_set){
-            //     start_set = true;
-            //     start_pressed = false;
-            //     start = grid.getTile($(this).data('x'), $(this).data('y'));
-            // }
-            // if(start_set && end_pressed && !end_set){
-            //     end_set = true;
-            //     end_pressed = false;
-            //     end = grid.getTile($(this).data('x'), $(this).data('y'));
-            // }
             grid.getWeights();
         });
 

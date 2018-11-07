@@ -39,8 +39,6 @@ function execute(start_tile,end_tile,algo){
                 return dfs.run(start_tile,end_tile);
     case "djikstra": var djikstra = new Djikstra();
                      return djikstra.run(start_tile,end_tile);
-    case "astar": var astar = new AStar(start_tile,end_tile);
-                  return astar.run(start_tile,end_tile);
     default: return [];
   }
 }
@@ -181,34 +179,6 @@ class Djikstra extends Algorithm{
     this.dw = getMatrix(grid.getLength(),grid.getWidth(),0);
     var comparator = function(tileA,tileB) {
                         return this.dw[tileA.getX()][tileA.getY()] < this.dw[tileB.getX()][tileB.getY()];
-                     };
-    this.tileList = new Priority_Queue(this.comparator);
-  }
-  checkNeighbor(neighbor,cur){
-    var cur_dw = this.dw[cur.getX()][cur.getY()];
-    if(neighbor != null && neighbor.getWeight() != 0 && this.visited_list[neighbor.getX()][neighbor.getY()] == false ){
-      this.dw[neighbor.getX()][neighbor.getY()] = cur_dw + this.weight_list[neighbor.getX()][neighbor.getY()];
-      this.tileList.push(neighbor);
-      this.visited_list[neighbor.getX()][neighbor.getY()] = true;
-      this.previous_list[neighbor.getX()][neighbor.getY()] = cur;
-    }
-  }
-}
-
-class AStar extends Algorithm{
-  distance(tileA,tileB){
-      var term1 = tileA.getX() - tileB.getX();
-      var term2 = tileA.getY() - tileB.getY();
-      return (term1 * term1) + (term2 * term2);
-  }
-  heuristic(tile,start,end,dw){
-    return dw[tile.getX()][tile.getY()] + this.distance(tile,end);
-  }
-  constructor(start,end){
-    super();
-    this.dw = getMatrix(grid.getLength(),grid.getWidth(),0);
-    var comparator = function(tileA,tileB) {
-                        return this.heuristic(tileA,start,end,this.dw) < this.heuristic(tileB,start,end,this.dw);
                      };
     this.tileList = new Priority_Queue(this.comparator);
   }

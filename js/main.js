@@ -92,7 +92,6 @@ $(document).ready(function () {
         $(this).html("Stop");
         $(this).css("background-color","#ff4242");
 
-        var algorithm = new Algorithm("bfs");
 	       var algoBarVal = document.getElementById("algo_select");
 	        var selected_algo = algoBarVal.value;
           grid.clearPaths();

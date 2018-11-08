@@ -103,7 +103,7 @@ $(document).ready(function () {
 		
 		grid.endTimer = 0;
 		display.textContent = "Runtime: 00:00:00";
-
+		steps.textContent = "Steps: 0";
         running = false;
         grid.lightTiles();
         grid.clearPaths();
@@ -115,6 +115,7 @@ $(document).ready(function () {
         $(this).css("background-color","#ff4242");
 
 		display = document.querySelector('#time');
+		steps = document.querySelector('#steps');								   
 		startTimer(0, display);
 		
         var algorithm = new Algorithm("bfs");

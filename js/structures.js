@@ -167,13 +167,6 @@ class Priority_Queue extends Queue {
   }
 }
 
-// var pq = new Priority_Queue();
-// pq.push(4);
-// pq.push(7);
-// pq.push(6);
-// pq.remove(pq.findVal(8));
-// console.log(pq.printpList());
-
 // Stack class: Gives an Interface for using a stack with an array implementation
 class Stack extends Queue {
   //See Queue class for Other Functions

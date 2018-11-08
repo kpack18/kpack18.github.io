@@ -175,8 +175,14 @@ function setWall(elem, e) {
 
 function resizeGrid(width, height){
     var total = width * height;
-		start = null;
-		end = null;
+		if(start != null){
+			start.toggleEndPoint();
+			start = null;
+		}
+		if(start != null){
+			end.toggleEndPoint();
+			end = null;
+		}
 
     let total_width = 0;
     let total_height = 0;
@@ -250,6 +256,14 @@ function resizeGrid(width, height){
 
         $('.tile').mousedown(function () {
             mousedown = true;
+						if(palette.getPaint() == "#28a745"){
+							console.log("Clearing True");
+							grid.clearPoint(true);
+						}
+						else if(palette.getPaint() == "#dc3545"){
+							console.log("Clearing False");
+							grid.clearPoint(false);
+						}
             setColor($(this));
             grid.getWeights();
         });
@@ -260,8 +274,10 @@ function resizeGrid(width, height){
 
         $('.tile').mousemove(function (e) {
             if(mousedown){
-                setWall($(this), e);
-                grid.getWeights();
+								if(!palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545"){
+									setWall($(this), e);
+	                grid.getWeights();
+								}
             }
         });
 

@@ -182,7 +182,10 @@ class Djikstra extends Algorithm{
     var comparator = function(tileA,tileB) {
                         return this.dw[tileA.getX()][tileA.getY()] < this.dw[tileB.getX()][tileB.getY()];
                      };
-    this.tileList = new Priority_Queue(this.comparator);
+    var comparator_eq = function(tileA,tileB) {
+                        return tileA.getX() == tileB.getX() && tileA.getY() == tileB.getY();
+                     };
+    this.tileList = new Priority_Queue(this.comparator,this.compare_eq);
   }
   checkNeighbor(neighbor,cur){
     var cur_dw = this.dw[cur.getX()][cur.getY()];
@@ -195,30 +198,44 @@ class Djikstra extends Algorithm{
   }
 }
 
-class AStar extends Algorithm{
-  distance(tileA,tileB){
-      var term1 = tileA.getX() - tileB.getX();
-      var term2 = tileA.getY() - tileB.getY();
-      return (term1 * term1) + (term2 * term2);
+class AStar extends Djikstra{
+  hfunc(tileA,endtile){
+      return Math.floor(Math.sqrt(Math.pow(tileA.getX() - endtile.getX(),2) + Math.pow(tileA.getY() - endtile.getY(),2)) * 10);
   }
-  heuristic(tile,start,end,dw){
-    return dw[tile.getX()][tile.getY()] + this.distance(tile,end);
+  gfunc(tileA,prev_dw){
+      return prev_dw + (10 * tileA.getWeight());
+  }
+  heuristic(tile,end,dw){
+    return gfunc(tile,dw) + hfunc(tile,end);
   }
   constructor(start,end){
     super();
-    this.dw = getMatrix(grid.getLength(),grid.getWidth(),0);
-    var comparator = function(tileA,tileB) {
-                        return this.heuristic(tileA,start,end,this.dw) < this.heuristic(tileB,start,end,this.dw);
-                     };
-    this.tileList = new Priority_Queue(this.comparator);
+    this.end = end;
+  }
+  checkAdjacent(cur){
+    this.visited_list[cur.getX()][cur.getY()] = true;
+    this.checkNeighbor(cur.getLeft(grid),cur);
+    this.checkNeighbor(cur.getRight(grid),cur);
+    this.checkNeighbor(cur.getUp(grid),cur);
+    this.checkNeighbor(cur.getDown(grid),cur);
   }
   checkNeighbor(neighbor,cur){
-    var cur_dw = this.dw[cur.getX()][cur.getY()];
     if(neighbor != null && neighbor.getWeight() != 0 && this.visited_list[neighbor.getX()][neighbor.getY()] == false ){
-      this.dw[neighbor.getX()][neighbor.getY()] = cur_dw + this.weight_list[neighbor.getX()][neighbor.getY()];
-      this.tileList.push(neighbor);
-      this.visited_list[neighbor.getX()][neighbor.getY()] = true;
-      this.previous_list[neighbor.getX()][neighbor.getY()] = cur;
+      var prev_dw = this.dw[cur.getX()][cur.getY()];
+      var new_dw = this.gfunc(neighbor,prev_dw) + this.hfunc(neighbor,this.end);
+      if(this.dw[neighbor.getX()][neighbor.getY()] == 0 || this.dw[neighbor.getX()][neighbor.getY()] > new_dw){
+        this.dw[neighbor.getX()][neighbor.getY()] = new_dw;
+        this.previous_list[neighbor.getX()][neighbor.getY()] = cur;
+
+        var index = this.tileList.findVal(neighbor);
+        if(index = this.tileList.length()){
+          this.tileList.push(neighbor);
+        }
+        else{
+          this.tileList.remove(index);
+          this.tileList.push(neighbor);
+        }
+      }
     }
   }
 }

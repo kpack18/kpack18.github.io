@@ -16,10 +16,8 @@ function startTimer(elapsed, display) {
     minutes = minutes < 10 ? "0" + minutes : minutes;
         
 	display.textContent = "Runtime: " + minutes + ":" + seconds + ":" + deciseconds;
-	if (++timer < 0) {
-		timer = elapsed;
-	}
-	if(!start||!end||grid.endTimer==1||running==false)clearInterval(time);	
+	if (++timer < 0) timer = elapsed;
+	if(!start||!end||grid.endTimer==1||!running) clearInterval(time);	
     }, 10);
 }
 
@@ -103,7 +101,7 @@ $(document).ready(function () {
         $(this).html("Algorithm");
         $(this).css("background-color","#4285f4");
 		
-			grid.endTimer = 0;
+		grid.endTimer = 0;
 		display.textContent = "Runtime: 00:00:00";
 
         running = false;
@@ -120,11 +118,11 @@ $(document).ready(function () {
 		startTimer(0, display);
 		
         var algorithm = new Algorithm("bfs");
-	       var algoBarVal = document.getElementById("algo_select");
-	        var selected_algo = algoBarVal.value;
-          grid.clearPaths();
-					var path = execute(start,end,selected_algo);
-          console.log("path: " + printPath(path));
+	    var algoBarVal = document.getElementById("algo_select");
+	    var selected_algo = algoBarVal.value;
+        grid.clearPaths();
+		var path = execute(start,end,selected_algo);
+        console.log("path: " + printPath(path));
       }
     });
 

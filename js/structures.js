@@ -126,15 +126,6 @@ class Priority_Queue extends Queue {
       this.compare_equal = comparator_equal;
     }
   }
-<<<<<<< HEAD
-  findIndex(val){
-    //console.log("Searching for: " + val);
-    var index = 0;
-    while(index < this.length()){
-      //console.log("  Comparing: " + index + " and " + this.list[index] + ": " + this.compare(val,this.list[index]));
-      if(this.compare(val,this.list[index])){
-        //console.log("  index " + index);
-=======
   findIndex(val,equal){
     var compare_func = this.compare;
     if(equal){
@@ -143,15 +134,10 @@ class Priority_Queue extends Queue {
     var index = 0;
     while(index < this.length()){
       if(compare_func(val,this.list[index])){
->>>>>>> Astar
           return index;
       }
       ++index;
     }
-<<<<<<< HEAD
-    //console.log("  index " + index);
-=======
->>>>>>> Astar
     return index;
   }
   findVal(val){

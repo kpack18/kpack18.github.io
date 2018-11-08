@@ -39,6 +39,8 @@ function execute(start_tile,end_tile,algo){
                 return dfs.run(start_tile,end_tile);
     case "djikstra": var djikstra = new Djikstra();
                      return djikstra.run(start_tile,end_tile);
+    case "astar": var astar = new AStar(start_tile,end_tile);
+                     return astar.run(start_tile,end_tile);
     default: return [];
   }
 }
@@ -206,8 +208,6 @@ class Djikstra extends Algorithm{
     }
   }
 }
-<<<<<<< HEAD
-=======
 
 class AStar extends Algorithm{
   hfunc(tileA,endtile){
@@ -285,4 +285,3 @@ class AStar extends Algorithm{
     }
   }
 }
->>>>>>> Astar

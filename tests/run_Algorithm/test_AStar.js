@@ -109,7 +109,6 @@ function execute_test_AStar() {
     setTimeout(function(){ test_AStar_weight(); },time += 1500);
     setTimeout(function(){ test_AStar_weight_2(); },time += 2000);
     setTimeout(function(){ test_AStar_Complex(); },time += 2000);
-    // setTimeout(function(){ test_Bfs_Path_Complex(); },time += 2000);
     setTimeout(function(){ resizeGrid(8,8); grid.clearAll(); grid.lightTiles(); }, time += 5000);
     console.log("\n");
 

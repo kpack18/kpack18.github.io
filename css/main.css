@@ -398,6 +398,7 @@ font-family: fantasy;
 #time{
 	position: relative;
 	bottom:45px;
+	left:20px;
 	margin-top: 50px;
 	margin-left: auto;
 	margin-right: auto;   
@@ -410,7 +411,7 @@ font-family: fantasy;
 #steps{
 	position: relative;
 	bottom: 45px;
-	right: 20px;
+	right: 7px;
 	margin-top: 50px;
 	margin-left: auto;
 	margin-right: auto;   
@@ -450,6 +451,11 @@ font-family: fantasy;
 	position: relative;
 	left:50px;
 	bottom:14px;
+}
+
+#steps{
+	bottom:90px;
+	right:15px;
 }
 }
 

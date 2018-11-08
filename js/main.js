@@ -275,10 +275,17 @@ function resizeGrid(width, height){
 
         $('.tile').mousemove(function (e) {
             if(mousedown){
+<<<<<<< HEAD
 							if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
 								setWall($(this), e);
 								grid.getWeights();
 							}
+=======
+								if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
+									setWall($(this), e);
+	                grid.getWeights();
+								}
+>>>>>>> Astar
             }
         });
 

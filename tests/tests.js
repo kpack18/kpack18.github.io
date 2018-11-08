@@ -1,6 +1,7 @@
 tests = {
     "Test Algorithm": execute_test_Algorithm,
     "Test Djikstra": execute_test_Djikstra,
+    "Test A*": execute_test_AStar,
     "Test Grid": execute_test_Grid,
     "Test Resize": execute_test_Resize,
     "Test Save/Load": execute_test_SaveLoad,

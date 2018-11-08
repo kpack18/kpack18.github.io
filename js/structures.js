@@ -96,8 +96,8 @@ class Queue{
   clear(){
     this.list = [];
   }
-  printpList(){
-    return printList(this.list);
+  printList(){
+    return printPath(this.list);
   }
   printListDjikstra(dw){
     return printPathDjikstra(this.list,dw);
@@ -146,6 +146,13 @@ class Priority_Queue extends Queue {
   push(elem){
     var index = this.findIndex(elem,false);
     if(index == this.length()){
+      this.list.push(elem);
+    } else {
+      this.list.splice(index, 0, elem);
+    }
+  }
+  pushAt(elem,index){
+    if(index >= this.length()){
       this.list.push(elem);
     } else {
       this.list.splice(index, 0, elem);

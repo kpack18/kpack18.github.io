@@ -202,7 +202,6 @@ class Djikstra extends Algorithm{
       var index_less = this.findIndexQueue(neighbor,this.comparator);
       this.tileList.pushAt(neighbor,index_less);
 
-      this.tileList.push(neighbor);
       this.visited_list[neighbor.getX()][neighbor.getY()] = true;
       this.previous_list[neighbor.getX()][neighbor.getY()] = cur;
     }

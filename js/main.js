@@ -2,6 +2,25 @@ var running = false;
 var start;
 var end;
 mousedown = false;
+
+function startTimer(elapsed, display) {
+    var timer = elapsed, minutes, seconds, deciseconds;
+	var time =   setInterval(function () {
+		
+	deciseconds = parseInt(timer%100, 10);
+	seconds = parseInt((timer/100)%60, 10);
+    minutes = parseInt(timer/6000, 10)
+	
+	deciseconds = deciseconds < 10 ? "0" + deciseconds : deciseconds;
+	seconds = seconds < 10 ? "0" + seconds : seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+        
+	display.textContent = "Runtime: " + minutes + ":" + seconds + ":" + deciseconds;
+	if (++timer < 0) timer = elapsed;
+	if(!start||!end||grid.endTimer==1||!running) clearInterval(time);	
+    }, 10);
+}
+
 $(document).ready(function () {
 	$('#add-colors').click(function(){
 		AddNewColorOption();
@@ -79,7 +98,10 @@ $(document).ready(function () {
         setTimeout(function() { $(elem).prop('disabled', false); },250);
         $(this).html("Algorithm");
         $(this).css("background-color","#4285f4");
-
+		
+		grid.endTimer = 0;
+		display.textContent = "Runtime: 00:00:00";
+		steps.textContent = "Steps: 0";
         running = false;
         grid.lightTiles();
         grid.clearPaths();
@@ -90,12 +112,16 @@ $(document).ready(function () {
         $(this).html("Stop");
         $(this).css("background-color","#ff4242");
 
+		display = document.querySelector('#time');
+		steps = document.querySelector('#steps');								   
+		startTimer(0, display);
+		
         var algorithm = new Algorithm("bfs");
-	       var algoBarVal = document.getElementById("algo_select");
-	        var selected_algo = algoBarVal.value;
-          grid.clearPaths();
-					var path = execute(start,end,selected_algo);
-          console.log("path: " + printPath(path));
+	    var algoBarVal = document.getElementById("algo_select");
+	    var selected_algo = algoBarVal.value;
+        grid.clearPaths();
+		var path = execute(start,end,selected_algo);
+        console.log("path: " + printPath(path));
       }
     });
 

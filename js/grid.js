@@ -13,6 +13,7 @@ class Grid {
     this.length = l;
     this.width = w;
     this.grid = [];
+	this.endTimer = 0;
 
     for(var row = 0; row < this.length; ++row){
       this.grid[row] = new Array();
@@ -68,6 +69,7 @@ class Grid {
       time += 50;
       setTimeout(function() { if(!running){ return; } path[0].setColorVisual("#00ff80"); path.splice(0, 1); },time);
     }
+	this.endTimer = 1;
   }
   blink_Fail(tile){
     var current_iter = ITER;
@@ -80,6 +82,7 @@ class Grid {
     setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColorVisual("#ff8080"); },time);
     time += 100;
     setTimeout(function() { tile.setColorVisual(color); },time);
+	this.endTimer = 1;
   }
   clearPaths(){
     for(var i = 0; i < this.length; ++i){

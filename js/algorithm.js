@@ -1,10 +1,10 @@
-var time_initial = 50;
-var time_increment = 50;
-
 var TIME_INIT = 50;
 var TIME_INC = 50;
 var ITER = 0;
 var steps_taken = 0;
+
+var time_initial = TIME_INIT;
+var time_increment = TIME_INC;
 
 // printPath: Returns a String Representation of a tile list, for testing purposes
 function printPath(path){

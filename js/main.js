@@ -3,7 +3,20 @@ var start;
 var end;
 mousedown = false;
 
-var real_time_update = true;
+var real_time_update = false;
+
+function setRealTimeUpdate(){
+  real_time_update = !real_time_update;
+  if(real_time_update){
+    TIME_INIT = 0;
+    TIME_INC = 0;
+  }
+  else{
+    TIME_INIT = time_initial;
+    TIME_INC = time_increment;
+  }
+  console.log("real time update set: " + real_time_update);
+}
 
 function startTimer(elapsed, display) {
     var timer = elapsed, minutes, seconds, deciseconds;
@@ -134,10 +147,6 @@ $(document).ready(function () {
         return;
       }
       else{
-        if(real_time_update){
-					TIME_INIT = 0;
-					TIME_INC = 0;
-				}
         running = true;
         $(this).html("Stop");
         $(this).css("background-color","#ff4242");

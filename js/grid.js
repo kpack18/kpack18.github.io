@@ -64,9 +64,9 @@ class Grid {
     return output;
   }
   setPath(path){
-    var time = 50;
+    var time = TIME_INC;
     for(var i = 0; i < path.length; ++i){
-      time += 50;
+      time += TIME_INC;
       setTimeout(function() { if(!running){ return; } path[0].setColorVisual("#00ff80"); path.splice(0, 1); },time);
     }
 	this.endTimer = 1;

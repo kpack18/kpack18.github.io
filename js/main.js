@@ -3,21 +3,23 @@ var start;
 var end;
 mousedown = false;
 
+var real_time_update = true;
+
 function startTimer(elapsed, display) {
     var timer = elapsed, minutes, seconds, deciseconds;
 	var time =   setInterval(function () {
-		
+
 	deciseconds = parseInt(timer%100, 10);
 	seconds = parseInt((timer/100)%60, 10);
     minutes = parseInt(timer/6000, 10)
-	
+
 	deciseconds = deciseconds < 10 ? "0" + deciseconds : deciseconds;
 	seconds = seconds < 10 ? "0" + seconds : seconds;
     minutes = minutes < 10 ? "0" + minutes : minutes;
-        
+
 	display.textContent = "Runtime: " + minutes + ":" + seconds + ":" + deciseconds;
 	if (++timer < 0) timer = elapsed;
-	if(!start||!end||grid.endTimer==1||!running) clearInterval(time);	
+	if(!start||!end||grid.endTimer==1||!running) clearInterval(time);
     }, 10);
 }
 
@@ -65,15 +67,29 @@ $(document).ready(function () {
     });
 
     $('.tile').mousedown(function () {
-        mousedown = true;
-				if(palette.getPaint() == "#28a745"){
-					grid.clearPoint(true);
-				}
-				else if(palette.getPaint() == "#dc3545"){
-					grid.clearPoint(false);
-				}
-        setColor($(this));
-        grid.getWeights();
+      mousedown = true;
+      var color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+      if(palette.getPaint() == "#28a745"){
+        grid.lightTiles();
+        grid.clearPaths();
+        grid.clearPoint(true);
+        console.log("Cleared True");
+      }
+      else if(palette.getPaint() == "#dc3545"){
+        grid.lightTiles();
+        grid.clearPaths();
+        grid.clearPoint(false);
+        console.log("Cleared False");
+      }
+      setColor($(this));
+      grid.getWeights();
+      if(real_time_update && running && color_changed){
+        var algoBarVal = document.getElementById("algo_select");
+        var selected_algo = algoBarVal.value;
+         grid.clearPaths();
+        var path = execute(start,end,selected_algo);
+         console.log("path: " + printPath(path));
+      }
     });
 
     $('.tile').mouseup(function () {
@@ -81,12 +97,22 @@ $(document).ready(function () {
     });
 
     $('.tile').mousemove(function (e) {
-        if(mousedown){
-					if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
-            setWall($(this), e);
-            grid.getWeights();
-					}
+      var color_changed = false;
+      if(mousedown){
+        color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+        if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
+          setWall($(this), e);
+          grid.getWeights();
+
+          if(real_time_update && running && color_changed){
+            var algoBarVal = document.getElementById("algo_select");
+            var selected_algo = algoBarVal.value;
+             grid.clearPaths();
+            var path = execute(start,end,selected_algo);
+            console.log("path: " + printPath(path));
+          }
         }
+      }
     });
 
     $('#algo').click(function () {
@@ -98,7 +124,7 @@ $(document).ready(function () {
         setTimeout(function() { $(elem).prop('disabled', false); },250);
         $(this).html("Algorithm");
         $(this).css("background-color","#4285f4");
-		
+
 		grid.endTimer = 0;
 		display.textContent = "Runtime: 00:00:00";
 		steps.textContent = "Steps: 0";
@@ -108,14 +134,18 @@ $(document).ready(function () {
         return;
       }
       else{
+        if(real_time_update){
+					TIME_INIT = 0;
+					TIME_INC = 0;
+				}
         running = true;
         $(this).html("Stop");
         $(this).css("background-color","#ff4242");
 
 		display = document.querySelector('#time');
-		steps = document.querySelector('#steps');								   
+		steps = document.querySelector('#steps');
 		startTimer(0, display);
-		
+
         var algorithm = new Algorithm("bfs");
 	    var algoBarVal = document.getElementById("algo_select");
 	    var selected_algo = algoBarVal.value;
@@ -280,30 +310,52 @@ function resizeGrid(width, height){
         grid = new Grid(height, width);
 
         $('.tile').mousedown(function () {
-            mousedown = true;
-						if(palette.getPaint() == "#28a745"){
-							console.log("Clearing True");
-							grid.clearPoint(true);
-						}
-						else if(palette.getPaint() == "#dc3545"){
-							console.log("Clearing False");
-							grid.clearPoint(false);
-						}
-            setColor($(this));
-            grid.getWeights();
+          mousedown = true;
+          var color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+          if(palette.getPaint() == "#28a745"){
+            grid.lightTiles();
+            grid.clearPaths();
+            grid.clearPoint(true);
+            console.log("Cleared True");
+          }
+          else if(palette.getPaint() == "#dc3545"){
+            grid.lightTiles();
+            grid.clearPaths();
+            grid.clearPoint(false);
+            console.log("Cleared False");
+          }
+          setColor($(this));
+          grid.getWeights();
+          if(real_time_update && running && color_changed){
+            var algoBarVal = document.getElementById("algo_select");
+            var selected_algo = algoBarVal.value;
+             grid.clearPaths();
+            var path = execute(start,end,selected_algo);
+             console.log("path: " + printPath(path));
+          }
         });
 
         $('.tile').mouseup(function () {
-            mousdown = false;
+            mousedown = false;
         });
 
         $('.tile').mousemove(function (e) {
-            if(mousedown){
-								if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
-									setWall($(this), e);
-	                grid.getWeights();
-								}
+          var color_changed = false;
+          if(mousedown){
+            color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+            if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
+              setWall($(this), e);
+              grid.getWeights();
+
+              if(real_time_update && running && color_changed){
+                var algoBarVal = document.getElementById("algo_select");
+                var selected_algo = algoBarVal.value;
+                 grid.clearPaths();
+                var path = execute(start,end,selected_algo);
+                console.log("path: " + printPath(path));
+              }
             }
+          }
         });
 
     }

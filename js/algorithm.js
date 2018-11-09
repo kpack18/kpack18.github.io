@@ -1,7 +1,10 @@
+var time_initial = 50;
+var time_increment = 50;
+
 var TIME_INIT = 50;
 var TIME_INC = 50;
 var ITER = 0;
-var steps_taken = 0;					
+var steps_taken = 0;
 
 // printPath: Returns a String Representation of a tile list, for testing purposes
 function printPath(path){
@@ -58,16 +61,16 @@ class Algorithm{
     this.time = TIME_INIT;
 
     this.tileList;
-	steps_taken = 0;			 
+	steps_taken = 0;
   }
   delay_Remove_Fade(tile,time,delay){
     time += TIME_INC;
     var current_iter = ITER;
-    setTimeout(function() { 
-	var this_tile = tile; 
+    setTimeout(function() {
+	var this_tile = tile;
 	if($('#algo').text()!="Algorithm") steps_taken +=1;
-	document.querySelector('#steps').textContent = "Steps: " + steps_taken; 
-	if(!check_Iteration(current_iter)){ return; }; 
+	document.querySelector('#steps').textContent = "Steps: " + steps_taken;
+	if(!check_Iteration(current_iter)){ return; };
 	this_tile.removeFade(); },
 	time + delay);
     return time;

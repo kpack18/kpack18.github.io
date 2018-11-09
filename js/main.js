@@ -67,11 +67,9 @@ $(document).ready(function () {
     $('.tile').mousedown(function () {
         mousedown = true;
 				if(palette.getPaint() == "#28a745"){
-					console.log("Clearing True");
 					grid.clearPoint(true);
 				}
 				else if(palette.getPaint() == "#dc3545"){
-					console.log("Clearing False");
 					grid.clearPoint(false);
 				}
         setColor($(this));
@@ -301,10 +299,10 @@ function resizeGrid(width, height){
 
         $('.tile').mousemove(function (e) {
             if(mousedown){
-							if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
-								setWall($(this), e);
-								grid.getWeights();
-							}
+								if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
+									setWall($(this), e);
+	                grid.getWeights();
+								}
             }
         });
 

@@ -80,6 +80,10 @@ class Queue{
   pop(elem){
     this.list.splice(0, 1);
   }
+  remove(index){
+    if(index >= this.length()){ return; }
+    this.list.splice(index,1);
+  }
   peak(){
     return this.list[0];
   }
@@ -103,8 +107,11 @@ class Queue{
 function lessThan(a,b){
   return a < b;
 }
+function equality(a,b){
+  return a == b;
+}
 class Priority_Queue extends Queue {
-  constructor(comparator){
+  constructor(comparator,comparator_equal){
     super();
     if(comparator == null){
       this.compare = lessThan;
@@ -112,24 +119,40 @@ class Priority_Queue extends Queue {
     else {
       this.compare = comparator;
     }
+    if(comparator_equal == null){
+      this.compare_equal = equality;
+    }
+    else {
+      this.compare_equal = comparator_equal;
+    }
   }
-  findIndex(val){
-    //console.log("Searching for: " + val);
+  findIndex(val,equal){
+    var compare_func = this.compare;
+    if(equal){
+      compare_func = this.compare_equal;
+    }
     var index = 0;
     while(index < this.length()){
-      //console.log("  Comparing: " + index + " and " + this.list[index] + ": " + this.compare(val,this.list[index]));
-      if(this.compare(val,this.list[index])){
-        //console.log("  index " + index);
+      if(compare_func(val,this.list[index])){
           return index;
       }
       ++index;
     }
-    //console.log("  index " + index);
     return index;
   }
+  findVal(val){
+    return this.findIndex(val,true);
+  }
   push(elem){
-    var index = this.findIndex(elem);
-    if(this.findIndex == this.length()){
+    var index = this.findIndex(elem,false);
+    if(index == this.length()){
+      this.list.push(elem);
+    } else {
+      this.list.splice(index, 0, elem);
+    }
+  }
+  pushAt(elem,index){
+    if(index >= this.length()){
       this.list.push(elem);
     } else {
       this.list.splice(index, 0, elem);

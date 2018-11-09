@@ -168,7 +168,7 @@ function execute_test_Djikstra() {
     setTimeout(function(){ test_Dji_Path_Wall(); },time += 2000);
     setTimeout(function(){ test_Dji_Path_None(); },time += 2000);
     setTimeout(function(){ test_Dji_Path_Complex(); },time += 2000);
-    setTimeout(function(){ resizeGrid(8,8); grid.clearAll(); grid.lightTiles(); }, time += 5000);
+    setTimeout(function(){ resizeGrid(8,8); grid.clearAll(); grid.lightTiles(); }, time += 6000);
     console.log("\n");
 
 }

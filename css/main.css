@@ -395,6 +395,31 @@ input:focus{outline: 0;}
 font-family: fantasy;
 	
 }
+#time{
+	position: relative;
+	bottom:45px;
+	left:20px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;   
+	background: rgb(255,255,255);
+	padding: 5px;
+    font-family: 'Play';
+	border-radius: 7px;
+}
+
+#steps{
+	position: relative;
+	bottom: 45px;
+	right: 7px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;   
+	background: rgb(255,255,255);
+	padding: 5px;
+    font-family: 'Play';
+	border-radius: 7px;
+}
 
 @media (max-width: 576px) {
 #add-colors-number{
@@ -420,6 +445,17 @@ font-family: fantasy;
 #color-options{
 	left: -80px;
 	top: 10px;	
+}
+
+#startEnd{
+	position: relative;
+	left:50px;
+	bottom:14px;
+}
+
+#steps{
+	bottom:90px;
+	right:15px;
 }
 }
 

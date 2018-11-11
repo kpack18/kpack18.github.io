@@ -13,6 +13,7 @@ class Grid {
     this.length = l;
     this.width = w;
     this.grid = [];
+	this.endTimer = 0;
 
     for(var row = 0; row < this.length; ++row){
       this.grid[row] = new Array();
@@ -25,15 +26,8 @@ class Grid {
       }
     }
     this.start_tile = this.grid[0][0];
-   
-  }
-  /*getStart(){
-    return grid.start_tile;
-  }
 
-  setStart(xcoor,ycoor){
-    start_tile = grid[xcoor,ycoor];
-  }*/
+  }
 
   getLength(){
     return this.length;
@@ -70,11 +64,12 @@ class Grid {
     return output;
   }
   setPath(path){
-    var time = 50;
+    var time = TIME_INC;
     for(var i = 0; i < path.length; ++i){
-      time += 50;
+      time += TIME_INC;
       setTimeout(function() { if(!running){ return; } path[0].setColorVisual("#00ff80"); path.splice(0, 1); },time);
     }
+	this.endTimer = 1;
   }
   blink_Fail(tile){
     var current_iter = ITER;
@@ -87,6 +82,7 @@ class Grid {
     setTimeout(function() { if(!check_Iteration(current_iter)){ return; } tile.setColorVisual("#ff8080"); },time);
     time += 100;
     setTimeout(function() { tile.setColorVisual(color); },time);
+	this.endTimer = 1;
   }
   clearPaths(){
     for(var i = 0; i < this.length; ++i){
@@ -103,6 +99,23 @@ class Grid {
       for(var j = 0; j < this.width; ++j){
           this.getTile(i,j).setWeight(1);
           this.getTile(i,j).setColor("#ffffff");
+        }
+      }
+  }
+  clearPoint(startEnd){
+    var color;
+    if(startEnd){
+      color = "#28a745";
+    }
+    else{
+      color = "#dc3545";
+    }
+    for(var i = 0; i < this.length; ++i){
+      for(var j = 0; j < this.width; ++j){
+          if(this.getTile(i,j).getColorVisual() == color){
+            this.getTile(i,j).setColor("#ffffff");
+            this.getTile(i,j).toggleEndPoint();
+          }
         }
       }
   }
@@ -156,8 +169,10 @@ class Tile {
     this.weight = 1;
     this.x = xcoor;
     this.y = ycoor;
+    this.isStart = false;
+    this.isEnd = false;
     this.setColor("#ffffff");
-    $(this.element).data('x',this.x); 
+    $(this.element).data('x',this.x);
     $(this.element).data('y',this.y);
     //this.is_start = false;
   }
@@ -171,12 +186,32 @@ class Tile {
   }
   getWeight(){
     var new_weight = palette.get_Bound_Weight(this.getColorVisual());
-    if(new_weight != null && new_weight != this.weight){
+    if(!this.isStart && this.getColorVisual() == "#28a745"){
+      console.log("x: " + this.x + " y: " + this.y + " set to Start");
+      this.color = this.getColorVisual();
+      start = this;
+      this.isStart = true;
+      this.isEnd = false;
+      this.setWeight(new_weight);
+    }
+    else if(!this.isEnd && this.getColorVisual() == "#dc3545"){
+      console.log("x: " + this.x + " y: " + this.y + " set to End");
+      this.color = this.getColorVisual();
+      end = this;
+      this.isStart = false;
+      this.isEnd = true;
+      this.setWeight(new_weight);
+    }
+    else if(new_weight != null && new_weight != this.weight){
       this.setWeight(new_weight);
       this.color = this.getColorVisual();
     }
 
     return this.weight;
+  }
+  toggleEndPoint(){
+    this.isStart = false;
+    this.isEnd = false;
   }
   //For Testing Only
   getWeightNoColor(){

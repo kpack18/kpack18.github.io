@@ -122,7 +122,7 @@ function generateData(grid, palette) {
         for (var y = 0; y < width; y++) {
             var color = grid.getTile(x, y).getColor();
             var id = palette.weight_list.getIndex(color);
-            if (id == -1) id = 0;
+            if (id == -1) id = 1;
             arr[i++] = id & 0xFF;
         }
     }

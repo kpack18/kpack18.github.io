@@ -1,11 +1,41 @@
 var running = false;
-var start_set = false;
-var end_set = false;
-var start_pressed = false;
-var end_pressed = false;
 var start;
-var end; 
+var end;
 mousedown = false;
+
+var real_time_update = false;
+
+function setRealTimeUpdate(){
+  real_time_update = !real_time_update;
+  if(real_time_update){
+    TIME_INIT = 0;
+    TIME_INC = 0;
+  }
+  else{
+    TIME_INIT = time_initial;
+    TIME_INC = time_increment;
+  }
+  console.log("real time update set: " + real_time_update);
+}
+
+function startTimer(elapsed, display) {
+    var timer = elapsed, minutes, seconds, deciseconds;
+	var time =   setInterval(function () {
+
+	deciseconds = parseInt(timer%100, 10);
+	seconds = parseInt((timer/100)%60, 10);
+    minutes = parseInt(timer/6000, 10)
+
+	deciseconds = deciseconds < 10 ? "0" + deciseconds : deciseconds;
+	seconds = seconds < 10 ? "0" + seconds : seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+
+	display.textContent = "Runtime: " + minutes + ":" + seconds + ":" + deciseconds;
+	if (++timer < 0) timer = elapsed;
+	if(!start||!end||grid.endTimer==1||!running) clearInterval(time);
+    }, 10);
+}
+
 $(document).ready(function () {
 	$('#add-colors').click(function(){
 		AddNewColorOption();
@@ -28,16 +58,11 @@ $(document).ready(function () {
     });*/
 
     $('#start-select').click(function(){
-        start_pressed = true;
         palette.setPaint($(this).data('color'));
         console.log("Start selected");
-        //if(start_exists){
-            //grid.start_tile.setColor("#ffffff");
-        //}
     });
 
     $('#end-select').click(function(){
-        end_pressed = true;
         palette.setPaint($(this).data('color'));
     });
 
@@ -55,38 +80,52 @@ $(document).ready(function () {
     });
 
     $('.tile').mousedown(function () {
-        mousedown = true;
-        setColor($(this));
-        //console.log("MOUSEDOWN");
-        console.log("x = " + $(this).data('x'));
-        console.log("y = " + $(this).data('y'));
-        if(start_pressed && start_set == false){
-            start_set = true;
-            start_pressed = false;
-            start = grid.getTile($(this).data('x'), $(this).data('y'));
-        }
-        if(start_set && end_pressed && !end_set){
-            end_set = true;
-            end_pressed = false;
-            end = grid.getTile($(this).data('x'), $(this).data('y'));
-        }
-        grid.getWeights();
+      mousedown = true;
+      var color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+      if(palette.getPaint() == "#28a745"){
+        grid.lightTiles();
+        grid.clearPaths();
+        grid.clearPoint(true);
+        console.log("Cleared True");
+      }
+      else if(palette.getPaint() == "#dc3545"){
+        grid.lightTiles();
+        grid.clearPaths();
+        grid.clearPoint(false);
+        console.log("Cleared False");
+      }
+      setColor($(this));
+      grid.getWeights();
+      if(real_time_update && running && color_changed){
+        var algoBarVal = document.getElementById("algo_select");
+        var selected_algo = algoBarVal.value;
+         grid.clearPaths();
+        var path = execute(start,end,selected_algo);
+         console.log("path: " + printPath(path));
+      }
     });
 
     $('.tile').mouseup(function () {
         mousedown = false;
-        //console.log("MOUSEUP");
     });
 
     $('.tile').mousemove(function (e) {
-        if(mousedown){
-            //console.log("DOWNMOVE");
-            setWall($(this), e);
-            grid.getWeights();
+      var color_changed = false;
+      if(mousedown){
+        color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+        if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
+          setWall($(this), e);
+          grid.getWeights();
+
+          if(real_time_update && running && color_changed){
+            var algoBarVal = document.getElementById("algo_select");
+            var selected_algo = algoBarVal.value;
+             grid.clearPaths();
+            var path = execute(start,end,selected_algo);
+            console.log("path: " + printPath(path));
+          }
         }
-        //else{console.log("MOVE");}
-        //console.log(grid.start_tile);
-        //grid.getWeights();
+      }
     });
 
     $('#algo').click(function () {
@@ -99,6 +138,9 @@ $(document).ready(function () {
         $(this).html("Algorithm");
         $(this).css("background-color","#4285f4");
 
+		grid.endTimer = 0;
+		display.textContent = "Runtime: 00:00:00";
+		steps.textContent = "Steps: 0";
         running = false;
         grid.lightTiles();
         grid.clearPaths();
@@ -109,13 +151,16 @@ $(document).ready(function () {
         $(this).html("Stop");
         $(this).css("background-color","#ff4242");
 
+		display = document.querySelector('#time');
+		steps = document.querySelector('#steps');
+		startTimer(0, display);
+
         var algorithm = new Algorithm("bfs");
-	       var algoBarVal = document.getElementById("algo_select");
-	        var selected_algo = algoBarVal.value;
-          grid.clearPaths();
-          var algorithm = new Algorithm(selected_algo);
-          var path = algorithm.run(start,end,grid); //Will Return a List containing the shortest path from the start tile to the end tile
-          console.log("path: " + printPath(path));
+	    var algoBarVal = document.getElementById("algo_select");
+	    var selected_algo = algoBarVal.value;
+        grid.clearPaths();
+		var path = execute(start,end,selected_algo);
+        console.log("path: " + printPath(path));
       }
     });
 
@@ -198,6 +243,15 @@ function setWall(elem, e) {
 
 function resizeGrid(width, height){
     var total = width * height;
+		if(start != null){
+			start.toggleEndPoint();
+			start = null;
+		}
+		if(start != null){
+			end.toggleEndPoint();
+			end = null;
+		}
+
     let total_width = 0;
     let total_height = 0;
 
@@ -269,30 +323,52 @@ function resizeGrid(width, height){
         grid = new Grid(height, width);
 
         $('.tile').mousedown(function () {
-            mousedown = true;
-            setColor($(this));
-            if(start_pressed && !start_set){
-                start_set = true;
-                start_pressed = false;
-                start = grid.getTile($(this).data('x'), $(this).data('y'));
-            }
-            if(start_set && end_pressed && !end_set){
-                end_set = true;
-                end_pressed = false;
-                end = grid.getTile($(this).data('x'), $(this).data('y'));
-            }
-            grid.getWeights();
+          mousedown = true;
+          var color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+          if(palette.getPaint() == "#28a745"){
+            grid.lightTiles();
+            grid.clearPaths();
+            grid.clearPoint(true);
+            console.log("Cleared True");
+          }
+          else if(palette.getPaint() == "#dc3545"){
+            grid.lightTiles();
+            grid.clearPaths();
+            grid.clearPoint(false);
+            console.log("Cleared False");
+          }
+          setColor($(this));
+          grid.getWeights();
+          if(real_time_update && running && color_changed){
+            var algoBarVal = document.getElementById("algo_select");
+            var selected_algo = algoBarVal.value;
+             grid.clearPaths();
+            var path = execute(start,end,selected_algo);
+             console.log("path: " + printPath(path));
+          }
         });
-    
+
         $('.tile').mouseup(function () {
-            mousdown = false;
+            mousedown = false;
         });
-    
+
         $('.tile').mousemove(function (e) {
-            if(mousedown){
-                setWall($(this), e);
-                grid.getWeights();
+          var color_changed = false;
+          if(mousedown){
+            color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+            if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
+              setWall($(this), e);
+              grid.getWeights();
+
+              if(real_time_update && running && color_changed){
+                var algoBarVal = document.getElementById("algo_select");
+                var selected_algo = algoBarVal.value;
+                 grid.clearPaths();
+                var path = execute(start,end,selected_algo);
+                console.log("path: " + printPath(path));
+              }
             }
+          }
         });
 
     }

@@ -76,8 +76,8 @@
                             <button style="background-color: #ffffff;" class="pBtn" data-color='#ffffff' data-number='1' data-place='0'>1</button>
                         </div>
                         <br><br>
-                        <div>
-                            <button style="background-color: #28a745;" class="pBtn" data-color='#28a745' data-number='0' data-place='-1' id="start-select">S</button>
+                        <div id = "startEnd">
+						                <button style="background-color: #28a745;" class="pBtn" data-color='#28a745' data-number='0' data-place='-1' id="start-select">S</button>
                             <button style="background-color: #dc3545;" class="pBtn" data-color='#dc3545' data-number='1' data-place='-2' id="end-select">E</button>
                         </div>
 
@@ -108,6 +108,20 @@
                     </div>
                 </div>
 
+                <div class="row">
+                  <div class="col col-auto default-cursor tight">
+                      <b>Real Time</b>
+                  </div>
+
+
+                  <div class="col col-auto full-width">
+                      <label class="check-container check-box">
+                          <input type="checkbox" onclick="setRealTimeUpdate();">
+                          <span class="check-box"></span>
+                      </label>
+                  </div>
+                </div>
+
                 <br />
 
                 <div class="row justify-content-center">
@@ -128,9 +142,11 @@
                             <option value="bfs">BFS</option>
                             <option value="dfs">DFS</option>
                             <option value="djikstra">DJIKSTRA</option>
-                            <option value="todo">Alg 4</option>
+                            <option value="astar">A*</option>
                         </select>
                     </div>
+					<span id="time">Runtime: 00:00:00</span>
+					<span id="steps">Steps: 0</span>
                 </div>
 
                 <!--<div class="row">
@@ -196,6 +212,7 @@
     <script type="text/javascript" src="tests/run_Algorithm/test_Grid.js"></script>
     <script type="text/javascript" src="tests/run_Algorithm/test_Algorithm.js"></script>
     <script type="text/javascript" src="tests/run_Algorithm/test_Djikstra.js"></script>
+    <script type="text/javascript" src="tests/run_Algorithm/test_AStar.js"></script>
     <script type="text/javascript" src="tests/save_Load/test_SaveLoad.js"></script>
     <script type="text/javascript" src="tests/resize_Grid/test_Resize.js"></script>
     <script type="text/javascript" src="tests/tile_Weights/test_Weights.js"></script>

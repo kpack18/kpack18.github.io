@@ -463,3 +463,13 @@ font-family: fantasy;
     top: 20px;
     display: none;
 }
+
+input.noText {
+    color: transparent;
+    text-indent: -9999px;
+    width: 200px; /* set width */
+    height: 25px; /* fixed height */
+    *margin-left: 9999px; /* IE6 only */
+    font-size: 0px;
+    line-height: 16px; /* retains height */
+}

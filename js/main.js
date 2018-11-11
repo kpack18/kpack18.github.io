@@ -76,7 +76,7 @@ $(document).ready(function () {
 
     $('#color-pick').change(function () {
         //current_color = $(this).val();
-        palette.setPaint($(this).val());
+        palette.setPaint(hashColor($(this).val()));
     });
 
     $('.tile').mousedown(function () {
@@ -187,11 +187,15 @@ var palette = new Palette();
 var pBtnCount = 1;
 var selectedPBtn;
 
-
+function hashColor(color) {
+    if (color.startsWith('#'))
+        return color;
+    return '#' + color;
+}
 
 function AddNewColorOption(){
 
-	var selectedColor = $('#color-pick').val();
+    var selectedColor = hashColor($('#color-pick').val());
 	var dataNumber = $('#add-colors-number').val() || 1; // Use 1 if no number is selected
 	if(dataNumber > 9 || dataNumber < 0){
 		alert("You must enter a number between 0 & 9!");

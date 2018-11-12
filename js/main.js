@@ -4,6 +4,7 @@ var end;
 mousedown = false;
 
 var real_time_update = false;
+var allow_diagonal = false;
 
 function setRealTimeUpdate(){
   real_time_update = !real_time_update;
@@ -16,6 +17,10 @@ function setRealTimeUpdate(){
     TIME_INC = time_increment;
   }
   console.log("real time update set: " + real_time_update);
+}
+
+function allowDiagonal(){
+    allow_diagonal = !allow_diagonal;
 }
 
 function startTimer(elapsed, display) {

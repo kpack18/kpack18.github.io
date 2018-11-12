@@ -111,6 +111,12 @@ class Algorithm{
     this.checkNeighbor(cur.getRight(grid),cur);
     this.checkNeighbor(cur.getUp(grid),cur);
     this.checkNeighbor(cur.getDown(grid),cur);
+    if(allow_diagonal == true){
+      this.checkNeighbor(cur.getTopLeft(grid),cur);
+      this.checkNeighbor(cur.getTopRight(grid),cur);
+      this.checkNeighbor(cur.getBottomLeft(grid),cur);
+      this.checkNeighbor(cur.getBottomRight(grid),cur);
+    }
   }
   run(start_tile,end_tile){
     if(start_tile.getWeight() == 0 || end_tile.getWeight() == 0){
@@ -183,6 +189,12 @@ class Dfs extends Algorithm{
     this.checkNeighbor(cur.getRight(grid),cur);
     this.checkNeighbor(cur.getUp(grid),cur);
     this.checkNeighbor(cur.getLeft(grid),cur);
+    if(allow_diagonal == true){
+      this.checkNeighbor(cur.getTopLeft(grid),cur);
+      this.checkNeighbor(cur.getTopRight(grid),cur);
+      this.checkNeighbor(cur.getBottomLeft(grid),cur);
+      this.checkNeighbor(cur.getBottomRight(grid),cur);
+    }
   }
 }
 
@@ -272,6 +284,12 @@ class AStar extends Algorithm{
     this.checkNeighbor(cur.getRight(grid),cur);
     this.checkNeighbor(cur.getUp(grid),cur);
     this.checkNeighbor(cur.getDown(grid),cur);
+    if(allow_diagonal == true){
+      this.checkNeighbor(cur.getTopLeft(grid),cur);
+      this.checkNeighbor(cur.getTopRight(grid),cur);
+      this.checkNeighbor(cur.getBottomLeft(grid),cur);
+      this.checkNeighbor(cur.getBottomRight(grid),cur);
+    }
   }
   checkNeighbor(neighbor,cur){
     if(neighbor != null && neighbor.getWeight() != 0 && this.visited_list[neighbor.getX()][neighbor.getY()] == false ){

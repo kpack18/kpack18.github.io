@@ -260,4 +260,16 @@ class Tile {
   getDown(grid){ //Right
     return grid.getTile(this.x,this.y-1);
   }
+  getTopLeft(grid){ //Top left tile
+    return grid.getTile(this.x-1,this.y+1);
+  }
+  getTopRight(grid){ //Top right tile
+    return grid.getTile(this.x+1,this.y+1);
+  }
+  getBottomLeft(grid){ //Bottom left tile
+    return grid.getTile(this.x-1,this.y-1);
+  }
+  getBottomRight(grid){ //Bottoom right tile
+    return grid.getTile(this.x+1,this.y-1);
+  }
 }

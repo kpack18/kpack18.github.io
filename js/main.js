@@ -5,6 +5,10 @@ mousedown = false;
 
 var real_time_update = false;
 
+var bestDeciseconds = 00;
+var bestSeconds = 00;
+var bestMinutes = 00;
+
 function setRealTimeUpdate(){
   real_time_update = !real_time_update;
   if(real_time_update){
@@ -32,7 +36,16 @@ function startTimer(elapsed, display) {
 
 	display.textContent = "Runtime: " + minutes + ":" + seconds + ":" + deciseconds;
 	if (++timer < 0) timer = elapsed;
-	if(!start||!end||grid.endTimer==1||!running) clearInterval(time);
+	if(!start||!end||grid.endTimer==1||!running){ 
+		clearInterval(time);
+		if((minutes*60 + seconds + deciseconds/100) < (bestMinutes*60 + bestSeconds + bestDeciseconds/100) || bestMinutes+bestSeconds+bestDeciseconds==0){
+			bestDeciseconds = deciseconds;
+			bestSeconds = seconds;
+			bestMinutes = minutes;
+			bestTime.textContent = "Best Runtime: " + minutes + ":" + seconds + ":" + deciseconds + " [" + $("#algo_select option:selected").text() + "]";
+			bestSteps.textContent = "Least " + steps.textContent+ " [" + $("#algo_select option:selected").text() + "]";
+		}
+	}
     }, 10);
 }
 
@@ -82,6 +95,13 @@ $(document).ready(function () {
     $('.tile').mousedown(function () {
       mousedown = true;
       var color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+	  if(color_changed){
+		$('#besttime').text("Best Runtime: 00:00:00 [N/A]");
+		$('#beststeps').text("Least Steps: 0 [N/A]");		
+		bestDeciseconds = 00;
+		bestSeconds = 00;
+		bestMinutes = 00;
+	  }
       if(palette.getPaint() == "#28a745"){
         grid.lightTiles();
         grid.clearPaths();
@@ -153,6 +173,8 @@ $(document).ready(function () {
 
 		display = document.querySelector('#time');
 		steps = document.querySelector('#steps');
+		bestTime = document.querySelector('#besttime');
+		bestSteps = document.querySelector('#beststeps');
 		startTimer(0, display);
 
         var algorithm = new Algorithm("bfs");

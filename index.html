@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.3.1/css/bootstrap-slider.min.css">
     <link href='https://fonts.googleapis.com/css?family=Play' rel='stylesheet'>
 
     <!-- Bootstrap -->
@@ -15,6 +16,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.3.1/bootstrap-slider.min.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -76,8 +78,8 @@
                             <button style="background-color: #ffffff;" class="pBtn" data-color='#ffffff' data-number='1' data-place='0'>1</button>
                         </div>
                         <br><br>
-                        <div id = "startEnd">
-						                <button style="background-color: #28a745;" class="pBtn" data-color='#28a745' data-number='0' data-place='-1' id="start-select">S</button>
+                        <div id="startEnd">
+                            <button style="background-color: #28a745;" class="pBtn" data-color='#28a745' data-number='0' data-place='-1' id="start-select">S</button>
                             <button style="background-color: #dc3545;" class="pBtn" data-color='#dc3545' data-number='1' data-place='-2' id="end-select">E</button>
                         </div>
 
@@ -123,17 +125,17 @@
 
 
                 <div class="row">
-                  <div class="col col-auto default-cursor tight">
-                      <b>Real Time</b>
-                  </div>
+                    <div class="col col-auto default-cursor tight">
+                        <b>Real Time</b>
+                    </div>
 
 
-                  <div class="col col-auto full-width">
-                      <label class="check-container check-box">
-                          <input type="checkbox" onclick="setRealTimeUpdate();">
-                          <span class="check-box"></span>
-                      </label>
-                  </div>
+                    <div class="col col-auto full-width">
+                        <label class="check-container check-box">
+                            <input id="realtime" type="checkbox">
+                            <span class="check-box"></span>
+                        </label>
+                    </div>
                 </div>
 
                 <br />
@@ -151,7 +153,11 @@
                 <div class="row justify-content-center">
                     <div class="col col-12 col-sm-6 full-width tight text-center" style="margin-top:5px">
                         <button class="btn blue" id="algo">Algorithm</button>
-                        <br><br>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col col-12 col-sm-6 full-width tight text-center" style="margin-top:15px">
                         <select id="algo_select" class="blue btn">
                             <option value="bfs">BFS</option>
                             <option value="dfs">DFS</option>
@@ -159,28 +165,48 @@
                             <option value="astar">A*</option>
                         </select>
                     </div>
-					<span id="time">Runtime: 00:00:00</span>
-					<span id="steps">Steps: 0</span>
-					<span id="besttime">Best Runtime: 00:00:00 [N/A]</span>
-					<span id="beststeps">Least Steps: 0 [N/A]</span>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col col-12 full-width tight text-center" style="margin-top:5px">
+                        <input id="slider" type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="4" />
+                    </div>
+                    <div class="col col-12 full-width tight text-center">
+                        <span id="sliderSpeed"><span id="sliderSpeedVal">20</span> ticks per sec</span>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center" style="margin:20px -25px 0px -25px">
+                    <div class="col col-12 col-sm-8 full-width tight text-center text-sm-right mb-3">
+                        <span id="time" class="label">Runtime: 00:00:00</span>
+                    </div>
+                    <div class="col col-12 col-sm-4 full-width tight text-center text-sm-left mb-3">
+                        <span id="steps" class="label">Steps: 0</span>
+                    </div>
+                    <div class="col col-12 full-width tight text-center mb-3">
+                        <span id="besttime" class="label">Best Runtime: 00:00:00 [N/A]</span>
+                    </div>
+                    <div class="col col-12 full-width tight text-center mb-3">
+                        <span id="beststeps" class="label">Least Steps: 0 [N/A]</span>
+                    </div>
                 </div>
 
                 <!--<div class="row">
-                    <div class="col col-12 col-sm-4 text-left text-center tight">
-                        <label for="star-x" class="default-cursor tighten-down-xs"><b>sX</b></label>
-                        <input type="number" id="start-x" class="form-control" min="0"></input>
-                        <label for="start-y" class="default-cursor tighten-down-xs"><b>sY</b></label>
-                        <input type="number" id="start-y" class="form-control" min="0"></input>
+        <div class="col col-12 col-sm-4 text-left text-center tight">
+            <label for="star-x" class="default-cursor tighten-down-xs"><b>sX</b></label>
+            <input type="number" id="start-x" class="form-control" min="0"></input>
+            <label for="start-y" class="default-cursor tighten-down-xs"><b>sY</b></label>
+            <input type="number" id="start-y" class="form-control" min="0"></input>
 
-                        <label for="end-x" class="default-cursor tighten-down-xs"><b>eX</b></label>
-                        <input type="number" id="end-x" class="form-control" min="0"></input>
-                        <label for="end-y" class="default-cursor tighten-down-xs"><b>eY</b></label>
-                        <input type="number" id="end-y" class="form-control" min="0"></input>
-                    </div>
-                    <div class="col col-12 col-sm-4 align-self-end center-xs">
-                        <button class="blue btn tighten-down-xs" id="set_btn">Set</button>
-                    </div>
-                </div>-->
+            <label for="end-x" class="default-cursor tighten-down-xs"><b>eX</b></label>
+            <input type="number" id="end-x" class="form-control" min="0"></input>
+            <label for="end-y" class="default-cursor tighten-down-xs"><b>eY</b></label>
+            <input type="number" id="end-y" class="form-control" min="0"></input>
+        </div>
+        <div class="col col-12 col-sm-4 align-self-end center-xs">
+            <button class="blue btn tighten-down-xs" id="set_btn">Set</button>
+        </div>
+    </div>-->
             </div>
         </nav>
 

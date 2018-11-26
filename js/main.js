@@ -10,8 +10,8 @@ var bestDeciseconds = 00;
 var bestSeconds = 00;
 var bestMinutes = 00;
 
-function setRealTimeUpdate(){
-  real_time_update = !real_time_update;
+function setRealTimeUpdate(val) {
+  real_time_update = val;
   if(real_time_update){
     TIME_INIT = 0;
     TIME_INC = 0;
@@ -96,6 +96,10 @@ $(document).ready(function () {
         //current_color = $(this).val();
         palette.setPaint(hashColor($(this).val()));
     });
+
+    $('#realtime').change(function () {
+        setRealTimeUpdate($(this).is(':checked'));
+    })
 
     $('.tile').mousedown(function () {
       mousedown = true;
@@ -206,6 +210,14 @@ $(document).ready(function () {
             $(evt.target).parent().hide();
         });
     });
+
+    $('#slider').slider();
+    $('#slider').on('slide', function (evt) {
+        $('#sliderSpeedVal').text(evt.value * 5);
+        time_initial = time_increment = 200 / evt.value;
+        $('#realtime').prop("checked", false);
+        $('#realtime').change();
+    })
 });
 
 var old_crd = 0;

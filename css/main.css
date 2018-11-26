@@ -395,56 +395,13 @@ input:focus{outline: 0;}
 font-family: fantasy;
 	
 }
-#time{
-	position: relative;
-	bottom:45px;
-	left:20px;
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: auto;   
-	background: rgb(255,255,255);
-	padding: 5px;
-    font-family: 'Play';
-	border-radius: 7px;
-}
 
-#steps{
-	position: relative;
-	bottom: 45px;
-	right: 7px;
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: auto;   
-	background: rgb(255,255,255);
-	padding: 5px;
-    font-family: 'Play';
-	border-radius: 7px;
-}
 
-#besttime{
-	position: relative;
-	bottom:65px;
-	left:8px;
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: auto;   
-	background: rgb(255,255,255);
-	padding: 5px;
+.label {
+    background: rgb(255,255,255);
+    padding: 7px 5px;
     font-family: 'Play';
-	border-radius: 7px;
-}
-
-#beststeps{
-	position: relative;
-	bottom: 110px;
-	right: 25px;
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: auto;   
-	background: rgb(255,255,255);
-	padding: 5px;
-    font-family: 'Play';
-	border-radius: 7px;
+    border-radius: 7px;
 }
 
 @media (max-width: 576px) {
@@ -477,19 +434,6 @@ font-family: fantasy;
 	position: relative;
 	left:50px;
 	bottom:14px;
-}
-
-#steps{
-	bottom:90px;
-	right:15px;
-}
-#besttime{
-	bottom: 100px;
-}
-
-#beststeps{
-	left: 8px;
-	bottom: 140px;
 }
 
 }

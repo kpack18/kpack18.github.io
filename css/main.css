@@ -408,43 +408,11 @@ font-family: fantasy;
 	border-radius: 7px;
 }
 
-#steps{
-	position: relative;
-	bottom: 45px;
-	right: 7px;
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: auto;   
-	background: rgb(255,255,255);
-	padding: 5px;
+.label {
+    background: rgb(255,255,255);
+    padding: 5px;
     font-family: 'Play';
-	border-radius: 7px;
-}
-
-#besttime{
-	position: relative;
-	bottom:65px;
-	left:8px;
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: auto;   
-	background: rgb(255,255,255);
-	padding: 5px;
-    font-family: 'Play';
-	border-radius: 7px;
-}
-
-#beststeps{
-	position: relative;
-	bottom: 110px;
-	right: 25px;
-	margin-top: 50px;
-	margin-left: auto;
-	margin-right: auto;   
-	background: rgb(255,255,255);
-	padding: 5px;
-    font-family: 'Play';
-	border-radius: 7px;
+    border-radius: 7px;
 }
 
 @media (max-width: 576px) {

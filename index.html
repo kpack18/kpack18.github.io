@@ -78,8 +78,8 @@
                             <button style="background-color: #ffffff;" class="pBtn" data-color='#ffffff' data-number='1' data-place='0'>1</button>
                         </div>
                         <br><br>
-                        <div id = "startEnd">
-						                <button style="background-color: #28a745;" class="pBtn" data-color='#28a745' data-number='0' data-place='-1' id="start-select">S</button>
+                        <div id="startEnd">
+                            <button style="background-color: #28a745;" class="pBtn" data-color='#28a745' data-number='0' data-place='-1' id="start-select">S</button>
                             <button style="background-color: #dc3545;" class="pBtn" data-color='#dc3545' data-number='1' data-place='-2' id="end-select">E</button>
                         </div>
 
@@ -125,17 +125,17 @@
 
 
                 <div class="row">
-                  <div class="col col-auto default-cursor tight">
-                      <b>Real Time</b>
-                  </div>
+                    <div class="col col-auto default-cursor tight">
+                        <b>Real Time</b>
+                    </div>
 
 
-                  <div class="col col-auto full-width">
-                      <label class="check-container check-box">
-                          <input id="realtime" type="checkbox">
-                          <span class="check-box"></span>
-                      </label>
-                  </div>
+                    <div class="col col-auto full-width">
+                        <label class="check-container check-box">
+                            <input id="realtime" type="checkbox">
+                            <span class="check-box"></span>
+                        </label>
+                    </div>
                 </div>
 
                 <br />
@@ -153,7 +153,11 @@
                 <div class="row justify-content-center">
                     <div class="col col-12 col-sm-6 full-width tight text-center" style="margin-top:5px">
                         <button class="btn blue" id="algo">Algorithm</button>
-                        <br><br>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col col-12 col-sm-6 full-width tight text-center" style="margin-top:15px">
                         <select id="algo_select" class="blue btn">
                             <option value="bfs">BFS</option>
                             <option value="dfs">DFS</option>
@@ -161,32 +165,48 @@
                             <option value="astar">A*</option>
                         </select>
                     </div>
-
-                    <input id="slider" type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="4" />
-                    <span id="sliderSpeed"><span id="sliderSpeedVal">20</span> ticks per second</span>
-
-                    <span id="time">Runtime: 00:00:00</span>
-                    <span id="steps">Steps: 0</span>
-                    <span id="besttime">Best Runtime: 00:00:00 [N/A]</span>
-                    <span id="beststeps">Least Steps: 0 [N/A]</span>
                 </div>
 
-                <!--<div class="row">
-                    <div class="col col-12 col-sm-4 text-left text-center tight">
-                        <label for="star-x" class="default-cursor tighten-down-xs"><b>sX</b></label>
-                        <input type="number" id="start-x" class="form-control" min="0"></input>
-                        <label for="start-y" class="default-cursor tighten-down-xs"><b>sY</b></label>
-                        <input type="number" id="start-y" class="form-control" min="0"></input>
+                <div class="row justify-content-center">
+                    <div class="col col-12 full-width tight text-center" style="margin-top:5px">
+                        <input id="slider" type="text" data-slider-min="1" data-slider-max="20" data-slider-step="1" data-slider-value="4" />
+                    </div>
+                    <div class="col col-12 full-width tight text-center">
+                        <span id="sliderSpeed"><span id="sliderSpeedVal">20</span> ticks per second</span>
+                    </div>
+                </div>
 
-                        <label for="end-x" class="default-cursor tighten-down-xs"><b>eX</b></label>
-                        <input type="number" id="end-x" class="form-control" min="0"></input>
-                        <label for="end-y" class="default-cursor tighten-down-xs"><b>eY</b></label>
-                        <input type="number" id="end-y" class="form-control" min="0"></input>
+                <div class="row justify-content-center">
+                    <div class="col col-12 col-sm-6 full-width tight text-center" style="margin-top:5px">
+                        <span class="label">Runtime: 00:00:00</span>
                     </div>
-                    <div class="col col-12 col-sm-4 align-self-end center-xs">
-                        <button class="blue btn tighten-down-xs" id="set_btn">Set</button>
+                    <div class="col col-12 col-sm-6 full-width tight text-center" style="margin-top:5px">
+                        <span class="label">Steps: 0</span>
                     </div>
-                </div>-->
+                    <div class="col col-12 col-sm-6 full-width tight text-center" style="margin-top:5px">
+                        <span class="label">Best Runtime: 00:00:00 [N/A]</span>
+                    </div>
+                    <div class="col col-12 col-sm-6 full-width tight text-center" style="margin-top:5px">
+                        <span class="label">Least Steps: 0 [N/A]</span>
+                    </div>
+                </div>
+
+                    <!--<div class="row">
+        <div class="col col-12 col-sm-4 text-left text-center tight">
+            <label for="star-x" class="default-cursor tighten-down-xs"><b>sX</b></label>
+            <input type="number" id="start-x" class="form-control" min="0"></input>
+            <label for="start-y" class="default-cursor tighten-down-xs"><b>sY</b></label>
+            <input type="number" id="start-y" class="form-control" min="0"></input>
+
+            <label for="end-x" class="default-cursor tighten-down-xs"><b>eX</b></label>
+            <input type="number" id="end-x" class="form-control" min="0"></input>
+            <label for="end-y" class="default-cursor tighten-down-xs"><b>eY</b></label>
+            <input type="number" id="end-y" class="form-control" min="0"></input>
+        </div>
+        <div class="col col-12 col-sm-4 align-self-end center-xs">
+            <button class="blue btn tighten-down-xs" id="set_btn">Set</button>
+        </div>
+    </div>-->
             </div>
         </nav>
 

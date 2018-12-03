@@ -1,13 +1,60 @@
 var running = false;
-var start_x = 0;
-var start_y = 0;
-var end_x = 3;
-var end_y = 3;
-var start_selected = false;
-var start_exists = true;
+var start;
+var end;
 mousedown = false;
+
+var real_time_update = false;
+var allow_diagonal = false;
+
+var bestDeciseconds = 00;
+var bestSeconds = 00;
+var bestMinutes = 00;
+
+function setRealTimeUpdate(val) {
+  real_time_update = val;
+  if(real_time_update){
+    TIME_INIT = 0;
+    TIME_INC = 0;
+  }
+  else{
+    TIME_INIT = time_initial;
+    TIME_INC = time_increment;
+  }
+  console.log("real time update set: " + real_time_update);
+}
+
+function allowDiagonal(){
+    allow_diagonal = !allow_diagonal;
+}
+
+function startTimer(elapsed, display) {
+    var timer = elapsed, minutes, seconds, deciseconds;
+	var time =   setInterval(function () {
+
+	deciseconds = parseInt(timer%100, 10);
+	seconds = parseInt((timer/100)%60, 10);
+    minutes = parseInt(timer/6000, 10)
+
+	deciseconds = deciseconds < 10 ? "0" + deciseconds : deciseconds;
+	seconds = seconds < 10 ? "0" + seconds : seconds;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+
+	display.textContent = "Runtime: " + minutes + ":" + seconds + ":" + deciseconds;
+	if (++timer < 0) timer = elapsed;
+	if(!start||!end||grid.endTimer==1||!running){ 
+		clearInterval(time);
+		if((minutes*60 + seconds + deciseconds/100) < (bestMinutes*60 + bestSeconds + bestDeciseconds/100) || bestMinutes+bestSeconds+bestDeciseconds==0){
+			bestDeciseconds = deciseconds;
+			bestSeconds = seconds;
+			bestMinutes = minutes;
+			bestTime.textContent = "Best Runtime: " + minutes + ":" + seconds + ":" + deciseconds + " [" + $("#algo_select option:selected").text() + "]";
+			bestSteps.textContent = "Least " + steps.textContent+ " [" + $("#algo_select option:selected").text() + "]";
+		}
+	}
+    }, 10);
+}
+
 $(document).ready(function () {
-    var start_tile = grid.getTile(0,0);
 	$('#add-colors').click(function(){
 		AddNewColorOption();
 		palette.addBinding($('#add-colors-number').val() || 1);
@@ -29,12 +76,12 @@ $(document).ready(function () {
     });*/
 
     $('#start-select').click(function(){
-        start_selected = true;
         palette.setPaint($(this).data('color'));
         console.log("Start selected");
-        if(start_exists){
-            //grid.start_tile.setColor("#ffffff");
-        }
+    });
+
+    $('#end-select').click(function(){
+        palette.setPaint($(this).data('color'));
     });
 
     $("#sidebar").mCustomScrollbar({
@@ -47,30 +94,67 @@ $(document).ready(function () {
 
     $('#color-pick').change(function () {
         //current_color = $(this).val();
-        palette.setPaint($(this).val());
+        palette.setPaint(hashColor($(this).val()));
     });
 
+    $('#realtime').change(function () {
+        setRealTimeUpdate($(this).is(':checked'));
+    })
+
     $('.tile').mousedown(function () {
-        mousedown = true;
-        setColor($(this));
-        if(start_selected){
-            palette.setPaint(palette.get_Bound_Color(0));
-            start_selected = false;
-        }
-        grid.getWeights();
+      mousedown = true;
+      var color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+	  if(color_changed){
+		$('#besttime').text("Best Runtime: 00:00:00 [N/A]");
+		$('#beststeps').text("Least Steps: 0 [N/A]");		
+		bestDeciseconds = 00;
+		bestSeconds = 00;
+		bestMinutes = 00;
+	  }
+      if(palette.getPaint() == "#28a745"){
+        grid.lightTiles();
+        grid.clearPaths();
+        grid.clearPoint(true);
+        console.log("Cleared True");
+      }
+      else if(palette.getPaint() == "#dc3545"){
+        grid.lightTiles();
+        grid.clearPaths();
+        grid.clearPoint(false);
+        console.log("Cleared False");
+      }
+      setColor($(this));
+      grid.getWeights();
+      if(real_time_update && running && color_changed){
+        var algoBarVal = document.getElementById("algo_select");
+        var selected_algo = algoBarVal.value;
+         grid.clearPaths();
+        var path = execute(start,end,selected_algo);
+         console.log("path: " + printPath(path));
+      }
     });
 
     $('.tile').mouseup(function () {
-        mousdown = false;
+        mousedown = false;
     });
 
     $('.tile').mousemove(function (e) {
-        if(mousedown){
-            setWall($(this), e);
-            grid.getWeights();
+      var color_changed = false;
+      if(mousedown){
+        color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+        if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
+          setWall($(this), e);
+          grid.getWeights();
+
+          if(real_time_update && running && color_changed){
+            var algoBarVal = document.getElementById("algo_select");
+            var selected_algo = algoBarVal.value;
+             grid.clearPaths();
+            var path = execute(start,end,selected_algo);
+            console.log("path: " + printPath(path));
+          }
         }
-        //console.log(grid.start_tile);
-        //grid.getWeights();
+      }
     });
 
     $('#algo').click(function () {
@@ -83,6 +167,9 @@ $(document).ready(function () {
         $(this).html("Algorithm");
         $(this).css("background-color","#4285f4");
 
+		grid.endTimer = 0;
+		display.textContent = "Runtime: 00:00:00";
+		steps.textContent = "Steps: 0";
         running = false;
         grid.lightTiles();
         grid.clearPaths();
@@ -93,13 +180,18 @@ $(document).ready(function () {
         $(this).html("Stop");
         $(this).css("background-color","#ff4242");
 
+		display = document.querySelector('#time');
+		steps = document.querySelector('#steps');
+		bestTime = document.querySelector('#besttime');
+		bestSteps = document.querySelector('#beststeps');
+		startTimer(0, display);
+
         var algorithm = new Algorithm("bfs");
-	       var algoBarVal = document.getElementById("algo_select");
-	        var selected_algo = algoBarVal.value;
-          grid.clearPaths();
-          var algorithm = new Algorithm(selected_algo);
-          var path = algorithm.run(grid.getTile(0,0),grid.getTile(7,7),grid); //Will Return a List containing the shortest path from the start tile to the end tile
-          console.log("path: " + printPath(path));
+	    var algoBarVal = document.getElementById("algo_select");
+	    var selected_algo = algoBarVal.value;
+        grid.clearPaths();
+		var path = execute(start,end,selected_algo);
+        console.log("path: " + printPath(path));
       }
     });
 
@@ -118,6 +210,14 @@ $(document).ready(function () {
             $(evt.target).parent().hide();
         });
     });
+
+    $('#slider').slider();
+    $('#slider').on('slide', function (evt) {
+        $('#sliderSpeedVal').text(evt.value * 5);
+        time_initial = time_increment = 200 / evt.value;
+        $('#realtime').prop("checked", false);
+        $('#realtime').change();
+    })
 });
 
 var old_crd = 0;
@@ -126,11 +226,15 @@ var palette = new Palette();
 var pBtnCount = 1;
 var selectedPBtn;
 
-
+function hashColor(color) {
+    if (color.startsWith('#'))
+        return color;
+    return '#' + color;
+}
 
 function AddNewColorOption(){
 
-	var selectedColor = $('#color-pick').val();
+    var selectedColor = hashColor($('#color-pick').val());
 	var dataNumber = $('#add-colors-number').val() || 1; // Use 1 if no number is selected
 	if(dataNumber > 9 || dataNumber < 0){
 		alert("You must enter a number between 0 & 9!");
@@ -178,6 +282,15 @@ function setWall(elem, e) {
 
 function resizeGrid(width, height){
     var total = width * height;
+		if(start != null){
+			start.toggleEndPoint();
+			start = null;
+		}
+		if(start != null){
+			end.toggleEndPoint();
+			end = null;
+		}
+
     let total_width = 0;
     let total_height = 0;
 
@@ -248,12 +361,55 @@ function resizeGrid(width, height){
         document.getElementById("grid-container").style.maxWidth
         grid = new Grid(height, width);
 
-        $('.tile').click(function () {
-            setColor($(this));
+        $('.tile').mousedown(function () {
+          mousedown = true;
+          var color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+          if(palette.getPaint() == "#28a745"){
+            grid.lightTiles();
+            grid.clearPaths();
+            grid.clearPoint(true);
+            console.log("Cleared True");
+          }
+          else if(palette.getPaint() == "#dc3545"){
+            grid.lightTiles();
+            grid.clearPaths();
+            grid.clearPoint(false);
+            console.log("Cleared False");
+          }
+          setColor($(this));
+          grid.getWeights();
+          if(real_time_update && running && color_changed){
+            var algoBarVal = document.getElementById("algo_select");
+            var selected_algo = algoBarVal.value;
+             grid.clearPaths();
+            var path = execute(start,end,selected_algo);
+             console.log("path: " + printPath(path));
+          }
         });
+
+        $('.tile').mouseup(function () {
+            mousedown = false;
+        });
+
         $('.tile').mousemove(function (e) {
-            setWall($(this), e);
+          var color_changed = false;
+          if(mousedown){
+            color_changed = palette.rgb2hex(this.style.backgroundColor) != palette.getPaint() || palette.rgb2hex(this.style.backgroundColor) == "#00ff80";
+            if(!(palette.getPaint() == "#28a745" || palette.getPaint() == "#dc3545")){
+              setWall($(this), e);
+              grid.getWeights();
+
+              if(real_time_update && running && color_changed){
+                var algoBarVal = document.getElementById("algo_select");
+                var selected_algo = algoBarVal.value;
+                 grid.clearPaths();
+                var path = execute(start,end,selected_algo);
+                console.log("path: " + printPath(path));
+              }
+            }
+          }
         });
+
     }
 }
 

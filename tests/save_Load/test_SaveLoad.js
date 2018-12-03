@@ -93,8 +93,12 @@ function test_Save_Load(){
 
 function execute_test_SaveLoad() {
 
+    var time = 200;
+    running = true;
+
     console.log("Save/Load Tests: ");
     test_Save_Load();
     console.log("\n");
+    setTimeout(function(){ resizeGrid(8,8); grid.clearAll(); grid.lightTiles(); running = false; }, time += 2000);
 
 }

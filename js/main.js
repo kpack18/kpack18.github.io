@@ -195,6 +195,19 @@ $(document).ready(function () {
       }
     });
 
+    $('#clear').click(function (){
+        for(var i = 0 ; i < grid.getWidth(); ++i){
+            for(var j = 0; j < grid.getLength(); ++j){
+                var temp_tile = grid.getTile(i,j);
+                temp_tile.setColor("#ffffff");
+                temp_tile.weight = 1; 
+            }
+        }
+        start = null;
+        end = null;
+
+    });
+
     $('#btnAlgorithm').click(myAlert);
 
     $('#apply_btn').click(function () {

@@ -203,14 +203,8 @@ $(document).ready(function () {
                 temp_tile.weight = 1; 
             }
         }
-        /*When start/end is completed
-        start_set = false; 
-        end_set = false;
-        start_pressed = false;
-        end_pressed = false;
-        start = grid.getTile(0,0);
-        end = grid.getTile(grid.getWidth() -1 , grid.getLength() -1);
-        */
+        start = null;
+        end = null;
 
     });
 

@@ -5,7 +5,10 @@ tests = {
     "Test Grid": execute_test_Grid,
     "Test Resize": execute_test_Resize,
     "Test Save/Load": execute_test_SaveLoad,
-    "Test Weights": execute_test_Weight
+    "Test Weights": execute_test_Weight,
+    "Test Statistics": execute_test_statistics,
+    "Test Clear Grid": execute_test_clearGrid,
+    "Test Diagonal": execute_test_Diagonal
 };
 
 var i = 1;
